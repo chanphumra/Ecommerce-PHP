@@ -7,7 +7,7 @@
             $request_body = file_get_contents('php://input');
             $data = json_decode($request_body, true);
            // Database::insert("category", array("name"), array("phumra"));
-            echo $_POST['name'];
+            echo "hello";
             break;
 
         case 'select':
