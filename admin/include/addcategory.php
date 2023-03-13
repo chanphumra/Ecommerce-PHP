@@ -23,7 +23,9 @@
                 </div>
                 <h4 class="mb-3">Display images</h4>
                 <div class="dropzone dropzone-multiple p-0 mb-5" id="my-awesome-dropzone" data-dropzone="data-dropzone">
-                    <div class="fallback"><input name="images[]" type="file" multiple/></div>
+                    <div class="fallback">
+                        <!-- <input name="images[]" type="file" multiple/> -->
+                    </div>
                     <div class="dz-preview d-flex flex-wrap">
                         <div class="border bg-white rounded-3 d-flex flex-center position-relative me-2 mb-2" style="height:80px;width:80px;"><img class="dz-image" src="../../../assets/img/products/23.png" alt="..." data-dz-thumbnail="data-dz-thumbnail" /><a class="dz-remove text-400" href="" data-dz-remove="data-dz-remove"><span data-feather="x"></span></a></div>
                     </div>
