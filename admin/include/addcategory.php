@@ -19,17 +19,19 @@
                 <input class="form-control mb-5" name="name" type="text" placeholder="Write title here..." />
                 <div class="mb-6">
                     <h4 class="mb-3">Category Description</h4>
-                    <textarea rows="10" class="form-control mb-5 resize-none" name="description"></textarea>
+                    <textarea rows="10" class="form-control mb-5 resize-none" name="description" placeholder="Write description here..."></textarea>
                 </div>
                 <h4 class="mb-3">Display images</h4>
-                <div class="dropzone dropzone-multiple p-0 mb-5" id="my-awesome-dropzone" data-dropzone="data-dropzone">
-                    <div class="fallback">
-                        <!-- <input name="images[]" type="file" multiple/> -->
+                <div class="d-flex gab-2 mb-3">
+                    <div class="form-control rounded position-relative p-1" style="width: 100px; height: 100px;">
+                        <img src="${URL.createObjectURL(file)}" alt="image" class="w-100 h-100">
+                        <span class="position-absolute top-0 right-0 bg-primary" onclick="">&times;</span>
                     </div>
-                    <div class="dz-preview d-flex flex-wrap">
-                        <div class="border bg-white rounded-3 d-flex flex-center position-relative me-2 mb-2" style="height:80px;width:80px;"><img class="dz-image" src="../../../assets/img/products/23.png" alt="..." data-dz-thumbnail="data-dz-thumbnail" /><a class="dz-remove text-400" href="" data-dz-remove="data-dz-remove"><span data-feather="x"></span></a></div>
-                    </div>
-                    <div class="dz-message text-600" data-dz-message="data-dz-message"> Drag your photo here <span class="text-800">or </span><button class="btn btn-link p-0" type="button">Browse from device </button><br /><img class="mt-3 me-2" src="assets/img/icons/image-icon.png" width="40" alt="" /></div>
+                </div>
+                <div class="drag-area form-control mb-5 d-flex flex-column cursor-pointer justify-content-center align-items-center" style="height: 200px;">
+                    <input type="file" name="image[]" multiple class="w-0 h-0 d-none images">
+                    <div class="dz-message text-600">Drag your photo here <span class="text-800">or </span><button class="btn btn-link p-0" type="button">Browse from device </button><br /></div>
+                    <div><img class="mt-3 me-2" src="assets/img/icons/image-icon.png" width="40" alt="" /></div>
                 </div>
             </div>
 
@@ -80,6 +82,24 @@
             maincategory.classList.remove('active');
         }
     }
+    /*---- get image ----*/
+    let files = [],
+        dragArea = document.querySelector('.drag-area'),
+        input = document.querySelector('.drag-area input');
+
+    function showImages() {
+        let images = files.reduce(function(prev, file, index) {
+            return (prev += `<div class="image">
+    		<img src="${URL.createObjectURL(file)}" alt="image">
+    		<span onclick="delImage(${index})">&times;</span>
+    	</div>`);
+            container.innerHTML = images;
+        }, "");
+    }
+
+    dragArea.onclick = () => {
+        input.click()
+    }
 
     const form = document.querySelector('form');
     const btnSubmit = document.querySelector('.btnSubmit');
@@ -91,10 +111,10 @@
     btnSubmit.onclick = () => {
         const formdata = new FormData(form);
         axios.post('ajax/category.php?action=insert', formdata, {
-            header: {
-                "content-type": "multipart/form-data"
-            }
-        })
+                header: {
+                    "content-type": "multipart/form-data"
+                }
+            })
             .then(res => {
                 console.log(res);
             })

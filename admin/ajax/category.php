@@ -11,7 +11,7 @@
             $fields = array("");
             $values = array("");
            // Database::insert($table, $fields, $values);
-            echo $_POST['description'];
+            if(!empty($_FILES)) echo $_FILES['file']['tmp_name'];
             break;
 
         case 'select':
