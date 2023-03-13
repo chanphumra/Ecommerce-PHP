@@ -5,10 +5,13 @@
         case 'insert':
             // $request_body = file_get_contents('php://input');
             // $data = json_decode($request_body, true);
-            $name = $_POST['name'];
+            $name = $_FILES['images']['tmp_name'];
 
-          //  Database::insert("category", array("name"), array("phumra"));
-            echo $name;
+            $table = "category";
+            $fields = array("");
+            $values = array("");
+           // Database::insert($table, $fields, $values);
+            echo count($name);
             break;
 
         case 'select':

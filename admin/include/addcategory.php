@@ -12,18 +12,18 @@
                 <div class="cat mb-3">
                     <h4>Category Title</h4>
                     <div>
-                        <input class="form-check-input" type="checkbox" name="" id="main-category">
+                        <input class="form-check-input" type="checkbox" name="main-check" id="main-category">
                         <label for="main-category">Main category</label>
                     </div>
                 </div>
-                <input class="form-control mb-5" name="category_name" type="text" placeholder="Write title here..." />
+                <input class="form-control mb-5" name="name" type="text" placeholder="Write title here..." />
                 <div class="mb-6">
-                    <h4 class="mb-3"> Category Description</h4>
-                    <textarea class="tinymce" name="category_description" data-tinymce='{"height":"15rem","placeholder":"Write a description here..."}'></textarea>
+                    <h4 class="mb-3">Category Description</h4>
+                    <textarea class="tinymce" name="description" data-tinymce='{"height":"15rem","placeholder":"Write a description here..."}'></textarea>
                 </div>
                 <h4 class="mb-3">Display images</h4>
                 <div class="dropzone dropzone-multiple p-0 mb-5" id="my-awesome-dropzone" data-dropzone="data-dropzone">
-                    <div class="fallback"><input name="images" type="file" multiple="multiple" /></div>
+                    <div class="fallback"><input name="images[]" type="file" multiple/></div>
                     <div class="dz-preview d-flex flex-wrap">
                         <div class="border bg-white rounded-3 d-flex flex-center position-relative me-2 mb-2" style="height:80px;width:80px;"><img class="dz-image" src="../../../assets/img/products/23.png" alt="..." data-dz-thumbnail="data-dz-thumbnail" /><a class="dz-remove text-400" href="" data-dz-remove="data-dz-remove"><span data-feather="x"></span></a></div>
                     </div>
@@ -87,18 +87,12 @@
     }
 
     btnSubmit.onclick = () => {
-        const formdata = new FormData();
-        formdata.append("name", "phumra");
-
-        // axios.post('ajax/category.php?action=insert', formdata)
-        //     .then(res => {
-        //         console.log(res);
-        //     })
-        //     .catch(error => {
-        //         console.log(error);
-        //     });
-
-        axios.get('ajax/category.php?action=select')
+        const formdata = new FormData(form);
+        axios.post('ajax/category.php?action=insert', formdata, {
+            header: {
+                "content-type": "multipart/form-data"
+            }
+        })
             .then(res => {
                 console.log(res);
             })
