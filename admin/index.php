@@ -1,6 +1,7 @@
 <?php
-    require "config/init.php";
+    require_once "config/init.php";
     $include = $_GET['page_name'] ?? "home";
+    $include = strtolower($include);
     if(file_exists("include/$include.php")) {
 ?>
 
