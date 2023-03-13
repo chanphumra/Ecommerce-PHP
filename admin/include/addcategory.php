@@ -90,11 +90,15 @@
         const formdata = new FormData();
         formdata.append("name", "phumra");
 
-        axios.post('ajax/category.php?action=insert', formdata, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            })
+        // axios.post('ajax/category.php?action=insert', formdata)
+        //     .then(res => {
+        //         console.log(res);
+        //     })
+        //     .catch(error => {
+        //         console.log(error);
+        //     });
+
+        axios.get('ajax/category.php?action=select')
             .then(res => {
                 console.log(res);
             })

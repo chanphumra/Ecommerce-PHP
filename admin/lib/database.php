@@ -38,8 +38,8 @@ class Database {
     {
         if(empty($table)) return;
 
-        $sql = "SELECT $column FROM $table $clause $condition";
-        $stmsql = Database:: connect()-> query($sql);
+        $sql = "SELECT $column FROM $table $condition $clause";
+        $stmsql = Database::connect() -> query($sql);
         return $stmsql->fetchAll(PDO::FETCH_ASSOC);
     }
 

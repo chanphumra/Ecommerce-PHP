@@ -3,15 +3,16 @@
 
     switch ($_GET['action']) {
         case 'insert':
+            // $request_body = file_get_contents('php://input');
+            // $data = json_decode($request_body, true);
+            $name = $_POST['name'];
 
-            $request_body = file_get_contents('php://input');
-            $data = json_decode($request_body, true);
-            Database::insert("category", array("name"), array("phumra"));
+          //  Database::insert("category", array("name"), array("phumra"));
+            echo $name;
             break;
 
         case 'select':
-
-            $result = Database::select("category", "id", "", "");
+            $result = Database::select("category", "*", "", "");
             echo json_encode($result);
             break;
     }
