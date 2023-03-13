@@ -19,7 +19,7 @@
                 <input class="form-control mb-5" name="name" type="text" placeholder="Write title here..." />
                 <div class="mb-6">
                     <h4 class="mb-3">Category Description</h4>
-                    <textarea class="tinymce" name="description" data-tinymce='{"height":"15rem","placeholder":"Write a description here..."}'></textarea>
+                    <textarea rows="10" class="form-control mb-5 resize-none" name="description"></textarea>
                 </div>
                 <h4 class="mb-3">Display images</h4>
                 <div class="dropzone dropzone-multiple p-0 mb-5" id="my-awesome-dropzone" data-dropzone="data-dropzone">
