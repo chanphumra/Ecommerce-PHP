@@ -104,7 +104,6 @@
 
     input.addEventListener('change', () => {
         let file = input.files;
-        // if user select no image
         if (file.length == 0) return;
 
         for (let i = 0; i < file.length; i++) {
@@ -115,6 +114,19 @@
         input.files = null;
         showImages();
     })
+    dragArea.addEventListener('dragover', e => {
+        e.preventDefault();
+    })
+    dragArea.addEventListener('drop', e => {
+        e.preventDefault();
+
+        let file = e.dataTransfer.files;
+        for (let i = 0; i < file.length; i++) {
+            if (file[i].type.split("/")[0] != 'image') continue;
+            if (!files.some(e => e.name == file[i].name)) files.push(file[i])
+        }
+        showImages();
+    });
 
     const form = document.querySelector('form');
     const btnSubmit = document.querySelector('.btnSubmit');
@@ -125,9 +137,9 @@
 
     btnSubmit.onclick = () => {
         const formdata = new FormData(form);
-        for (let index = 0; index < files.length; index++) {
-            formdata.append("IMAGE", files[index]);
-        }
+        formdata.append("image1", files[0]);
+        formdata.append("image2", files[1]);
+        formdata.append("image3", files[2]);
         axios.post('ajax/category.php?action=insert', formdata, {
                 header: {
                     "content-type": "multipart/form-data"
