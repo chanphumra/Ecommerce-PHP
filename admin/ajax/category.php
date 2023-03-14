@@ -11,7 +11,7 @@
             $fields = array("");
             $values = array("");
            // Database::insert($table, $fields, $values);
-            if(!empty($_FILES)) echo $_FILES['file']['tmp_name'];
+            if(!empty($_FILES)) echo json_encode($_FILES['IMAGE']['name']);
             break;
 
         case 'select':
