@@ -5,7 +5,13 @@
         case 'insert':
             // $request_body = file_get_contents('php://input');
             // $data = json_decode($request_body, true);
-            $image1 = $_FILES['image1'];
+
+            $image1 = $image2 = $image3 = "";
+            if(isset($_FILES['image1']) || isset($_FILES['image2']) || isset($_FILES['image3'])){
+                $image1 = $_FILES['image1'];
+                $image2 = $_FILES['image2'];
+                $image3 = $_FILES['image3'];
+            }
 
             $table = "category";
             $fields = array("");

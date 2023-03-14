@@ -16,15 +16,15 @@
                         <label for="main-category">Main category</label>
                     </div>
                 </div>
-                <input class="form-control mb-5" name="name" type="text" placeholder="Write title here..." />
+                <input class="form-control mb-5" name="name" id="name" type="text" placeholder="Write title here..." />
                 <div class="mb-6">
                     <h4 class="mb-3">Category Description</h4>
-                    <textarea rows="10" class="form-control mb-5 resize-none" name="description" placeholder="Write description here..."></textarea>
+                    <textarea rows="10" class="form-control mb-5 resize-none" name="description" id="description" placeholder="Write description here..."></textarea>
                 </div>
                 <h4 class="mb-3">Display images</h4>
                 <div class="d-flex flex-wrap gap-2 mb-3 review-images"></div>
                 <div class="drag-area form-control mb-5 d-flex flex-column cursor-pointer justify-content-center align-items-center" style="height: 200px;">
-                    <input type="file" name="image[]" multiple class="w-0 h-0 d-none images">
+                    <input type="file" multiple class="w-0 h-0 d-none images">
                     <div class="dz-message text-600">Drag your photo here <span class="text-800">or </span><button class="btn btn-link p-0" type="button">Browse from device </button><br /></div>
                     <div><img class="mt-3 me-2" src="assets/img/icons/image-icon.png" width="40" alt="" /></div>
                 </div>
@@ -136,6 +136,17 @@
     }
 
     btnSubmit.onclick = () => {
+        const name = document.querySelector('#name').value;
+        const description = document.querySelector('#description').value;
+
+        if(name === "" || description === ""){
+            alert("Please check information again");
+            return;
+        }
+        if (files.length < 3) {
+            alert("3 images are require");
+            return;
+        }
         const formdata = new FormData(form);
         formdata.append("image1", files[0]);
         formdata.append("image2", files[1]);
