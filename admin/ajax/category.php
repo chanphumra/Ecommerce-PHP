@@ -7,28 +7,30 @@
             // $data = json_decode($request_body, true);
             $name = $_POST['name'];
             $description = $_POST['description'];
-            $image1 = $image2 = $image3 = "";
-            if(isset($_FILES['image1']) || isset($_FILES['image2']) || isset($_FILES['image3'])){
-                $image1 = $_FILES['image1'];
-                $image2 = $_FILES['image2'];
-                $image3 = $_FILES['image3'];
-            }
+            $image1 = $main_check = "";
+            if(isset($_FILES['image1'])) $image1 = $_FILES['image1'];
+            if(isset($_POST['main_check'])) $main_check = $_POST['main_check'];
 
             $table = "category";
             $fields = array("name");
             $values = array($name);
-            if(Database::isExist($table, "name = 'men'")){
+            if(Database::isExist($table, "name = '$name'")){
                 $result = array("success" => false);
                 echo json_encode($result);
                 return;
             }
-            $row = Database::insert($table, $fields, $values);
-            $result = array("list" => $row ,"success" => true);
+            $lastInsertId = Database::insert($table, $fields, $values);
+            $result = array("lastInsertId" => $lastInsertId ,"success" => true);
             echo json_encode($result);
             break;
 
         case 'select':
-            $result = Database::select("category", "*", "", "");
+            $table = $_GET['table'];
+            $column = $_GET['column'];
+            $condition = $_GET['condition'] ?? "";
+            $clause = $_GET['clause'] ?? "";
+
+            $result = Database::select($table, $column, $condition, $clause);
             echo json_encode($result);
             break;
     }
