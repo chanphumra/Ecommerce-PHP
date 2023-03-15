@@ -66,4 +66,13 @@ class Database {
         $stmsql = Database::connect()->prepare($sql);
         $stmsql -> execute();
     }
+
+    public static function isExist ($table, $condition)
+    {
+        if(empty($table)) return;
+
+        $sql = "SELECT * FROM $table WHERE $condition";
+        $stmsql = Database::connect() -> query($sql);
+        return $stmsql -> rowCount() > 0;
+    }
 }

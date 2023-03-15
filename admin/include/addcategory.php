@@ -24,7 +24,7 @@
                 <h4 class="mb-3">Display images</h4>
                 <div class="d-flex flex-wrap gap-2 mb-3 review-images"></div>
                 <div class="drag-area form-control mb-5 d-flex flex-column cursor-pointer justify-content-center align-items-center" style="height: 200px;">
-                    <input type="file" multiple class="w-0 h-0 d-none images">
+                    <input type="file" class="w-0 h-0 d-none images">
                     <div class="dz-message text-600">Drag your photo here <span class="text-800">or </span><button class="btn btn-link p-0" type="button">Browse from device </button><br /></div>
                     <div><img class="mt-3 me-2" src="assets/img/icons/image-icon.png" width="40" alt="" /></div>
                 </div>
@@ -77,8 +77,8 @@
             maincategory.classList.remove('active');
         }
     }
-    /*---- get image ----*/
-    let files = [],
+    /*---- selected image ----*/
+    let files = null,
         dragArea = document.querySelector('.drag-area'),
         input = document.querySelector('.drag-area input'),
         container = document.querySelector('.review-images');
@@ -87,47 +87,39 @@
         input.click()
     }
 
-    function showImages() {
-        let images = files.reduce(function(prev, file, index) {
-            return (prev += `<div class="form-control rounded position-relative p-1" style="width: 100px; height: 100px;">
+    function showImages(file) {
+        container.innerHTML = `<div class="form-control rounded position-relative p-1" style="width: 100px; height: 100px;">
                     <img src="${URL.createObjectURL(file)}" style="width: 100%; height: 100%; object-fit: cover;">
-                    <span class="cursor-pointer position-absolute z-100" onclick="delImage(${index})" style=" top: 1px; right: 5px; font-size: 16px;">&times;</span>
-                </div>`);
-        }, "");
-        container.innerHTML = images;
+                    <span class="cursor-pointer position-absolute z-100" onclick="delImage()" style=" top: 1px; right: 5px; font-size: 16px;">&times;</span>
+                </div>`;
     }
 
-    function delImage(index) {
-        files.splice(index, 1);
-        showImages();
+    function delImage() {
+        input.files = null;
+        files = null;
+        container.innerHTML = "";
     }
 
     input.addEventListener('change', () => {
         let file = input.files;
-        if (file.length == 0) return;
-
-        for (let i = 0; i < file.length; i++) {
-            if (file[i].type.split("/")[0] != 'image') continue;
-            if (!files.some(e => e.name == file[i].name)) files.push(file[i])
-        }
-
+        files = file[0];
+        showImages(file[0]);
         input.files = null;
-        showImages();
     })
+
     dragArea.addEventListener('dragover', e => {
         e.preventDefault();
     })
+
     dragArea.addEventListener('drop', e => {
         e.preventDefault();
-
         let file = e.dataTransfer.files;
-        for (let i = 0; i < file.length; i++) {
-            if (file[i].type.split("/")[0] != 'image') continue;
-            if (!files.some(e => e.name == file[i].name)) files.push(file[i])
-        }
-        showImages();
+        files = file[0];
+        showImages(file[0]);
+        input.files = null;
     });
 
+    /*---- Insert Categoty ----*/
     const form = document.querySelector('form');
     const btnSubmit = document.querySelector('.btnSubmit');
 
@@ -139,7 +131,7 @@
         const name = document.querySelector('#name').value;
         const description = document.querySelector('#description').value;
 
-        if(name === "" || description === ""){
+        if (name === "" || description === "") {
             alert("Please check information again");
             return;
         }
@@ -147,6 +139,7 @@
             alert("3 images are require");
             return;
         }
+
         const formdata = new FormData(form);
         formdata.append("image1", files[0]);
         formdata.append("image2", files[1]);
