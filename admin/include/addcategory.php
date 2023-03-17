@@ -42,7 +42,7 @@
                                             <div class="d-flex flex-wrap justify-content-between mb-3">
                                                 <h5 class="mb-0 text-1000">Main category</h5>
                                             </div>
-                                            <select class="form-select mb-3 maincategory" aria-label="category"></select>
+                                            <select class="form-select mb-3 maincategory" name="mainCategory" aria-label="category"></select>
                                         </div>
                                     </div>
                                 </div>
@@ -120,16 +120,21 @@
     let main = [],
         main_categorys = document.querySelector('.maincategory');
 
-    axios.get('ajax/category.php?action=select&table=main_category&column=*')
+    function getMainCategory () {
+        main = [];
+        main_categorys.innerHTML = "";
+        axios.get('ajax/category.php?action=select&table=main_category&column=*')
         .then(res => {
             res.data.forEach(item => {
-                main_categorys.innerHTML += `<option value="${item.name}">${item.name}</option>`;
+                main_categorys.innerHTML += `<option value="${item.id}">${item.name}</option>`;
                 main.push(item.name);
             });
         })
         .catch(error => {
             console.log(error);
         });
+    } 
+    getMainCategory();
 
     /*---- insert categoty ----*/
     const form = document.querySelector('form');
@@ -154,16 +159,13 @@
             return;
         }
 
-        if(mainCheck.checked){
-
-        }
-        else if(main.length == 0){
+        if(!mainCheck.checked && main.length == 0){
             alert('no main category');
             return;
         }
 
         const formdata = new FormData(form);
-        formdata.append("image1", files);
+        formdata.append("image", files);
         axios.post('ajax/category.php?action=insert', formdata, {
                 header: {
                     "content-type": "multipart/form-data"
