@@ -1,18 +1,18 @@
 <?php
-include "include/partials/head.php";
-include "include/partials/header.php";
-include "include/partials/navbar.php";
+require_once "config/init.php";
+include_once "include/partials/head.php";
+include_once "include/partials/header.php";
+include_once "include/partials/navbar.php";
 
-require "config/init.php";
+$include = $_GET['page_name'] ?? "home";
+$include = strtolower($include);
 
-$controller = $_GET['page_name'] ?? "home";
-$controller = strtolower($controller);
-
-if (file_exists("controller/$controller.php")) {
-    require "controller/$controller.php";
+if (file_exists("include/$include.php")) {
+    include_once "include/$include.php";
 } else {
-    echo "controller not found";
+    echo "include not found";
 }
 
 include "include/partials/footer.php";
-hello
+
+include_once "include/partials/footer.php";

@@ -24,22 +24,24 @@ class Database {
         if(empty($table) || count($fields) <= 0 || count($values) <= 0) return;
         if(count($fields) != count($values) ) return;
 
+        $pdo = Database::connect();
         $sql = "INSERT INTO $table (". implode(",", $fields) .") VALUES (:" . implode(',:', $fields) . ")";
-        $stmsql = Database::connect()->prepare($sql);
+        $stmsql = $pdo->prepare($sql);
 
         for ($i=0; $i < count($fields); $i++) 
         { 
             $stmsql->bindParam(":$fields[$i]", $values[$i]);
         }
         $stmsql -> execute();
+        return $pdo->lastInsertId();
     }
 
     public static function select ($table, $column, $condition, $clause)
     {
         if(empty($table)) return;
 
-        $sql = "SELECT $column FROM $table $clause $condition";
-        $stmsql = Database:: connect()-> query($sql);
+        $sql = "SELECT $column FROM $table $condition $clause";
+        $stmsql = Database::connect() -> query($sql);
         return $stmsql->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -65,5 +67,14 @@ class Database {
         $sql .= $condition;
         $stmsql = Database::connect()->prepare($sql);
         $stmsql -> execute();
+    }
+
+    public static function isExist ($table, $condition)
+    {
+        if(empty($table)) return;
+
+        $sql = "SELECT * FROM $table WHERE $condition";
+        $stmsql = Database::connect() -> query($sql);
+        return $stmsql -> rowCount() > 0;
     }
 }
