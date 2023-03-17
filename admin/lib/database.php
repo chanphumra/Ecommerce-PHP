@@ -24,14 +24,16 @@ class Database {
         if(empty($table) || count($fields) <= 0 || count($values) <= 0) return;
         if(count($fields) != count($values) ) return;
 
+        $pdo = Database::connect();
         $sql = "INSERT INTO $table (". implode(",", $fields) .") VALUES (:" . implode(',:', $fields) . ")";
-        $stmsql = Database::connect()->prepare($sql);
+        $stmsql = $pdo->prepare($sql);
 
         for ($i=0; $i < count($fields); $i++) 
         { 
             $stmsql->bindParam(":$fields[$i]", $values[$i]);
         }
         $stmsql -> execute();
+        return $pdo->lastInsertId();
     }
 
     public static function select ($table, $column, $condition, $clause)

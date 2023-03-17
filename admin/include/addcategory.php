@@ -41,11 +41,8 @@
                                         <div class="mb-4" style="height: 267px;">
                                             <div class="d-flex flex-wrap justify-content-between mb-3">
                                                 <h5 class="mb-0 text-1000">Main category</h5>
-                                            </div><select class="form-select mb-3 maincategory" aria-label="category">
-                                                <option value="men-cloth">Men's Clothing</option>
-                                                <option value="women-cloth">Womens's Clothing</option>
-                                                <option value="kid-cloth">Kid's Clothing</option>
-                                            </select>
+                                            </div>
+                                            <select class="form-select mb-3 maincategory" name="mainCategory" aria-label="category"></select>
                                         </div>
                                     </div>
                                 </div>
@@ -69,7 +66,7 @@
 </div>
 <script>
     const mainCheck = document.querySelector("#main-category");
-    const maincategory = document.querySelector(".maincategory");
+    const maincategory = document.querySelector('.maincategory');
     mainCheck.onchange = () => {
         if (mainCheck.checked) {
             maincategory.classList.add('active');
@@ -119,7 +116,27 @@
         input.files = null;
     });
 
-    /*---- Insert Categoty ----*/
+    /*---- get main category ----*/
+    let main = [],
+        main_categorys = document.querySelector('.maincategory');
+
+    function getMainCategory () {
+        main = [];
+        main_categorys.innerHTML = "";
+        axios.get('ajax/category.php?action=select&table=main_category&column=*')
+        .then(res => {
+            res.data.forEach(item => {
+                main_categorys.innerHTML += `<option value="${item.id}">${item.name}</option>`;
+                main.push(item.name);
+            });
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    } 
+    getMainCategory();
+
+    /*---- insert categoty ----*/
     const form = document.querySelector('form');
     const btnSubmit = document.querySelector('.btnSubmit');
 
@@ -131,19 +148,24 @@
         const name = document.querySelector('#name').value;
         const description = document.querySelector('#description').value;
 
+        /*---- check condition ----*/
         if (name === "" || description === "") {
             alert("Please check information again");
             return;
         }
-        if (files.length < 3) {
-            alert("3 images are require");
+        
+        if (files == null) {
+            alert("images are require");
+            return;
+        }
+
+        if(!mainCheck.checked && main.length == 0){
+            alert('no main category');
             return;
         }
 
         const formdata = new FormData(form);
-        formdata.append("image1", files[0]);
-        formdata.append("image2", files[1]);
-        formdata.append("image3", files[2]);
+        formdata.append("image", files);
         axios.post('ajax/category.php?action=insert', formdata, {
                 header: {
                     "content-type": "multipart/form-data"
