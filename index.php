@@ -14,3 +14,4 @@ if (file_exists("include/$include.php")) {
 }
 
 include_once "include/partials/footer.php";
+hello
