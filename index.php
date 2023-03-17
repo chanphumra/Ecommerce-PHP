@@ -15,3 +15,4 @@ if (file_exists("controller/$controller.php")) {
 }
 
 include "include/partials/footer.php";
+hello
