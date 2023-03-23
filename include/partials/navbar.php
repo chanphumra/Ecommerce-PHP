@@ -67,7 +67,7 @@
         </div>
         <ul class="navbar-nav justify-content-end align-items-center">
             <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link ps-0 active" aria-current="page" href="#!">Home</a></li>
-            <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link" href="#!">Stores</a></li>
+            <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link" href="#!">Products</a></li>
             <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link" href="#!">Free delivery</a></li>
             <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link" href="#!">Coupons</a></li>
             <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link" href="#!">Categories</a></li>
