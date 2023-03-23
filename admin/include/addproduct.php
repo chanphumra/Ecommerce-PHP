@@ -10,8 +10,9 @@
         <h4 class="mb-3">Product Title</h4>
         <div class="row g-5">
             <div class="col-12 col-xl-8"><input class="form-control mb-5" type="text" placeholder="Write title here..." />
-                <div class="mb-6">
-                    <h4 class="mb-3"> Product Description</h4><textarea class="tinymce" name="content" data-tinymce='{"height":"15rem","placeholder":"Write a description here..."}'></textarea>
+            <div class="mb-6">
+                    <h4 class="mb-3">Product Description</h4>
+                    <textarea rows="10" class="form-control mb-5 resize-none" name="description" id="description" placeholder="Write description here..."></textarea>
                 </div>
                 <h4 class="mb-3">Display images</h4>
                 <div class="d-flex flex-wrap gap-2 mb-3 review-images"></div>
@@ -22,11 +23,8 @@
                 </div>
                 <h4 class="mb-3">Inventory</h4>
                 <div class="row g-0 border-top border-bottom border-300">
-                    <div class="col-sm-4">
-                        <div class="nav flex-sm-column border-bottom border-bottom-sm-0 border-end-sm border-300 fs--1 vertical-tab h-100 justify-content-between" role="tablist" aria-orientation="vertical"><a class="nav-link border-end border-end-sm-0 border-bottom-sm border-300 text-center text-sm-start cursor-pointer outline-none d-sm-flex align-items-sm-center active" id="pricingTab" data-bs-toggle="tab" data-bs-target="#pricingTabContent" role="tab" aria-controls="pricingTabContent" aria-selected="true"> <span class="me-sm-2 fs-4 nav-icons" data-feather="tag"></span><span class="d-none d-sm-inline">Pricing</span></a><a class="nav-link border-end border-end-sm-0 border-bottom-sm border-300 text-center text-sm-start cursor-pointer outline-none d-sm-flex align-items-sm-center" id="restockTab" data-bs-toggle="tab" data-bs-target="#restockTabContent" role="tab" aria-controls="restockTabContent" aria-selected="false"> <span class="me-sm-2 fs-4 nav-icons" data-feather="package"></span><span class="d-none d-sm-inline">Restock</span></a><a class="nav-link border-end border-end-sm-0 border-bottom-sm border-300 text-center text-sm-start cursor-pointer outline-none d-sm-flex align-items-sm-center" id="shippingTab" data-bs-toggle="tab" data-bs-target="#shippingTabContent" role="tab" aria-controls="shippingTabContent" aria-selected="false"> <span class="me-sm-2 fs-4 nav-icons" data-feather="truck"></span><span class="d-none d-sm-inline">Shipping</span></a><a class="nav-link border-end border-end-sm-0 border-bottom-sm border-300 text-center text-sm-start cursor-pointer outline-none d-sm-flex align-items-sm-center" id="productsTab" data-bs-toggle="tab" data-bs-target="#productsTabContent" role="tab" aria-controls="productsTabContent" aria-selected="false"> <span class="me-sm-2 fs-4 nav-icons" data-feather="globe"></span><span class="d-none d-sm-inline">Global Delivery</span></a><a class="nav-link border-end border-end-sm-0 border-bottom-sm border-300 text-center text-sm-start cursor-pointer outline-none d-sm-flex align-items-sm-center" id="attributesTab" data-bs-toggle="tab" data-bs-target="#attributesTabContent" role="tab" aria-controls="attributesTabContent" aria-selected="false"> <span class="me-sm-2 fs-4 nav-icons" data-feather="sliders"></span><span class="d-none d-sm-inline">Attributes</span></a><a class="nav-link text-center text-sm-start cursor-pointer outline-none d-sm-flex align-items-sm-center" id="advancedTab" data-bs-toggle="tab" data-bs-target="#advancedTabContent" role="tab" aria-controls="advancedTabContent" aria-selected="false"> <span class="me-sm-2 fs-4 nav-icons" data-feather="lock"></span><span class="d-none d-sm-inline">Advanced</span></a></div>
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="tab-content py-3 ps-sm-4 h-100">
+                    <div class="col-12">
+                        <div class="tab-content py-3 h-100">
                             <div class="tab-pane fade show active" id="pricingTabContent" role="tabpanel">
                                 <h4 class="mb-3 d-sm-none">Pricing</h4>
                                 <div class="row g-3">
@@ -35,6 +33,12 @@
                                     </div>
                                     <div class="col-12 col-lg-6">
                                         <h5 class="mb-2 text-1000">Sale price</h5><input class="form-control" type="text" placeholder="$$$" />
+                                    </div>
+                                    <div class="col-12">
+                                        <h5 class="mb-2 text-1000">Discount</h5><input class="form-control" type="text" placeholder="$$$" />
+                                    </div>
+                                    <div class="col-12">
+                                        <h5 class="mb-2 text-1000">Quantity</h5><input class="form-control" type="text" placeholder="$$$" />
                                     </div>
                                 </div>
                             </div>
@@ -73,74 +77,6 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="tab-pane fade h-100" id="shippingTabContent" role="tabpanel" aria-labelledby="shippingTab">
-                                <div class="d-flex flex-column h-100">
-                                    <h5 class="mb-3 text-1000">Shipping Type</h5>
-                                    <div class="flex-1">
-                                        <div class="mb-4">
-                                            <div class="form-check mb-1"><input class="form-check-input" type="radio" name="shippingRadio" id="fullfilledBySeller" /><label class="form-check-label fs-0 text-900" for="fullfilledBySeller">Fullfilled by Seller</label></div>
-                                            <div class="ps-4">
-                                                <p class="text-800 fs--1 mb-0">You’ll be responsible for product delivery. <br />Any damage or delay during shipping may cost you a Damage fee.</p>
-                                            </div>
-                                        </div>
-                                        <div class="mb-4">
-                                            <div class="form-check mb-1"><input class="form-check-input" type="radio" name="shippingRadio" id="fullfilledByPhoenix" checked="checked" /><label class="form-check-label fs-0 text-900 d-flex align-items-center" for="fullfilledByPhoenix">Fullfilled by Phoenix <span class="badge badge-phoenix badge-phoenix-warning fs--2 ms-2">Recommended</span></label></div>
-                                            <div class="ps-4">
-                                                <p class="text-800 fs--1 mb-0">Your product, Our responsibility.<br />For a measly fee, we will handle the delivery process for you.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p class="fs--1 fw-semi-bold mb-0">See our <a class="fw-bold" href="#!">Delivery terms and conditions </a>for details.</p>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="productsTabContent" role="tabpanel" aria-labelledby="productsTab">
-                                <h5 class="mb-3 text-1000">Global Delivery</h5>
-                                <div class="mb-3">
-                                    <div class="form-check"><input class="form-check-input" type="radio" name="deliveryRadio" id="worldwideDelivery" /><label class="form-check-label fs-0 text-900" for="worldwideDelivery">Worldwide delivery</label></div>
-                                    <div class="ps-4">
-                                        <p class="fs--1 mb-0 text-800">Only available with Shipping method: <a href="#!">Fullfilled by Phoenix</a></p>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <div class="form-check"><input class="form-check-input" type="radio" name="deliveryRadio" checked="checked" id="selectedCountry" /><label class="form-check-label fs-0 text-900" for="selectedCountry">Selected Countries</label></div>
-                                    <div class="ps-4" style="max-width: 350px;"><select class="form-select ps-4" id="organizerMultiple" data-choices="data-choices" multiple="multiple" data-options='{"removeItemButton":true,"placeholder":true}'>
-                                            <option value="">Type Country name</option>
-                                            <option>United States of America</option>
-                                            <option>United Kingdom</option>
-                                            <option>Canada</option>
-                                            <option>Mexico</option>
-                                        </select></div>
-                                </div>
-                                <div>
-                                    <div class="form-check"><input class="form-check-input" type="radio" name="deliveryRadio" id="localDelivery" /><label class="form-check-label fs-0 text-900" for="localDelivery">Local delivery</label></div>
-                                    <p class="fs--1 ms-4 mb-0 text-800">Deliver to your country of residence <a href="#!">Change profile address </a></p>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="attributesTabContent" role="tabpanel" aria-labelledby="attributesTab">
-                                <h5 class="mb-3 text-1000">Attributes</h5>
-                                <div class="form-check"><input class="form-check-input" id="fragileCheck" type="checkbox" /><label class="form-check-label text-900 fs-0" for="fragileCheck">Fragile Product</label></div>
-                                <div class="form-check"><input class="form-check-input" id="biodegradableCheck" type="checkbox" /><label class="form-check-label text-900 fs-0" for="biodegradableCheck">Biodegradable</label></div>
-                                <div class="mb-3">
-                                    <div class="form-check"><input class="form-check-input" id="frozenCheck" type="checkbox" checked="checked" /><label class="form-check-label text-900 fs-0" for="frozenCheck">Frozen Product</label><input class="form-control" type="text" placeholder="Max. allowed Temperature" style="max-width: 350px;" /></div>
-                                </div>
-                                <div class="form-check"><input class="form-check-input" id="productCheck" type="checkbox" checked="checked" /><label class="form-check-label text-900 fs-0" for="productCheck">Expiry Date of Product</label><input class="form-control inventory-attributes datetimepicker" id="inventory" type="text" style="max-width: 350px;" placeholder="d/m/y" data-options='{"disableMobile":true}' /></div>
-                            </div>
-                            <div class="tab-pane fade" id="advancedTabContent" role="tabpanel" aria-labelledby="advancedTab">
-                                <h5 class="mb-3 text-1000">Advanced</h5>
-                                <div class="row g-3">
-                                    <div class="col-12 col-lg-6">
-                                        <h5 class="mb-2 text-1000">Product ID Type</h5><select class="form-select" aria-label="form-select-lg example">
-                                            <option selected="selected">ISBN</option>
-                                            <option value="1">UPC</option>
-                                            <option value="2">EAN</option>
-                                            <option value="3">JAN</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-12 col-lg-6">
-                                        <h5 class="mb-2 text-1000">Product ID</h5><input class="form-control" type="text" placeholder="ISBN Number" />
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -149,13 +85,13 @@
                 <div class="row g-2">
                     <div class="col-12 col-xl-12">
                         <div class="card mb-3">
-                            <div class="card-body">
+                            <div class="card-body" style="height: 310px;">
                                 <h4 class="card-title mb-4">Organize</h4>
                                 <div class="row g-3">
                                     <div class="col-12 col-sm-6 col-xl-12">
                                         <div class="mb-4">
                                             <div class="d-flex flex-wrap justify-content-between mb-2">
-                                                <h5 class="mb-0 text-1000">Category</h5><a class="fw-bold fs--1" href="#!">Add new category</a>
+                                                <h5 class="mb-0 text-1000">Main category</h5><a class="fw-bold fs--1" href="index.php?page_name=addcategory">Add new category</a>
                                             </div><select class="form-select mb-3" aria-label="category">
                                                 <option value="men-cloth">Men's Clothing</option>
                                                 <option value="women-cloth">Womens's Clothing</option>
@@ -166,7 +102,7 @@
                                     <div class="col-12 col-sm-6 col-xl-12">
                                         <div class="mb-4">
                                             <div class="d-flex flex-wrap justify-content-between mb-2">
-                                                <h5 class="mb-0 text-1000">Vendor</h5><a class="fw-bold fs--1" href="#!">Add new vendor</a>
+                                                <h5 class="mb-0 text-1000">Sub category</h5>
                                             </div><select class="form-select mb-3" aria-label="category">
                                                 <option value="men-cloth">Men's Clothing</option>
                                                 <option value="women-cloth">Womens's Clothing</option>
@@ -174,62 +110,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-sm-6 col-xl-12">
-                                        <div class="mb-xl-4">
-                                            <h5 class="mb-2 text-1000">Collection</h5><input class="form-control mb-xl-3" type="text" placeholder="Collection" />
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6 col-xl-12">
-                                        <div class="d-flex flex-wrap justify-content-between mb-2">
-                                            <h5 class="mb-0 text-1000">Tags</h5><a class="fw-bold fs--1 lh-sm" href="#!">View all tags</a>
-                                        </div><select class="form-select" aria-label="category">
-                                            <option value="men-cloth">Men's Clothing</option>
-                                            <option value="women-cloth">Womens's Clothing</option>
-                                            <option value="kid-cloth">Kid's Clothing</option>
-                                        </select>
-                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-xl-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title mb-4">Variants</h4>
-                                <div class="row g-3 g-xl-5">
-                                    <div class="col-12 col-sm-6 col-xl-12">
-                                        <div class="border-dashed-bottom pb-4 pb-xl-0">
-                                            <div class="d-flex flex-wrap justify-content-between mb-2">
-                                                <h5 class="text-1000">Option 1</h5><a class="fw-bold fs--1" href="#!">Remove</a>
-                                            </div><select class="form-select mb-3">
-                                                <option value="size">Size</option>
-                                                <option value="color">Color</option>
-                                                <option value="weight">Weight</option>
-                                                <option value="smell">Smell</option>
-                                            </select>
-                                            <div class="product-variant-select-menu"><select class="form-select mb-3" data-choices="data-choices" multiple="multiple" data-options='{"removeItemButton":true,"placeholder":true}'>
-                                                    <option value="size">4x6 in</option>
-                                                    <option value="color">9x6 in</option>
-                                                    <option value="weight">11x8 in</option>
-                                                </select></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6 col-xl-12">
-                                        <div class="d-flex flex-wrap justify-content-between mb-2">
-                                            <h5 class="text-1000">Option 2</h5><a class="fw-bold fs--1" href="#!">Remove</a>
-                                        </div><select class="form-select mb-3">
-                                            <option value="size">Size</option>
-                                            <option value="color">Color</option>
-                                            <option value="weight">Weight</option>
-                                            <option value="smell">Smell</option>
-                                        </select>
-                                        <div class="product-variant-select-menu mb-3"><select class="form-select mb-3" data-choices="data-choices" multiple="multiple" data-options='{"removeItemButton":true,"placeholder":true}'>
-                                                <option value="size">4x6 in</option>
-                                                <option value="color">9x6 in</option>
-                                                <option value="weight">11x8 in</option>
-                                            </select></div>
-                                    </div>
-                                </div><button class="btn btn-phoenix-primary w-100" type="button">Add another option</button>
                             </div>
                         </div>
                     </div>
@@ -300,4 +181,47 @@
         }
         showImages();
     });
+
+    // បើយើងចង់insert imageតែមួយប៉ុណ្ណោះ​ សូមchange code line 254​ ដល់ 303​ ដោយcodeខាងក្រោម
+    /* let files = null,
+        dragArea = document.querySelector('.drag-area'),
+        input = document.querySelector('.drag-area input'),
+        container = document.querySelector('.review-images');
+
+    dragArea.onclick = () => {
+        input.click()
+    }
+
+    function showImages(file) {
+        container.innerHTML = `<div class="form-control rounded position-relative p-1" style="width: 100px; height: 100px;">
+                    <img src="${URL.createObjectURL(file)}" style="width: 100%; height: 100%; object-fit: cover;">
+                    <span class="cursor-pointer position-absolute z-100" onclick="delImage()" style=" top: 1px; right: 5px; font-size: 16px;">&times;</span>
+                </div>`;
+    }
+
+    function delImage() {
+        input.files = null;
+        files = null;
+        container.innerHTML = "";
+    }
+
+    input.addEventListener('change', () => {
+        let file = input.files;
+        files = file[0];
+        showImages(file[0]);
+        input.files = null;
+    })
+
+    dragArea.addEventListener('dragover', e => {
+        e.preventDefault();
+    })
+
+    dragArea.addEventListener('drop', e => {
+        e.preventDefault();
+        let file = e.dataTransfer.files;
+        files = file[0];
+        showImages(file[0]);
+        input.files = null;
+    }); */
+
 </script>

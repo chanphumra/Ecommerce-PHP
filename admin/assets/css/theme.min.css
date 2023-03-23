@@ -35912,3 +35912,10 @@ html:not(.navbar-vertical-collapsed) .navbar-vertical .firefox .navbar-vibrant .
         height: 65%;
     }
 }
+
+/* .swal2-container.swal2-backdrop-show, .swal2-container.swal2-noanimation {
+    background: rgba(0,0,0,.95)!important;
+}
+.swal2-modal{
+    background-color: rgba(0,0,0,.95)!important;
+} */

@@ -20,8 +20,9 @@
     <script src="vendors/dropzone/dropzone.min.js"></script>
     <script src="vendors/choices/choices.min.js"></script>
     <script src="assets/js/ecommerce-dashboard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    
+
     </body>
 
     </html>
