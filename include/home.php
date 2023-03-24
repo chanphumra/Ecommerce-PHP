@@ -7,7 +7,7 @@
 
             <div class="mb-6">
                 <div class="d-flex flex-between-center mb-3">
-                    <h3>New Arrivals</h3><a class="fw-bold d-none d-md-block" href="#!">Explore more<span class="fas fa-chevron-right fs--1 ms-1"></span></a>
+                    <h3>New Arrivals</h3><a class="fw-bold d-none d-md-block">Explore more<span class="fas fa-chevron-right fs--1 ms-1"></span></a>
                 </div>
 
                 <!-- slide product start -->
@@ -26,7 +26,7 @@
                                                 </button>
                                                 <img class="img-fluid" style="width: 100%; height:250px; object-fit: cover;" src="../admin/assets/img/products/1.png" alt="" />
                                             </div>
-                                            <a class="stretched-link text-decoration-none" href="../admin/apps/e-commerce/landing/product-details.html">
+                                            <a class="stretched-link text-decoration-none" href="index?page_name=productdetail">
                                                 <h6 class="mb-2 lh-sm line-clamp-3">Fitbit Sense Advanced Smartwatch with Tools for Heart Health, Stress Management &amp;amp; Skin Temperature Trends Carbon/Graphite, One Size (S &amp; L Bands)</h6>
                                             </a>
                                         </div>
@@ -74,7 +74,7 @@
                                                 </button>
                                                 <img class="img-fluid" style="width: 100%; height:250px; object-fit: cover;" src="../admin/assets/img/products/1.png" alt="" />
                                             </div>
-                                            <a class="stretched-link text-decoration-none" href="../admin/apps/e-commerce/landing/product-details.html">
+                                            <a class="stretched-link text-decoration-none" href="index?page_name=productdetail'">
                                                 <h6 class="mb-2 lh-sm line-clamp-3">Fitbit Sense Advanced Smartwatch with Tools for Heart Health, Stress Management &amp;amp; Skin Temperature Trends Carbon/Graphite, One Size (S &amp; L Bands)</h6>
                                             </a>
                                         </div>
@@ -122,7 +122,7 @@
                                                 </button>
                                                 <img class="img-fluid" style="width: 100%; height:250px; object-fit: cover;" src="../admin/assets/img/products/1.png" alt="" />
                                             </div>
-                                            <a class="stretched-link text-decoration-none" href="../admin/apps/e-commerce/landing/product-details.html">
+                                            <a class="stretched-link text-decoration-none" href="index?page_name=productdetail'">
                                                 <h6 class="mb-2 lh-sm line-clamp-3">Fitbit Sense Advanced Smartwatch with Tools for Heart Health, Stress Management &amp;amp; Skin Temperature Trends Carbon/Graphite, One Size (S &amp; L Bands)</h6>
                                             </a>
                                         </div>
@@ -138,9 +138,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
-
                         </div>
                     </div>
                     <div class="swiper-nav">

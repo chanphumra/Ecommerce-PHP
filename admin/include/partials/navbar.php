@@ -28,7 +28,7 @@
                     <!-- parent pages-->
                     <div class="nav-item-wrapper">
                         <a class="nav-link label-1" href="apps/chat.html" asd="index" role="button" data-bs-toggle="" aria-expanded="false">
-                            <div class="d-flex align-items-center"><span class="nav-link-icon"><span data-feather="message-square"></span></span><span class="nav-link-text-wrapper"><span class="nav-link-text">Orders</span></span></div>
+                            <div class="d-flex align-items-center"><span class="nav-link-icon"><span data-feather="shopping-bag"></span></span><span class="nav-link-text-wrapper"><span class="nav-link-text">Orders</span></span></div>
                         </a>
                     </div>
 
@@ -36,18 +36,18 @@
                     <div class="nav-item-wrapper">
                         <a class="nav-link dropdown-indicator label-1" href="#pricing" asd="index" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="pricing">
                             <div class="d-flex align-items-center">
-                                <div class="dropdown-indicator-icon"><span class="fas fa-caret-right"></span></div><span class="nav-link-icon"><span data-feather="tag"></span></span><span class="nav-link-text">Customers</span>
+                                <div class="dropdown-indicator-icon"><span class="fas fa-caret-right"></span></div><span class="nav-link-icon"><span data-feather="user"></span></span><span class="nav-link-text">Customers</span>
                             </div>
                         </a>
                         <div class="parent-wrapper label-1">
                             <ul class="nav collapse parent" data-bs-parent="#navbarVerticalCollapse" id="pricing">
                                 <li class="collapsed-nav-item-title d-none">Customers</li>
                                 <li class="nav-item"><a class="nav-link" href="pages/pages/pricing/pricing-column.html" asd="index" data-bs-toggle="" aria-expanded="false">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text">Pricing column</span></div>
+                                        <div class="d-flex align-items-center"><span class="nav-link-text">Add Customer</span></div>
                                     </a><!-- more inner pages-->
                                 </li>
                                 <li class="nav-item"><a class="nav-link" href="pages/pages/pricing/pricing-grid.html" asd="index" data-bs-toggle="" aria-expanded="false">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text">Pricing grid</span></div>
+                                        <div class="d-flex align-items-center"><span class="nav-link-text">Customer</span></div>
                                     </a><!-- more inner pages-->
                                 </li>
                             </ul>
@@ -55,9 +55,10 @@
                     </div>
 
                     <!-- parent pages-->
-                    <div class="nav-item-wrapper"><a class="nav-link dropdown-indicator label-1" href="#email" asd="index" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="email">
+                    <div class="nav-item-wrapper">
+                        <a class="nav-link dropdown-indicator label-1" href="#email" asd="index" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="email">
                             <div class="d-flex align-items-center">
-                                <div class="dropdown-indicator-icon"><span class="fas fa-caret-right"></span></div><span class="nav-link-icon"><span data-feather="mail"></span></span><span class="nav-link-text">Category</span>
+                                <div class="dropdown-indicator-icon"><span class="fas fa-caret-right"></span></div><span class="nav-link-icon"><span data-feather="box"></span></span><span class="nav-link-text">Category</span>
                             </div>
                         </a>
                         <div class="parent-wrapper label-1">
@@ -81,7 +82,7 @@
                     <div class="nav-item-wrapper">
                         <a class="nav-link dropdown-indicator label-1" href="#project-management" asd="index" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="project-management">
                             <div class="d-flex align-items-center">
-                                <div class="dropdown-indicator-icon"><span class="fas fa-caret-right"></span></div><span class="nav-link-icon"><span data-feather="clipboard"></span></span><span class="nav-link-text">Product</span>
+                                <div class="dropdown-indicator-icon"><span class="fas fa-caret-right"></span></div><span class="nav-link-icon"><span data-feather="shopping-cart"></span></span><span class="nav-link-text">Product</span>
                             </div>
                         </a>
                         <div class="parent-wrapper label-1">
@@ -106,7 +107,7 @@
                     <div class="nav-item-wrapper">
                         <a class="nav-link dropdown-indicator label-1" href="#events" asd="index" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
                             <div class="d-flex align-items-center">
-                                <div class="dropdown-indicator-icon"><span class="fas fa-caret-right"></span></div><span class="nav-link-icon"><span data-feather="bookmark"></span></span><span class="nav-link-text">Slideshows</span>
+                                <div class="dropdown-indicator-icon"><span class="fas fa-caret-right"></span></div><span class="nav-link-icon"><span data-feather="monitor"></span></span><span class="nav-link-text">Slideshows</span>
                             </div>
                         </a>
                         <div class="parent-wrapper label-1">
@@ -128,7 +129,7 @@
                     <!-- parent pages-->
                     <div class="nav-item-wrapper"><a class="nav-link dropdown-indicator label-1" href="#social" asd="index" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="social">
                             <div class="d-flex align-items-center">
-                                <div class="dropdown-indicator-icon"><span class="fas fa-caret-right"></span></div><span class="nav-link-icon"><span data-feather="share-2"></span></span><span class="nav-link-text">Site Setting</span>
+                                <div class="dropdown-indicator-icon"><span class="fas fa-caret-right"></span></div><span class="nav-link-icon"><span data-feather="settings"></span></span><span class="nav-link-text">Site Setting</span>
                             </div>
                         </a>
                         <div class="parent-wrapper label-1">
