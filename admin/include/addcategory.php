@@ -5,7 +5,7 @@
                 <h2 class="mb-2">Add a category</h2>
                 <h5 class="text-700 fw-semi-bold">Orders placed across your store</h5>
             </div>
-            <div class="col-auto"><button class="btn btn-primary mb-2 mb-sm-0 btnSubmit" type="submit">Publish category</button></div>
+            <div class="col-auto"><button class="btn btn-primary mb-2 mb-sm-0 btnSubmit">Publish category</button></div>
         </div>
         <div class="row g-5">
             <div class="col-12 col-xl-8">
@@ -151,12 +151,11 @@
         /*---- check condition ----*/
         if (name === "" || description === "") {
             Swal.fire({
-                // position: 'top-end',
-                icon: 'success',
+                icon: 'error',
                 title: 'Your work has been saved',
                 showConfirmButton: false,
                 timer: 1000
-            })
+            });
             return;
         }
 

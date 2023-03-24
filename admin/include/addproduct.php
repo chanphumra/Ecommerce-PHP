@@ -5,12 +5,12 @@
                 <h2 class="mb-2">Add a product</h2>
                 <h5 class="text-700 fw-semi-bold">Orders placed across your store</h5>
             </div>
-            <div class="col-auto"><button class="btn btn-primary mb-2 mb-sm-0" type="submit">Publish product</button></div>
+            <div class="col-auto"><button class="btn btn-primary mb-2 mb-sm-0" id="btnAdd" type="submit">Publish product</button></div>
         </div>
         <h4 class="mb-3">Product Title</h4>
         <div class="row g-5">
-            <div class="col-12 col-xl-8"><input class="form-control mb-5" type="text" placeholder="Write title here..." />
-            <div class="mb-6">
+            <div class="col-12 col-xl-8"><input class="form-control mb-5" type="text" placeholder="Write title here..." name="name" id="name" />
+                <div class="mb-6">
                     <h4 class="mb-3">Product Description</h4>
                     <textarea rows="10" class="form-control mb-5 resize-none" name="description" id="description" placeholder="Write description here..."></textarea>
                 </div>
@@ -29,52 +29,17 @@
                                 <h4 class="mb-3 d-sm-none">Pricing</h4>
                                 <div class="row g-3">
                                     <div class="col-12 col-lg-6">
-                                        <h5 class="mb-2 text-1000">Regular price</h5><input class="form-control" type="text" placeholder="$$$" />
+                                        <h5 class="mb-2 text-1000">Regular price</h5><input class="form-control" name="price" id="price" type="text" placeholder="$$$" />
                                     </div>
                                     <div class="col-12 col-lg-6">
-                                        <h5 class="mb-2 text-1000">Sale price</h5><input class="form-control" type="text" placeholder="$$$" />
+                                        <h5 class="mb-2 text-1000">Sale price</h5><input class="form-control" name="sale_price" id="sale_price" type="text" placeholder="$$$" />
                                     </div>
                                     <div class="col-12">
-                                        <h5 class="mb-2 text-1000">Discount</h5><input class="form-control" type="text" placeholder="$$$" />
+                                        <h5 class="mb-2 text-1000">Discount</h5><input class="form-control" name="discount" id="discount" type="text" placeholder="0.00%" />
                                     </div>
                                     <div class="col-12">
-                                        <h5 class="mb-2 text-1000">Quantity</h5><input class="form-control" type="text" placeholder="$$$" />
+                                        <h5 class="mb-2 text-1000">Quantity</h5><input class="form-control" name="qty" id="qty" type="text" placeholder="0" />
                                     </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade h-100" id="restockTabContent" role="tabpanel" aria-labelledby="restockTab">
-                                <div class="d-flex flex-column h-100">
-                                    <h5 class="mb-3 text-1000">Add to Stock</h5>
-                                    <div class="row g-3 flex-1 mb-4">
-                                        <div class="col-sm-7"><input class="form-control" type="number" placeholder="Quantity" /></div>
-                                        <div class="col-sm"><button class="btn btn-primary" type="button"><span class="fa-solid fa-check me-1 fs--2"></span>Confirm</button></div>
-                                    </div>
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th style="width: 200px;"></th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="text-1000 fw-bold py-1">Product in stock now:</td>
-                                                <td class="text-700 fw-semi-bold py-1">$1,090<button class="btn p-0" type="button"><span class="fa-solid fa-rotate text-900 ms-1" style="--phoenix-text-opacity: .6;"></span></button></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-1000 fw-bold py-1">Product in transit:</td>
-                                                <td class="text-700 fw-semi-bold py-1">5000</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-1000 fw-bold py-1">Last time restocked:</td>
-                                                <td class="text-700 fw-semi-bold py-1">30th June, 2021</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-1000 fw-bold">Total stock over lifetime:</td>
-                                                <td class="text-700 fw-semi-bold">20,000</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -92,22 +57,17 @@
                                         <div class="mb-4">
                                             <div class="d-flex flex-wrap justify-content-between mb-2">
                                                 <h5 class="mb-0 text-1000">Main category</h5><a class="fw-bold fs--1" href="index.php?page_name=addcategory">Add new category</a>
-                                            </div><select class="form-select mb-3" aria-label="category">
-                                                <option value="men-cloth">Men's Clothing</option>
-                                                <option value="women-cloth">Womens's Clothing</option>
-                                                <option value="kid-cloth">Kid's Clothing</option>
-                                            </select>
+                                            </div>
+                                            <select class="form-select mb-3 main-category" aria-label="category"></select>
                                         </div>
                                     </div>
+
                                     <div class="col-12 col-sm-6 col-xl-12">
                                         <div class="mb-4">
                                             <div class="d-flex flex-wrap justify-content-between mb-2">
                                                 <h5 class="mb-0 text-1000">Sub category</h5>
-                                            </div><select class="form-select mb-3" aria-label="category">
-                                                <option value="men-cloth">Men's Clothing</option>
-                                                <option value="women-cloth">Womens's Clothing</option>
-                                                <option value="kid-cloth">Kid's Clothing</option>
-                                            </select>
+                                            </div>
+                                            <select class="form-select mb-3 sub-category" name="subId" aria-label="category"></select>
                                         </div>
                                     </div>
                                 </div>
@@ -182,7 +142,7 @@
         showImages();
     });
 
-    // បើយើងចង់insert imageតែមួយប៉ុណ្ណោះ​ សូមchange code line 254​ ដល់ 303​ ដោយcodeខាងក្រោម
+    // បើយើងចង់insert imageតែមួយប៉ុណ្ណោះ​ សូមchange code line 94 ដល់ 143​ ដោយcodeខាងក្រោម
     /* let files = null,
         dragArea = document.querySelector('.drag-area'),
         input = document.querySelector('.drag-area input'),
@@ -224,4 +184,88 @@
         input.files = null;
     }); */
 
+    const main_categorys = document.querySelector('.main-category');
+    const sub_categorys = document.querySelector('.sub-category');
+    const btnAdd = document.querySelector('#btnAdd');
+    const form = document.querySelector('form');
+
+    /*---- when pade start we get all category ----*/
+    getMainCategory();
+    main_categorys.onchange = (e) => {
+        getSubCategory(main_categorys.value);
+    }
+
+    /*---- add product ----*/
+    form.onsubmit = (e) => {
+        e.preventDefault();
+    }
+
+    btnAdd.onclick = () => {
+        const name = document.querySelector('#name').value;
+        const description = document.querySelector('#description').value;
+        const price = document.querySelector('#price').value;
+        const sale_price = document.querySelector('#sale_price').value;
+        const discount = document.querySelector('#discount').value;
+        const qty = document.querySelector('#qty').value;
+  
+        /*----- check condition -----*/
+        if (name == "" || description == "" || price == "" || sale_price == "" || qty == "") {
+            alert(name + "/" + description + "/" + price + "/" + sale_price + "/" + qty);
+            return;
+        }
+
+        if (sub_categorys.value == "") {
+            return;
+        }
+
+        if (files.length < 3) {
+            return;
+        }
+
+        const formData = new FormData(form);
+        formData.append('image1', files[0]);
+        formData.append('image2', files[1]);
+        formData.append('image3', files[2]);
+        // បើinsert តែមួយរូបភាពកុំប្រើ formData.append 3 ខាងលើ យើងប្រើអាខាងក្រោម
+        /* formdata.append("image", files); */
+        axios.post('ajax/product.php?action=insert', formData, {
+            header: {
+                "content-type": "multipart/form-data"
+            }
+        }).then(res => {
+            console.log(res);
+            if(res.data.success) alert("success");
+        });
+    }
+
+
+
+    /*---- functions----*/
+    function getMainCategory() {
+        main_categorys.innerHTML = "";
+        axios.get('ajax/category.php?action=select&table=main_category&column=*')
+            .then(res => {
+                res.data.forEach(item => {
+                    main_categorys.innerHTML += `<option value="${item.id}">${item.name}</option>`;
+                });
+                getSubCategory(res.data[0].id);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+    function getSubCategory(main_id) {
+        sub_categorys.innerHTML = "";
+        axios.get(`ajax/category.php?action=select&table=sub_category&column=*&condition=WHERE main_id = ${main_id}`)
+            .then(res => {
+
+                res.data.forEach(item => {
+                    sub_categorys.innerHTML += `<option value="${item.id}">${item.name}</option>`;
+                });
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
 </script>
