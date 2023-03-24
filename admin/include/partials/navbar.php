@@ -24,6 +24,36 @@
                 </li>
 
                 <li class="nav-item">
+
+                    <!-- parent pages-->
+                    <div class="nav-item-wrapper">
+                        <a class="nav-link label-1" href="apps/chat.html" asd="index" role="button" data-bs-toggle="" aria-expanded="false">
+                            <div class="d-flex align-items-center"><span class="nav-link-icon"><span data-feather="message-square"></span></span><span class="nav-link-text-wrapper"><span class="nav-link-text">Orders</span></span></div>
+                        </a>
+                    </div>
+
+                    <!-- parent pages-->
+                    <div class="nav-item-wrapper">
+                        <a class="nav-link dropdown-indicator label-1" href="#pricing" asd="index" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="pricing">
+                            <div class="d-flex align-items-center">
+                                <div class="dropdown-indicator-icon"><span class="fas fa-caret-right"></span></div><span class="nav-link-icon"><span data-feather="tag"></span></span><span class="nav-link-text">Customers</span>
+                            </div>
+                        </a>
+                        <div class="parent-wrapper label-1">
+                            <ul class="nav collapse parent" data-bs-parent="#navbarVerticalCollapse" id="pricing">
+                                <li class="collapsed-nav-item-title d-none">Customers</li>
+                                <li class="nav-item"><a class="nav-link" href="pages/pages/pricing/pricing-column.html" asd="index" data-bs-toggle="" aria-expanded="false">
+                                        <div class="d-flex align-items-center"><span class="nav-link-text">Pricing column</span></div>
+                                    </a><!-- more inner pages-->
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="pages/pages/pricing/pricing-grid.html" asd="index" data-bs-toggle="" aria-expanded="false">
+                                        <div class="d-flex align-items-center"><span class="nav-link-text">Pricing grid</span></div>
+                                    </a><!-- more inner pages-->
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
                     <!-- parent pages-->
                     <div class="nav-item-wrapper"><a class="nav-link dropdown-indicator label-1" href="#email" asd="index" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="email">
                             <div class="d-flex align-items-center">
@@ -46,6 +76,7 @@
                             </ul>
                         </div>
                     </div>
+
                     <!-- parent pages-->
                     <div class="nav-item-wrapper">
                         <a class="nav-link dropdown-indicator label-1" href="#project-management" asd="index" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="project-management">
@@ -73,68 +104,60 @@
                     
                     <!-- parent pages-->
                     <div class="nav-item-wrapper">
-                        <a class="nav-link label-1" href="apps/chat.html" asd="index" role="button" data-bs-toggle="" aria-expanded="false">
-                            <div class="d-flex align-items-center"><span class="nav-link-icon"><span data-feather="message-square"></span></span><span class="nav-link-text-wrapper"><span class="nav-link-text">Chat</span></span></div>
-                        </a>
-                    </div>
-                    
-                    <!-- parent pages-->
-                    <div class="nav-item-wrapper">
                         <a class="nav-link dropdown-indicator label-1" href="#events" asd="index" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
                             <div class="d-flex align-items-center">
-                                <div class="dropdown-indicator-icon"><span class="fas fa-caret-right"></span></div><span class="nav-link-icon"><span data-feather="bookmark"></span></span><span class="nav-link-text">Events</span>
+                                <div class="dropdown-indicator-icon"><span class="fas fa-caret-right"></span></div><span class="nav-link-icon"><span data-feather="bookmark"></span></span><span class="nav-link-text">Slideshows</span>
                             </div>
                         </a>
                         <div class="parent-wrapper label-1">
                             <ul class="nav collapse parent" data-bs-parent="#navbarVerticalCollapse" id="events">
-                                <li class="collapsed-nav-item-title d-none">Events</li>
+                                <li class="collapsed-nav-item-title d-none">Slideshows</li>
                                 <li class="nav-item"><a class="nav-link" href="apps/events/create-an-event.html" asd="index" data-bs-toggle="" aria-expanded="false">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text">Create an event</span>
+                                        <div class="d-flex align-items-center"><span class="nav-link-text">Add Slideshow</span>
                                         </div>
                                     </a><!-- more inner pages-->
                                 </li>
                                 <li class="nav-item"><a class="nav-link" href="apps/events/event-detail.html" asd="index" data-bs-toggle="" aria-expanded="false">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text">Event detail</span></div>
+                                        <div class="d-flex align-items-center"><span class="nav-link-text">Slideshow</span></div>
                                     </a><!-- more inner pages-->
                                 </li>
                             </ul>
                         </div>
-                    </div><!-- parent pages-->
+                    </div>
+
+                    <!-- parent pages-->
                     <div class="nav-item-wrapper"><a class="nav-link dropdown-indicator label-1" href="#social" asd="index" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="social">
                             <div class="d-flex align-items-center">
-                                <div class="dropdown-indicator-icon"><span class="fas fa-caret-right"></span></div><span class="nav-link-icon"><span data-feather="share-2"></span></span><span class="nav-link-text">Social</span>
+                                <div class="dropdown-indicator-icon"><span class="fas fa-caret-right"></span></div><span class="nav-link-icon"><span data-feather="share-2"></span></span><span class="nav-link-text">Site Setting</span>
                             </div>
                         </a>
                         <div class="parent-wrapper label-1">
                             <ul class="nav collapse parent" data-bs-parent="#navbarVerticalCollapse" id="social">
-                                <li class="collapsed-nav-item-title d-none">Social</li>
+                                <li class="collapsed-nav-item-title d-none">Site Setting</li>
                                 <li class="nav-item"><a class="nav-link" href="apps/social/profile.html" asd="index" data-bs-toggle="" aria-expanded="false">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text">Profile</span></div>
+                                        <div class="d-flex align-items-center"><span class="nav-link-text">Site Profile</span></div>
                                     </a><!-- more inner pages-->
                                 </li>
                                 <li class="nav-item"><a class="nav-link" href="apps/social/settings.html" asd="index" data-bs-toggle="" aria-expanded="false">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text">Settings</span></div>
+                                        <div class="d-flex align-items-center"><span class="nav-link-text">Footer</span></div>
                                     </a><!-- more inner pages-->
                                 </li>
                             </ul>
                         </div>
-                    </div><!-- parent pages-->
-                    <div class="nav-item-wrapper"><a class="nav-link label-1" href="apps/calendar.html" asd="index" role="button" data-bs-toggle="" aria-expanded="false">
+                    </div>
+                    <!-- parent pages-->
+                    <!-- <div class="nav-item-wrapper">
+                        <a class="nav-link label-1" href="apps/calendar.html" asd="index" role="button" data-bs-toggle="" aria-expanded="false">
                             <div class="d-flex align-items-center"><span class="nav-link-icon"><span data-feather="calendar"></span></span><span class="nav-link-text-wrapper"><span class="nav-link-text">Calendar</span></span></div>
-                        </a></div>
+                        </a>
+                    </div> -->
                 </li>
 
                 <li class="nav-item">
-                    <!-- label-->
-                    <p class="navbar-vertical-label">Pages</p>
-                    <hr class="navbar-vertical-line" /><!-- parent pages-->
-                    <div class="nav-item-wrapper"><a class="nav-link label-1" href="pages/starter.html" asd="index" role="button" data-bs-toggle="" aria-expanded="false">
-                            <div class="d-flex align-items-center"><span class="nav-link-icon"><span data-feather="compass"></span></span><span class="nav-link-text-wrapper"><span class="nav-link-text">Starter</span></span></div>
-                        </a></div><!-- parent pages-->
-                    <div class="nav-item-wrapper"><a class="nav-link label-1" href="pages/pages/faq.html" asd="index" role="button" data-bs-toggle="" aria-expanded="false">
-                            <div class="d-flex align-items-center"><span class="nav-link-icon"><span data-feather="help-circle"></span></span><span class="nav-link-text-wrapper"><span class="nav-link-text">Faq</span></span></div>
-                        </a></div><!-- parent pages-->
-                    <div class="nav-item-wrapper"><a class="nav-link dropdown-indicator label-1" href="#pricing" asd="index" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="pricing">
+                        
+                    <!-- parent pages-->
+                    <!-- <div class="nav-item-wrapper">
+                        <a class="nav-link dropdown-indicator label-1" href="#pricing" asd="index" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="pricing">
                             <div class="d-flex align-items-center">
                                 <div class="dropdown-indicator-icon"><span class="fas fa-caret-right"></span></div><span class="nav-link-icon"><span data-feather="tag"></span></span><span class="nav-link-text">Pricing</span>
                             </div>
@@ -144,15 +167,16 @@
                                 <li class="collapsed-nav-item-title d-none">Pricing</li>
                                 <li class="nav-item"><a class="nav-link" href="pages/pages/pricing/pricing-column.html" asd="index" data-bs-toggle="" aria-expanded="false">
                                         <div class="d-flex align-items-center"><span class="nav-link-text">Pricing column</span></div>
-                                    </a><!-- more inner pages-->
+                                    </a>
                                 </li>
                                 <li class="nav-item"><a class="nav-link" href="pages/pages/pricing/pricing-grid.html" asd="index" data-bs-toggle="" aria-expanded="false">
                                         <div class="d-flex align-items-center"><span class="nav-link-text">Pricing grid</span></div>
-                                    </a><!-- more inner pages-->
+                                    </a>
                                 </li>
                             </ul>
                         </div>
-                    </div><!-- parent pages-->
+                    </div> -->
+                    <!-- parent pages-->
                     <div class="nav-item-wrapper"><a class="nav-link label-1" href="pages/pages/notifications.html" asd="index" role="button" data-bs-toggle="" aria-expanded="false">
                             <div class="d-flex align-items-center"><span class="nav-link-icon"><span data-feather="bell"></span></span><span class="nav-link-text-wrapper"><span class="nav-link-text">Notifications</span></span></div>
                         </a></div><!-- parent pages-->
