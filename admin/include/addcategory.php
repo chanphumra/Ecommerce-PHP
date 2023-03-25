@@ -5,7 +5,7 @@
                 <h2 class="mb-2">Add a category</h2>
                 <h5 class="text-700 fw-semi-bold">Orders placed across your store</h5>
             </div>
-            <div class="col-auto"><button class="btn btn-primary mb-2 mb-sm-0 btnSubmit" type="submit">Publish category</button></div>
+            <div class="col-auto"><button class="btn btn-primary mb-2 mb-sm-0 btnSubmit">Publish category</button></div>
         </div>
         <div class="row g-5">
             <div class="col-12 col-xl-8">
@@ -120,20 +120,20 @@
     let main = [],
         main_categorys = document.querySelector('.maincategory');
 
-    function getMainCategory () {
+    function getMainCategory() {
         main = [];
         main_categorys.innerHTML = "";
         axios.get('ajax/category.php?action=select&table=main_category&column=*')
-        .then(res => {
-            res.data.forEach(item => {
-                main_categorys.innerHTML += `<option value="${item.id}">${item.name}</option>`;
-                main.push(item.name);
+            .then(res => {
+                res.data.forEach(item => {
+                    main_categorys.innerHTML += `<option value="${item.id}">${item.name}</option>`;
+                    main.push(item.name);
+                });
+            })
+            .catch(error => {
+                console.log(error);
             });
-        })
-        .catch(error => {
-            console.log(error);
-        });
-    } 
+    }
     getMainCategory();
 
     /*---- insert categoty ----*/
@@ -150,16 +150,21 @@
 
         /*---- check condition ----*/
         if (name === "" || description === "") {
-            alert("Please check information again");
+            Swal.fire({
+                icon: 'error',
+                title: 'Your work has been saved',
+                showConfirmButton: false,
+                timer: 1000
+            });
             return;
         }
-        
+
         if (files == null) {
             alert("images are require");
             return;
         }
 
-        if(!mainCheck.checked && main.length == 0){
+        if (!mainCheck.checked && main.length == 0) {
             alert('no main category');
             return;
         }

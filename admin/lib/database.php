@@ -62,7 +62,10 @@ class Database {
         $sql = "UPDATE $table SET ";
         for ($i=0; $i < count($fields); $i++) 
         { 
-            $sql .= "$fields[$i] = $values[$i]" . ($i < count($fields) - 1) ? "," : "";
+            if($i < count($fields) - 1)
+                $sql .= "$fields[$i] = $values[$i]" . ",";
+            else
+                $sql .= "$fields[$i] = $values[$i] "; 
         }
         $sql .= $condition;
         $stmsql = Database::connect()->prepare($sql);

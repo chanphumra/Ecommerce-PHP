@@ -1,12 +1,5 @@
 <section class="pt-5 pb-9">
     <div class="container-small cart">
-        <nav class="mb-2" aria-label="breadcrumb">
-            <ol class="breadcrumb mb-0">
-                <li class="breadcrumb-item"><a href="#!">Page 1</a></li>
-                <li class="breadcrumb-item"><a href="#!">Page 2</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Default</li>
-            </ol>
-        </nav>
         <h2 class="mb-6">Cart</h2>
         <div class="row g-5">
             <div class="col-12 col-lg-8">
@@ -114,7 +107,8 @@
                         <div class="d-flex justify-content-between border-y border-dashed py-3 mb-4">
                             <h4 class="mb-0">Total :</h4>
                             <h4 class="mb-">$695.20</h4>
-                        </div><button class="btn btn-primary w-100">Proceed to check out<span class="fas fa-chevron-right ms-1 fs--2"></span></button>
+                        </div>
+                        <button class="btn btn-primary w-100">Proceed to check out<span class="fas fa-chevron-right ms-1 fs--2"></span></button>
                     </div>
                 </div>
             </div>

@@ -6,9 +6,7 @@
 ?>
 
 <?php include "include/partials/head.php" ?>
-<!-- ===============================================-->
-<!--    Main Content-->
-<!-- ===============================================-->
+
 <main class="main" id="top">
     <div class="container-fluid px-0" data-layout="container">
         <?php include_once "include/partials/navbar.php" ?>
@@ -17,9 +15,7 @@
 
         <?php include_once "include/$include.php" ?>
     </div>
-</main><!-- ===============================================-->
-<!--    End of Main Content-->
-<!-- ===============================================-->
+</main>
 
 <?php 
         include_once "include/partials/footer.php"; 
