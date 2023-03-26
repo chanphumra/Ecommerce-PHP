@@ -159,7 +159,7 @@
     const bestOffer = document.querySelector('.best-offer');
 
     //get best seller product
-    getHomepageProduct();
+   
     const getHomepageProduct = () => {
         newArrival.innerHTML = "";
         axios.get('../admin/ajax/product.php?action=select&table=product&column=*')
