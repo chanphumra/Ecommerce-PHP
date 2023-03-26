@@ -81,8 +81,8 @@ $result = Database::select($table, $column, $clause, $condition);
                                             </div>
                                         </div>
                                         <div class="font-sans-serif btn-reveal-trigger position-static"><button class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs--2" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"><span class="fas fa-ellipsis-h fs--2"></span></button>
-                                            <div class="dropdown-menu dropdown-menu-end py-2"><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
-                                                <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Remove</a>
+                                            <div class="dropdown-menu dropdown-menu-end py-2"><a class="dropdown-item" href="#!">View</a>
+                                                <div class="dropdown-divider"></div><a onclick="deleteProduct(<?= $item['id'] ?>)" class="dropdown-item text-danger">Remove</a>
                                             </div>
                                         </div>
                                     </td>
@@ -114,6 +114,10 @@ $result = Database::select($table, $column, $clause, $condition);
     </footer>
 
     <script>
+
+        
+
+
         function deleteProduct(id) {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
@@ -125,7 +129,7 @@ $result = Database::select($table, $column, $clause, $condition);
 
             swalWithBootstrapButtons.fire({
                 title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                text: "You want to delete this product!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Yes, delete it!',
@@ -133,20 +137,24 @@ $result = Database::select($table, $column, $clause, $condition);
                 reverseButtons: true
             }).then((result) => {
                 if (result.isConfirmed) {
-                    swalWithBootstrapButtons.fire(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                    )
-                } else if (
-                    /* Read more about handling dismissals below */
-                    result.dismiss === Swal.DismissReason.cancel
-                ) {
-                    swalWithBootstrapButtons.fire(
-                        'Cancelled',
-                        'Your imaginary file is safe :)',
-                        'error'
-                    )
+                    axios.delete('ajax/product.php?action=delete&p_id=' + id).then(res => {
+                        const data = res.data;
+                        console.log(res);
+                        if (res.data.success) {
+                            swalWithBootstrapButtons.fire(
+                                'Deleted!',
+                                'Product has been deleted.',
+                                'success',
+                            )
+                            window.location.href = "index.php?page_name=products"
+                        } else {
+                            swalWithBootstrapButtons.fire(
+                                'Error!',
+                                "Somwthing wrong!",
+                                'error',
+                            )
+                        }
+                    });
                 }
             })
         }
