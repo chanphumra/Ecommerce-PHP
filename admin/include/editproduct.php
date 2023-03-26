@@ -195,12 +195,14 @@ $p_id = $_GET['p_id'] ?? 0;
             `;
             subId.value = data[0].sub_id;
             mainId.value = data[0].main_id;
+            
+            getMainCategory();
+            getSubCategory(data[0].main_id);
         })
         .catch(error => {
             console.log(error);
         });
 
-    getMainCategory();
     main_categorys.onchange = (e) => {
         getSubCategory(main_categorys.value);
     }
@@ -278,7 +280,6 @@ $p_id = $_GET['p_id'] ?? 0;
                 res.data.forEach(item => {
                     main_categorys.innerHTML += `<option ${item.id == mainId.value ? "selected": ""} value="${item.id}">${item.name}</option>`;
                 });
-                getSubCategory(mainId.value);
             })
             .catch(error => {
                 console.log(error);

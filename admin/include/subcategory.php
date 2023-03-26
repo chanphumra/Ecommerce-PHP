@@ -1,8 +1,13 @@
+<?php
+    $main_id = $_GET['main_id'] ?? 0;
+    $main_name = $_GET['main_name'] ?? 'No category';
+?>
+
 <div class="content">
     <div class="mb-9">
         <div class="row g-3 mb-4">
             <div class="col-auto">
-                <h2 class="mb-0">Main Categorys</h2>
+                <h2 class="mb-0">Sub Categorys <span class="text-sm text-primary"><?=$main_name?></span></h2>
             </div>
         </div>
         <div id="products" data-list='{"valueNames":["product","price","category","tags","vendor","time"],"page":10,"pagination":true}'>
@@ -35,7 +40,7 @@
                                 <th class="sort text-end align-middle pe-0 ps-4" scope="col"></th>
                             </tr>
                         </thead>
-                        <tbody class="list main_category" id="products-table-body"></tbody>
+                        <tbody class="list sub_category" id="products-table-body"></tbody>
                     </table>
                 </div>
                 <div class="row align-items-center justify-content-between py-2 pe-0 fs--1">
@@ -61,15 +66,16 @@
     </footer>
 
     <script>
-        const main_category = document.querySelector('.main_category');
-        getMainCategory();
+        const sub_category = document.querySelector('.sub_category');
+
+        getSubCatefory();
         /*====== function ======*/
-        function getMainCategory() {
-            main_category.innerHTML = "";
-            axios.get('ajax/category.php?action=select&table=main_category&column=*').then(res => {
+        function getSubCatefory() {
+            sub_category.innerHTML = "";
+            axios.get('ajax/category.php?action=select&table=sub_category&column=*&condition=WHERE main_id = ' + <?=$main_id?>).then(res => {
                 console.log(res);
                 res.data.forEach(item => {
-                    main_category.innerHTML += `
+                    sub_category.innerHTML += `
                         <tr class="hover-actions-trigger btn-reveal-trigger position-static">
                             <td class="fs--1 align-middle">
                                 <div class="form-check mb-0 fs-0"><input class="form-check-input" type="checkbox" /></div>
@@ -79,7 +85,7 @@
                                     <img src="uploads/category/${item.image}" alt="" width="55" height="55" />
                                 </div>
                             </td>
-                            <td class="product align-middle ps-4"><a href="index.php?page_name=subcategory&main_id=${item.id}&main_name=${item.name}" class="fw-semi-bold line-clamp-3 mb-0">${item.name}</a></td>
+                            <td class="product align-middle ps-4"><a class="fw-semi-bold line-clamp-3 mb-0" href="#!">${item.name}</a></td>
                             <td class="price align-middle white-space-nowrap fw-bold text-700 ps-4">${item.description}</td>
                             <td class="time align-middle white-space-nowrap text-700 ps-4">${new Date(Date.parse(item.created_at.replace(/-/g, '/'))).toDateString()}</td>
                             <td class="align-middle white-space-nowrap text-end pe-0 ps-4">
@@ -88,10 +94,10 @@
                                         <button class="btn btn-sm btn-phoenix-secondary me-1 fs--2">
                                             <span class="fas fa-check"></span>
                                         </button>
-                                        <a href="index.php?page_name=editmaincategory&id=${item.id}" class="btn btn-sm btn-phoenix-secondary me-1 fs--2">
+                                        <a href="index.php?page_name=editsubcategory&id=${item.id}" class="btn btn-sm btn-phoenix-secondary me-1 fs--2">
                                             <span class="fas fa-pen"></span>
                                         </a>
-                                        <button onclick="deleteMainCategory(${item.id})" class="btn btn-sm btn-phoenix-secondary fs--2">
+                                        <button onclick="deleteSubCategory(${item.id})" class="btn btn-sm btn-phoenix-secondary fs--2">
                                             <span class="fas fa-trash"></span>
                                         </button>
                                     </div>
@@ -111,7 +117,7 @@
             })
         }
 
-        function deleteMainCategory(id) {
+        function deleteSubCategory(id) {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'btn btn-primary ms-2',
@@ -131,10 +137,10 @@
             }).then((result) => {
                 if (result.isConfirmed) {
 
-                    axios.get('ajax/category.php?action=select&table=sub_category&column=COUNT(main_id) AS count&condition=WHERE main_id = ' + id).then(res => {
+                    axios.get('ajax/category.php?action=select&table=product&column=COUNT(sub_id) AS count&condition=WHERE sub_id = ' + id).then(res => {
                         console.log(res);
                         if (res.data[0].count == 0) {
-                            axios.delete('ajax/category.php?action=delete&table=main_category&id=' + id).then(res => {
+                            axios.delete('ajax/category.php?action=delete&table=sub_category&id=' + id).then(res => {
                                 if (res.data.success) {
                                     swalWithBootstrapButtons.fire(
                                         'Deleted!',
@@ -155,7 +161,7 @@
                         } else {
                             swalWithBootstrapButtons.fire(
                                 'Error!',
-                                "This main category not empty!",
+                                "This sub category not empty!",
                                 'error',
                             )
                         }

@@ -62,7 +62,7 @@
                             </div>
                         </a>
                         <div class="parent-wrapper label-1">
-                            <ul class="nav collapse parent <?=($page_name=="addcategory" || $page_name=="category")?"show":"" ?>" data-bs-parent="#navbarVerticalCollapse" id="email">
+                            <ul class="nav collapse parent <?=($page_name=="addcategory" || $page_name=="category" || $page_name == "subcategory" || $page_name == "editmaincategory" || $page_name == "editsubcategory")?"show":"" ?>" data-bs-parent="#navbarVerticalCollapse" id="email">
                                 <li class="collapsed-nav-item-title d-none">Category</li>
                                 <li class="nav-item">
                                     <a class="nav-link <?=$page_name=="addcategory"?"active":"" ?>" href="index.php?page_name=addcategory" asd="index" data-bs-toggle="" aria-expanded="false">
@@ -70,7 +70,7 @@
                                     </a><!-- more inner pages-->
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link <?=$page_name=="category"?"active":"" ?>" href="index.php?page_name=category" asd="index" data-bs-toggle="" aria-expanded="false">
+                                    <a class="nav-link <?=($page_name=="category" || $page_name == "subcategory" || $page_name == "editmaincategory" || $page_name == "editsubcategory")?"active":"" ?>" href="index.php?page_name=category" asd="index" data-bs-toggle="" aria-expanded="false">
                                         <div class="d-flex align-items-center"><span class="nav-link-text">Category</span></div>
                                     </a><!-- more inner pages-->
                                 </li>

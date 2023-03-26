@@ -81,12 +81,24 @@ switch ($_GET['action']) {
             /*==== upload new image =====*/
             $image = time().rand().$_FILES['image']['name'];
             move_uploaded_file($_FILES['image']['tmp_name'], "../uploads/category/". $image);
-            $fields = array("name", "description", "image");
-            $values = array($name, $description, $image);
+            if($table == "main_category"){
+                $fields = array("name", "description", "image");
+                $values = array($name, $description, $image);
+            }
+            else{
+                $fields = array("main_id", "name", "description", "image");
+                $values = array($_POST['main_id'], $name, $description, $image);
+            }
         }
         else{
-            $fields = array("name", "description");
-            $values = array($name, $description);
+            if($table == "main_category"){
+                $fields = array("name", "description");
+                $values = array($name, $description);
+            }
+            else{
+                $fields = array("main_id", "name", "description");
+                $values = array($_POST['main_id'], $name, $description);
+            }
         }
         /*==== update database =====*/
         Database::update($table, $fields, $values, "WHERE id = ". $id);
