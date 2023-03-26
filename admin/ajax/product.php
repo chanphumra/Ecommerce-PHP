@@ -82,4 +82,18 @@ switch ($_GET['action']) {
         echo json_encode(array("success"=>true));
 
         break;
+
+        case 'delete':
+            $p_id = $_GET['p_id'];
+            /*==== delete old image =====*/
+            $resultImage = Database::select("product", "image1, image2, image3", "", "WHERE id = $p_id");
+            foreach ($resultImage as $oldImage) {
+                unlink('../uploads/product/'. $oldImage['image1']);
+                unlink('../uploads/product/'. $oldImage['image2']);
+                unlink('../uploads/product/'. $oldImage['image3']);
+            }
+            /*==== delete from database =====*/
+            Database::delete("product", "WHERE id = $p_id");
+            echo json_encode(array("success" => true));
+            break;
 }
