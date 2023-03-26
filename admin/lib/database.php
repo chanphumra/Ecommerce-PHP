@@ -36,11 +36,11 @@ class Database {
         return $pdo->lastInsertId();
     }
 
-    public static function select ($table, $column, $condition, $clause)
+    public static function select ($table, $column, $clause, $condition)
     {
         if(empty($table)) return;
 
-        $sql = "SELECT $column FROM $table $condition $clause";
+        $sql = "SELECT $column FROM $table $clause $condition";
         $stmsql = Database::connect() -> query($sql);
         return $stmsql->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -63,9 +63,9 @@ class Database {
         for ($i=0; $i < count($fields); $i++) 
         { 
             if($i < count($fields) - 1)
-                $sql .= "$fields[$i] = $values[$i]" . ",";
+                $sql .= "$fields[$i] = '$values[$i]'" . ",";
             else
-                $sql .= "$fields[$i] = $values[$i] "; 
+                $sql .= "$fields[$i] = '$values[$i]' "; 
         }
         $sql .= $condition;
         $stmsql = Database::connect()->prepare($sql);

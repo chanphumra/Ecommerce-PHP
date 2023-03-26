@@ -1,11 +1,18 @@
+<?php
+$p_id = $_GET['p_id'] ?? 0;
+?>
+
 <div class="content">
     <form class="mb-9">
+        <input type="text" id="mainId" class="d-none">
+        <input type="text" id="subId" class="d-none">
+        <input type="text" name="pId" value="<?=$p_id?>" class="d-none">
+        <input type="text" value="<?=$p_id?>" class="d-none">
         <div class="row g-3 flex-between-end mb-5">
             <div class="col-auto">
-                <h2 class="mb-2">Add a product</h2>
-                <h5 class="text-700 fw-semi-bold">Orders placed across your store</h5>
+                <h2 class="mb-2">Edit a product</h2>
             </div>
-            <div class="col-auto"><button class="btn btn-primary mb-2 mb-sm-0" id="btnAdd" type="submit">Publish product</button></div>
+            <div class="col-auto"><button class="btn btn-primary mb-2 mb-sm-0" id="btnEdit" type="submit">Edit product</button></div>
         </div>
         <h4 class="mb-3">Product Title</h4>
         <div class="row g-5">
@@ -17,7 +24,7 @@
                 <h4 class="mb-3">Display images</h4>
                 <div class="d-flex flex-wrap gap-2 mb-3 review-images"></div>
                 <div class="drag-area form-control mb-5 d-flex flex-column cursor-pointer justify-content-center align-items-center" style="height: 200px;">
-                    <input type="file" multiple class="w-0 h-0 d-none images">
+                    <input type="file" id="fileimage" multiple class="w-0 h-0 d-none images">
                     <div class="dz-message text-600">Drag your photo here <span class="text-800">or </span><button class="btn btn-link p-0" type="button">Browse from device </button><br /></div>
                     <div><img class="mt-3 me-2" src="assets/img/icons/image-icon.png" width="40" alt="" /></div>
                 </div>
@@ -90,6 +97,21 @@
     </footer>
 </div>
 <script>
+    const main_categorys = document.querySelector('.main-category');
+    const sub_categorys = document.querySelector('.sub-category');
+    const btnEdit = document.querySelector('#btnEdit');
+    const form = document.querySelector('form');
+
+    const name = document.querySelector('#name');
+    const description = document.querySelector('#description');
+    const price = document.querySelector('#price');
+    const sale_price = document.querySelector('#sale_price');
+    const discount = document.querySelector('#discount');
+    const qty = document.querySelector('#qty');
+    const subId = document.querySelector('#subId');
+    const mainId = document.querySelector('#mainId');
+    const proId = document.querySelector('#proId');
+
     /*---- selected image ----*/
     let files = [],
         dragArea = document.querySelector('.drag-area'),
@@ -101,6 +123,7 @@
     }
 
     function showImages() {
+        container.innerHTML = "";
         let images = files.reduce(function(prev, file, index) {
             return (prev += `<div class="form-control rounded position-relative p-1" style="width: 100px; height: 100px;">
                     <img src="${URL.createObjectURL(file)}" style="width: 100%; height: 100%; object-fit: cover;">
@@ -142,54 +165,41 @@
         showImages();
     });
 
-    // បើយើងចង់insert imageតែមួយប៉ុណ្ណោះ​ សូមchange code line 94 ដល់ 143​ ដោយcodeខាងក្រោម
-    /* let files = null,
-        dragArea = document.querySelector('.drag-area'),
-        input = document.querySelector('.drag-area input'),
-        container = document.querySelector('.review-images');
+    const table = "product";
+    const column = "*, pro.id, pro.name, pro.description";
+    const clause = "AS pro INNER JOIN sub_category AS sub ON sub.id = pro.sub_id INNER JOIN main_category AS main ON main.id = sub.main_id";
+    const condition = "WHERE pro.id = " + <?=$p_id ?>;
 
-    dragArea.onclick = () => {
-        input.click()
-    }
+    console.log(<?=$p_id ?>);
 
-    function showImages(file) {
-        container.innerHTML = `<div class="form-control rounded position-relative p-1" style="width: 100px; height: 100px;">
-                    <img src="${URL.createObjectURL(file)}" style="width: 100%; height: 100%; object-fit: cover;">
-                    <span class="cursor-pointer position-absolute z-100" onclick="delImage()" style=" top: 1px; right: 5px; font-size: 16px;">&times;</span>
-                </div>`;
-    }
+    axios.get(`ajax/product.php?action=select&table=${table}&column=${column}&clause=${clause}&condition=${condition}`)
+        .then(res => {
+            console.log(res);
+            const data = res.data;
+            name.value = data[0].name;
+            description.value = data[0].description;
+            price.value = data[0].price;
+            sale_price.value = data[0].sale_price;
+            discount.value = data[0].discount;
+            qty.value = data[0].qty;
+            container.innerHTML += `
+                <div class="form-control rounded position-relative p-1" style="width: 100px; height: 100px;">
+                    <img src="uploads/product/${data[0].image1}" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="form-control rounded position-relative p-1" style="width: 100px; height: 100px;">
+                    <img src="uploads/product/${data[0].image2}" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="form-control rounded position-relative p-1" style="width: 100px; height: 100px;">
+                    <img src="uploads/product/${data[0].image3}" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+            `;
+            subId.value = data[0].sub_id;
+            mainId.value = data[0].main_id;
+        })
+        .catch(error => {
+            console.log(error);
+        });
 
-    function delImage() {
-        input.files = null;
-        files = null;
-        container.innerHTML = "";
-    }
-
-    input.addEventListener('change', () => {
-        let file = input.files;
-        files = file[0];
-        showImages(file[0]);
-        input.files = null;
-    })
-
-    dragArea.addEventListener('dragover', e => {
-        e.preventDefault();
-    })
-
-    dragArea.addEventListener('drop', e => {
-        e.preventDefault();
-        let file = e.dataTransfer.files;
-        files = file[0];
-        showImages(file[0]);
-        input.files = null;
-    }); */
-
-    const main_categorys = document.querySelector('.main-category');
-    const sub_categorys = document.querySelector('.sub-category');
-    const btnAdd = document.querySelector('#btnAdd');
-    const form = document.querySelector('form');
-
-    /*---- when pade start we get all category ----*/
     getMainCategory();
     main_categorys.onchange = (e) => {
         getSubCategory(main_categorys.value);
@@ -200,87 +210,70 @@
         e.preventDefault();
     }
 
-    btnAdd.onclick = () => {
-        const name = document.querySelector('#name').value;
-        const description = document.querySelector('#description').value;
-        const price = document.querySelector('#price').value;
-        const sale_price = document.querySelector('#sale_price').value;
-        const discount = document.querySelector('#discount').value;
-        const qty = document.querySelector('#qty').value;
+    btnEdit.onclick = () => {
 
         /*----- check condition -----*/
         if (name == "" || description == "" || price == "" || sale_price == "" || qty == "") {
-            return Swal.fire({
-                icon: 'error',
-                title: 'Please check information again',
-                showConfirmButton: false,
-                timer: 1000
-            });
+            alert(name + "/" + description + "/" + price + "/" + sale_price + "/" + qty);
+            return;
         }
 
         if (sub_categorys.value == "") {
-            return Swal.fire({
-                icon: 'error',
-                title: 'No category selected',
-                showConfirmButton: false,
-                timer: 1000
-            });
+            return;
         }
 
-        if (files.length < 3) {
-            return Swal.fire({
-                icon: 'error',
-                title: '3 images are require',
-                showConfirmButton: false,
-                timer: 1000
-            });
+        if (files.length != 0 && files.length < 3) {
+            return;
         }
 
         const formData = new FormData(form);
-        formData.append('image1', files[0]);
-        formData.append('image2', files[1]);
-        formData.append('image3', files[2]);
-        // បើinsert តែមួយរូបភាពកុំប្រើ formData.append 3 ខាងលើ យើងប្រើអាខាងក្រោម
-        /* formdata.append("image", files); */
-        axios.post('ajax/product.php?action=insert', formData, {
+
+        if (files.length > 0) {
+            formData.append('image1', files[0]);
+            formData.append('image2', files[1]);
+            formData.append('image3', files[2]);
+        }
+
+        axios.post("ajax/product.php?action=update&pId=<?=$p_id?>", formData, {
             header: {
                 "content-type": "multipart/form-data"
             }
         }).then(res => {
+            const data = res.data;
             console.log(res);
             if (res.data.success) {
                 Swal.fire({
                     icon: 'success',
-                    title: 'One Product has been saved',
+                    title: 'Product has been updated',
                     showConfirmButton: false,
                     timer: 1000
                 }).then(res => {
                     window.location.replace('index.php?page_name=products');
                 })
-            };
+            }
+        }).catch(e => {
+            console.log(e);
         });
     }
 
-
-
     /*---- functions----*/
-    function getMainCategory() {
+    async function getMainCategory() {
         main_categorys.innerHTML = "";
-        axios.get('ajax/category.php?action=select&table=main_category&column=*')
+        await axios.get('ajax/category.php?action=select&table=main_category&column=*')
             .then(res => {
                 res.data.forEach(item => {
-                    main_categorys.innerHTML += `<option value="${item.id}">${item.name}</option>`;
+                    main_categorys.innerHTML += `<option ${item.id == mainId.value ? "selected": ""} value="${item.id}">${item.name}</option>`;
                 });
-                getSubCategory(res.data[0].id);
+                getSubCategory(mainId.value);
             })
             .catch(error => {
                 console.log(error);
             });
     }
 
-    function getSubCategory(main_id) {
+    async function getSubCategory(main_id) {
         sub_categorys.innerHTML = "";
-        axios.get(`ajax/category.php?action=select&table=sub_category&column=*&condition=WHERE main_id = ${main_id}`)
+        await axios.get(`ajax/category.php?action=select&table=sub_category&column=*&condition=WHERE main_id = ${main_id}`)
             .then(res => {
 
                 res.data.forEach(item => {

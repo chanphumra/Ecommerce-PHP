@@ -86,7 +86,7 @@
                             </div>
                         </a>
                         <div class="parent-wrapper label-1">
-                            <ul class="nav collapse parent <?=($page_name=="addproduct" || $page_name=="products")?"show":"" ?>" data-bs-parent="#navbarVerticalCollapse" id="project-management">
+                            <ul class="nav collapse parent <?=($page_name=="addproduct" || $page_name=="products" || $page_name=="editproduct")?"show":"" ?>" data-bs-parent="#navbarVerticalCollapse" id="project-management">
                                 <li class="collapsed-nav-item-title d-none">Product</li>
                                 <li class="nav-item">
                                     <a class="nav-link <?=$page_name=="addproduct"?"active":"" ?>" href="index.php?page_name=addproduct" asd="index" data-bs-toggle="" aria-expanded="false">
@@ -94,7 +94,7 @@
                                     </a><!-- more inner pages-->
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link <?=$page_name=="products"?"active":"" ?>" href="index.php?page_name=products" asd="index" data-bs-toggle="" aria-expanded="false">
+                                    <a class="nav-link <?=($page_name=="products" || $page_name=="editproduct")?"active":"" ?>" href="index.php?page_name=products" asd="index" data-bs-toggle="" aria-expanded="false">
                                         <div class="d-flex align-items-center"><span class="nav-link-text">Product</span>
                                         </div>
                                     </a><!-- more inner pages-->

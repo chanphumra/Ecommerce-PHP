@@ -60,7 +60,7 @@ switch ($_GET['action']) {
         $condition = $_GET['condition'] ?? "";
         $clause = $_GET['clause'] ?? "";
 
-        $result = Database::select($table, $column, $condition, $clause);
+        $result = Database::select($table, $column, $clause, $condition);
         echo json_encode($result);
         break;
 }
