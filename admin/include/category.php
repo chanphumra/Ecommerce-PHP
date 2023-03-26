@@ -2,7 +2,7 @@
     <div class="mb-9">
         <div class="row g-3 mb-4">
             <div class="col-auto">
-                <h2 class="mb-0">Categorys</h2>
+                <h2 class="mb-0">Main Categorys</h2>
             </div>
         </div>
         <div id="products" data-list='{"valueNames":["product","price","category","tags","vendor","time"],"page":10,"pagination":true}'>
@@ -16,7 +16,7 @@
                         </div>
                     </div>
                     <div class="col-auto">
-                        <a href="index.php?page_name=addproduct"><button class="btn btn-primary"><span class="fas fa-plus me-2"></span>Add category</button></a>
+                        <a href="index.php?page_name=addcategory"><button class="btn btn-primary"><span class="fas fa-plus me-2"></span>Add category</button></a>
                     </div>
                 </div>
             </div>
@@ -35,43 +35,7 @@
                                 <th class="sort text-end align-middle pe-0 ps-4" scope="col"></th>
                             </tr>
                         </thead>
-                        <tbody class="list" id="products-table-body">
-
-                            <tr class="hover-actions-trigger btn-reveal-trigger position-static">
-                                <td class="fs--1 align-middle">
-                                    <div class="form-check mb-0 fs-0"><input class="form-check-input" type="checkbox" /></div>
-                                </td>
-                                <td class="align-middle white-space-nowrap py-0">
-                                    <div class="border rounded-2">
-                                        <img src="../../../assets/img//products/1.png" alt="" width="53" />
-                                    </div>
-                                </td>
-                                <td class="product align-middle ps-4"><a class="fw-semi-bold line-clamp-3 mb-0" href="#!">Fitbit Sense Advanced Smartwatch with Tools for Heart Health, Stress Management &amp; Skin Temperature Trends, Carbon/Graphite, One Size (S &amp; ...</a></td>
-                                <td class="price align-middle white-space-nowrap fw-bold text-700 ps-4">Category description</td>
-                                <td class="time align-middle white-space-nowrap text-700 ps-4">Nov 12, 10:45 PM</td>
-                                <td class="align-middle white-space-nowrap text-end pe-0 ps-4">
-                                    <div class="position-relative">
-                                        <div class="hover-actions">
-                                            <button class="btn btn-sm btn-phoenix-secondary me-1 fs--2">
-                                                <span class="fas fa-check"></span>
-                                            </button>
-                                            <button class="btn btn-sm btn-phoenix-secondary me-1 fs--2">
-                                                <span class="fas fa-pen"></span>
-                                            </button>
-                                            <button class="btn btn-sm btn-phoenix-secondary fs--2">
-                                                <span class="fas fa-trash"></span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="font-sans-serif btn-reveal-trigger position-static"><button class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs--2" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"><span class="fas fa-ellipsis-h fs--2"></span></button>
-                                        <div class="dropdown-menu dropdown-menu-end py-2"><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
-                                            <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Remove</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                        </tbody>
+                        <tbody class="list main_category" id="products-table-body"></tbody>
                     </table>
                 </div>
                 <div class="row align-items-center justify-content-between py-2 pe-0 fs--1">
@@ -95,4 +59,56 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        const main_category = document.querySelector('.main_category');
+        getMainCategory();
+        /*====== function ======*/
+        function getMainCategory() {
+            main_category.innerHTML = "";
+            axios.get('ajax/category.php?action=select&table=main_category&column=*').then(res => {
+                console.log(res);
+                res.data.forEach(item => {
+                    main_category.innerHTML += `
+                        <tr class="hover-actions-trigger btn-reveal-trigger position-static">
+                            <td class="fs--1 align-middle">
+                                <div class="form-check mb-0 fs-0"><input class="form-check-input" type="checkbox" /></div>
+                            </td>
+                            <td class="align-middle white-space-nowrap py-0">
+                                <div class="border rounded-2">
+                                    <img src="uploads/category/${item.image}" alt="" width="55" height="55" />
+                                </div>
+                            </td>
+                            <td class="product align-middle ps-4"><a class="fw-semi-bold line-clamp-3 mb-0" href="#!">${item.name}</a></td>
+                            <td class="price align-middle white-space-nowrap fw-bold text-700 ps-4">${item.description}</td>
+                            <td class="time align-middle white-space-nowrap text-700 ps-4">${new Date(Date.parse(item.created_at.replace(/-/g, '/'))).toDateString()}</td>
+                            <td class="align-middle white-space-nowrap text-end pe-0 ps-4">
+                                <div class="position-relative">
+                                    <div class="hover-actions">
+                                        <button class="btn btn-sm btn-phoenix-secondary me-1 fs--2">
+                                            <span class="fas fa-check"></span>
+                                        </button>
+                                        <a href="index.php?page_name=editmaincategory&id=${item.id}" class="btn btn-sm btn-phoenix-secondary me-1 fs--2">
+                                            <span class="fas fa-pen"></span>
+                                        </a>
+                                        <button class="btn btn-sm btn-phoenix-secondary fs--2">
+                                            <span class="fas fa-trash"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="font-sans-serif btn-reveal-trigger position-static"><button class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs--2" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"><span class="fas fa-ellipsis-h fs--2"></span></button>
+                                    <div class="dropdown-menu dropdown-menu-end py-2"><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
+                                        <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Remove</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                });
+                
+            }).catch(e => {
+                console.log(e);
+            })
+        }
+    </script>
 </div>

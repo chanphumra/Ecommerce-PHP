@@ -66,7 +66,7 @@
                                 <li class="collapsed-nav-item-title d-none">Category</li>
                                 <li class="nav-item">
                                     <a class="nav-link <?=$page_name=="addcategory"?"active":"" ?>" href="index.php?page_name=addcategory" asd="index" data-bs-toggle="" aria-expanded="false">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text">Add a category</span></div>
+                                        <div class="d-flex align-items-center"><span class="nav-link-text">Add category</span></div>
                                     </a><!-- more inner pages-->
                                 </li>
                                 <li class="nav-item">
