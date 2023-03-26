@@ -91,7 +91,7 @@
                                         <a href="index.php?page_name=editmaincategory&id=${item.id}" class="btn btn-sm btn-phoenix-secondary me-1 fs--2">
                                             <span class="fas fa-pen"></span>
                                         </a>
-                                        <button class="btn btn-sm btn-phoenix-secondary fs--2">
+                                        <button onclick="deleteMainCategory(${item.id})" class="btn btn-sm btn-phoenix-secondary fs--2">
                                             <span class="fas fa-trash"></span>
                                         </button>
                                     </div>
@@ -105,9 +105,82 @@
                         </tr>
                     `;
                 });
-                
+
             }).catch(e => {
                 console.log(e);
+            })
+        }
+
+        function deleteMainCategory(id) {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-primary ms-2',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "You want to delete this main category!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    axios.get('ajax/category.php?action=select&table=sub_category&column=COUNT(main_id) AS count&condition=WHERE main_id = ' + id).then(res => {
+                        console.log(res);
+                        if (res.data[0].count == 0) {
+                            axios.delete('ajax/category.php?action=delete&table=main_category&id=' + id).then(res => {
+                                if (res.data.success) {
+                                    swalWithBootstrapButtons.fire(
+                                        'Deleted!',
+                                        'Main category has been deleted.',
+                                        'success',
+                                    )
+                                    window.location.href = "index.php?page_name=category"
+                                } else {
+                                    swalWithBootstrapButtons.fire(
+                                        'Error!',
+                                        "Somwthing wrong!",
+                                        'error',
+                                    )
+                                }
+                            }).catch(err => {
+                                console.log(err);
+                            });
+                        } else {
+                            swalWithBootstrapButtons.fire(
+                                'Error!',
+                                "This main category not empty!",
+                                'error',
+                            )
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                    // axios.delete('ajax/product.php?action=delete&p_id=' + id).then(res => {
+                    //     const data = res.data;
+                    //     console.log(res);
+                    //     if (res.data.success) {
+                    //         swalWithBootstrapButtons.fire(
+                    //             'Deleted!',
+                    //             'Product has been deleted.',
+                    //             'success',
+                    //         )
+                    //         window.location.href = "index.php?page_name=products"
+                    //     } else {
+                    //         swalWithBootstrapButtons.fire(
+                    //             'Error!',
+                    //             "Somwthing wrong!",
+                    //             'error',
+                    //         )
+                    //     }
+                    // });
+                }
             })
         }
     </script>

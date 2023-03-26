@@ -45,7 +45,6 @@
 <script>
     /*---- get data ----*/
     axios.get('ajax/category.php?action=select&table=main_category&column=*&condition=WHERE id = ' + <?=$id?>).then(res => {
-        console.log(res);
         res.data.forEach(item => {
             document.querySelector('#name').value = item.name;
             document.querySelector('#description').value = item.description;
@@ -56,9 +55,6 @@
     }).catch(e => {
         console.log(e);
     });
-
-
-
 
     /*---- selected image ----*/
     let files = null,
@@ -116,34 +112,33 @@
 
         /*---- check condition ----*/
         if (name === "" || description === "") {
-            Swal.fire({
+            return Swal.fire({
                 icon: 'error',
-                title: 'Your work has been saved',
+                title: 'Please check information again',
                 showConfirmButton: false,
                 timer: 1000
             });
-            return;
-        }
-
-        if (files == null) {
-            alert("images are require");
-            return;
-        }
-
-        if (!mainCheck.checked && main.length == 0) {
-            alert('no main category');
-            return;
         }
 
         const formdata = new FormData(form);
-        formdata.append("image", files);
-        axios.post('ajax/category.php?action=insert', formdata, {
+        if(files != null) formdata.append("image", files);
+        axios.post('ajax/category.php?action=update&table=main_category&id=' + <?=$id?>, formdata, {
                 header: {
                     "content-type": "multipart/form-data"
                 }
             })
             .then(res => {
                 console.log(res);
+                if(res.data.success){
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'One Category has been updated',
+                        showConfirmButton: false,
+                        timer: 1000
+                    }).then(res => {
+                        window.location.replace('index.php?page_name=category');
+                    })
+                }
             })
             .catch(error => {
                 console.log(error);

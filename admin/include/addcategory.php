@@ -150,22 +150,31 @@
 
         /*---- check condition ----*/
         if (name === "" || description === "") {
-            Swal.fire({
+            return Swal.fire({
                 icon: 'error',
-                title: 'Your work has been saved',
+                title: 'Please check information again',
+                showConfirmButton: false,
+                timer: 1000
+            });
+        }
+
+        if (files == null) {
+            return Swal.fire({
+                icon: 'error',
+                title: 'Image are require!',
                 showConfirmButton: false,
                 timer: 1000
             });
             return;
         }
 
-        if (files == null) {
-            alert("images are require");
-            return;
-        }
-
         if (!mainCheck.checked && main.length == 0) {
-            alert('no main category');
+            return Swal.fire({
+                icon: 'error',
+                title: 'No main category!',
+                showConfirmButton: false,
+                timer: 1000
+            });
             return;
         }
 
@@ -177,7 +186,16 @@
                 }
             })
             .then(res => {
-                console.log(res);
+                if (res.data.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'One Category has been saved',
+                        showConfirmButton: false,
+                        timer: 1000
+                    }).then(res => {
+                        window.location.replace('index.php?page_name=category');
+                    })
+                }
             })
             .catch(error => {
                 console.log(error);

@@ -115,9 +115,6 @@ $result = Database::select($table, $column, $clause, $condition);
 
     <script>
 
-        
-
-
         function deleteProduct(id) {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {

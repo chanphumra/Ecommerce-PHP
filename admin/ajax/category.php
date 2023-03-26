@@ -22,6 +22,7 @@ switch ($_GET['action']) {
                 echo json_encode($result);
                 return;
             }
+
             // upload image
             $new_name = time().rand().$image_name;
             move_uploaded_file($tmp_name, "../uploads/category/". $new_name);
@@ -63,4 +64,46 @@ switch ($_GET['action']) {
         $result = Database::select($table, $column, $clause, $condition);
         echo json_encode($result);
         break;
+    case 'update':
+        $name = $_POST['name'];
+        $description = $_POST['description'];
+        $table = $_GET['table'];
+        $id = $_GET['id'];
+        $fields = $values = array();
+
+        if(isset($_FILES['image'])){
+            /*==== delete old image =====*/
+            $resultImage = Database::select($table, "image", "", "WHERE id = $id");
+            foreach ($resultImage as $oldImage) {
+                unlink('../uploads/category/'. $oldImage['image']);
+            }
+
+            /*==== upload new image =====*/
+            $image = time().rand().$_FILES['image']['name'];
+            move_uploaded_file($_FILES['image']['tmp_name'], "../uploads/category/". $image);
+            $fields = array("name", "description", "image");
+            $values = array($name, $description, $image);
+        }
+        else{
+            $fields = array("name", "description");
+            $values = array($name, $description);
+        }
+        /*==== update database =====*/
+        Database::update($table, $fields, $values, "WHERE id = ". $id);
+        echo json_encode(array("success"=> true));
+        break;
+        case 'delete':
+            $table = $_GET['table'];
+            $id = $_GET['id'];
+
+            /*==== delete old image =====*/
+            $resultImage = Database::select($table, "image", "", "WHERE id = $id");
+            foreach ($resultImage as $oldImage) {
+                unlink('../uploads/category/'. $oldImage['image']);
+            }
+
+            /*==== delete from database =====*/
+            Database::delete($table, "WHERE id = ". $id);
+            echo json_encode(array("success" => true));
+            break;
 }

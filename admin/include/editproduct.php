@@ -214,16 +214,30 @@ $p_id = $_GET['p_id'] ?? 0;
 
         /*----- check condition -----*/
         if (name == "" || description == "" || price == "" || sale_price == "" || qty == "") {
-            alert(name + "/" + description + "/" + price + "/" + sale_price + "/" + qty);
-            return;
+            return Swal.fire({
+                icon: 'error',
+                title: 'Please check information again',
+                showConfirmButton: false,
+                timer: 1000
+            });
         }
 
         if (sub_categorys.value == "") {
-            return;
+            return Swal.fire({
+                icon: 'error',
+                title: 'No category selected!',
+                showConfirmButton: false,
+                timer: 1000
+            });
         }
 
         if (files.length != 0 && files.length < 3) {
-            return;
+            return Swal.fire({
+                icon: 'error',
+                title: '3 Images are require!',
+                showConfirmButton: false,
+                timer: 1000
+            });
         }
 
         const formData = new FormData(form);
