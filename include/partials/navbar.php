@@ -40,10 +40,7 @@
 </nav>
 <script>
     const category = document.querySelector('.category');
-
-    
     getCategory();
-
     function getCategory(){
         axios.get('admin/ajax/category.php?action=select&table=main_category&column=*').then(res => {
         category.innerHTML = "";
