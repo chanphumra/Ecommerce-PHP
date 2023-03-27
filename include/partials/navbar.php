@@ -42,12 +42,15 @@
     const category = document.querySelector('.category');
 
     
-    getMainCategory();
-    function getMainCategory() {
+    getCategory();
+
+    function getCategory(){
         axios.get('admin/ajax/category.php?action=select&table=main_category&column=*').then(res => {
         category.innerHTML = "";
         const main = res.data;
         main.forEach(itemMain => {
+ 
+            axios.get('admin/ajax/category.php?action=select&table=sub_category&column=*&condition=WHERE main_id = ' + itemMain.id).then(r => {
             category.innerHTML += `
                 <div class="col-12 col-sm-6 col-md-4">
                     <div class="d-flex align-items-center mb-3">
@@ -56,20 +59,19 @@
                     </div>
                     <div class="ms-n2">
             `;
-            axios.get('admin/ajax/category.php?action=select&table=sub_category&column=*&condition=WHERE main_id = ' + itemMain.id).then(r => {
-                const sub = r.data;
-                sub.forEach(itemSub => {
-                    category.innerHTML += `
-                        <a class="text-black d-block mb-1 text-decoration-none hover-bg-100 px-2 py-1 rounded-2" href="#!">${itemSub.name}</a>
-                    `;
-                });
-                category.innerHTML += "</div></div>";
+            const sub = r.data;
+            sub.forEach(itemSub => {
+                category.innerHTML += `
+                    <a class="text-black d-block mb-1 text-decoration-none hover-bg-100 px-2 py-1 rounded-2" href="#!">${itemSub.name}</a>
+                `;
+            });
+            category.innerHTML += "</div></div>";
             }).catch(e => {
                 console.log(e);
             })
         });
-        }).catch(e => {
-            console.log(e);
-        });
+    }).catch(e => {
+        console.log(e);
+    });
     }
 </script>
