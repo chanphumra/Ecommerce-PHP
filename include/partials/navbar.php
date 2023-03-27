@@ -4,7 +4,7 @@
             <div class="dropdown-menu border py-0 category-dropdown-menu">
                 <div class="card border-0 scrollbar" style="max-height: 657px;">
                     <div class="card-body p-6 pb-3">
-                        <div class="row gx-7 gy-5 mb-5 main-category">
+                        <div class="row gx-7 gy-5 mb-5 category">
 
                             <!-- main-category -->
                             <!-- <div class="col-12 col-sm-6 col-md-4">
@@ -17,8 +17,8 @@
                                     <h6 class="text-1000 mb-0 text-nowrap">Collectibles &amp; Artsssss</h6>
                                 </div> -->
                                 <!-- sub-category -->
-                                <!-- <div class="ms-n2"><a class="text-black d-block mb-1 text-decoration-none hover-bg-100 px-2 py-1 rounded-2" href="#!">${sub_item.name}</a></div>
-                            </div> -->
+                                
+                            <!-- </div> -->
 
                             
                         </div>
@@ -39,51 +39,37 @@
     </div>
 </nav>
 <script>
-    console.log("helloooooo here");
-    const main_categorys = document.querySelector('.main-category');
-    const sub_categorys = document.querySelector('.sub-category');
+    const category = document.querySelector('.category');
 
     
     getMainCategory();
     function getMainCategory() {
-        main_categorys.innerHTML = "";
-        console.log("helloosdsd")
-        axios.get('admin/ajax/category.php?action=select&table=main_category&column=*')
-            .then(res => {
-                res.data.forEach((item,index) => {
-                    main_categorys.innerHTML += 
-                    `
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <div class="d-flex align-items-center mb-3"><span class="text-primary me-2" data-feather="pocket" style="stroke-width:3;"></span>
-                                <h6 class="text-1000 mb-0 text-nowrap">${item.name}</h6>
-                            </div>
-                            <div class="ms-n2 sub-category">
-                            
-                            </div>
-                        </div>
+        axios.get('admin/ajax/category.php?action=select&table=main_category&column=*').then(res => {
+        category.innerHTML = "";
+        const main = res.data;
+        main.forEach(itemMain => {
+            category.innerHTML += `
+                <div class="col-12 col-sm-6 col-md-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <span class="text-primary me-2" data-feather="pocket" style="stroke-width:3;"></span>
+                        <h6 class="text-1000 mb-0 text-nowrap">${itemMain.name}</h6>
+                    </div>
+                    <div class="ms-n2">
+            `;
+            axios.get('admin/ajax/category.php?action=select&table=sub_category&column=*&condition=WHERE main_id = ' + itemMain.id).then(r => {
+                const sub = r.data;
+                sub.forEach(itemSub => {
+                    category.innerHTML += `
+                        <a class="text-black d-block mb-1 text-decoration-none hover-bg-100 px-2 py-1 rounded-2" href="#!">${itemSub.name}</a>
                     `;
                 });
-                getSubCategory(res.data[0].id);
+                category.innerHTML += "</div></div>";
+            }).catch(e => {
+                console.log(e);
             })
-            .catch(error => {
-                console.log(error);
-            });
-    }
-    function getSubCategory(main_id) {
-        sub_categorys.innerHTML = "";
-        axios.get(`admin/ajax/category.php?action=select&table=sub_category&column=*&condition=WHERE main_id = ${main_id}`)
-            .then(res => {
-                console.log(res.data)
-                res.data.forEach(sub_item => {
-                    sub_categorys.innerHTML += 
-                    `
-                       <a class="text-black d-block mb-1 text-decoration-none hover-bg-100 px-2 py-1 rounded-2" href="#!">${sub_item.name}</a>
-                        
-                    `;
-                });
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        });
+        }).catch(e => {
+            console.log(e);
+        });
     }
 </script>
