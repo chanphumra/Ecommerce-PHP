@@ -1,3 +1,63 @@
+<?php
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception;
+    
+    require '../vendor/autoload.php';
+
+    if(isset($_POST['submit'])){
+        //Instantiation and passing `true` enables exceptions
+        $mail = new PHPMailer(true);
+
+        try {
+            //Enable verbose debug output
+            $mail->SMTPDebug = 0;//SMTP::DEBUG_SERVER;
+
+            //Send using SMTP
+            $mail->isSMTP();
+
+            //Set the SMTP server to send through
+            $mail->Host = 'smtp.gmail.com';
+
+            //Enable SMTP authentication
+            $mail->SMTPAuth = true;
+
+            //SMTP username
+            $mail->Username = 'bazaar.shop.cambodia@gmail.com';
+
+            //SMTP password
+            $mail->Password = 'hjskdopbijilhfpr';
+
+            //Enable TLS encryption;
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+
+            //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+            $mail->Port = 587;
+
+            //Recipients
+            $mail->setFrom('bazaar.shop.cambodia@gmail.com', 'Bazaar Shop Cambodia');
+
+            //Add a recipient
+            $mail->addAddress("chanphumracambodia@gmail.com", "Phumra");
+
+            //Set email format to HTML
+            $mail->isHTML(true);
+
+            $verification_code = substr(number_format(time() * rand(), 0, '', ''), 0, 6);
+
+            $mail->Subject = 'Email verification';
+            $mail->Body    = '<p>Your verification code is: <b style="font-size: 30px;">' . $verification_code . '</b></p>';
+
+            $mail->send();
+            echo "send";
+        } catch (\Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        }
+    }
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 
@@ -6,14 +66,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- ===============================================-->
-    <!--    Document Title-->
-    <!-- ===============================================-->
     <title>Phoenix</title>
-
-    <!-- ===============================================-->
-    <!--    Favicons-->
-    <!-- ===============================================-->
     <link rel="apple-touch-icon" sizes="180x180" href="../admin/assets/img/favicons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../admin/assets/img/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../admin/assets/img/favicons/favicon-16x16.png">
@@ -57,7 +110,7 @@
 </head>
 
 <body>
-
+    <form action="login.php" method="post">
     <main class="main" id="top">
         <div class="container-fluid px-0" data-layout="container">
             <div class="container">
@@ -92,14 +145,14 @@
                                 <div class="form-check mb-0"><input class="form-check-input" id="basic-checkbox" type="checkbox" checked="checked" /><label class="form-check-label mb-0" for="basic-checkbox">Remember me</label></div>
                             </div>
                             <div class="col-auto"><a class="fs--1 fw-semi-bold" href="../../../pages/authentication/simple/forgot-password.html">Forgot Password?</a></div>
-                        </div><button class="btn btn-primary w-100 mb-3">Sign In</button>
+                        </div><button type="submit" name="submit" class="btn btn-primary w-100 mb-3">Sign In</button>
                         <div class="text-center"><a class="fs--1 fw-bold" href="../../../pages/authentication/simple/sign-up.html">Create an account</a></div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
-
+    </form>
 
     <!-- ===============================================-->
     <!--    JavaScripts-->
