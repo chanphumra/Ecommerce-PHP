@@ -97,7 +97,6 @@
                 console.log(err);
             })
     }
-
     const cart = JSON.parse(localStorage.getItem('carts')) || { products: [], subtotal: 0, discount_price: 0, total: 0 };
 
     const addToCart = (item, qty) => {

@@ -10,8 +10,6 @@
                                 <tr>
                                     <th class="sort white-space-nowrap align-middle fs--2" scope="col"></th>
                                     <th class="sort white-space-nowrap align-middle" scope="col" style="min-width:250px;">PRODUCTS</th>
-                                    <th class="sort align-middle" scope="col" style="width:80px;">COLOR</th>
-                                    <th class="sort align-middle" scope="col" style="width:150px;">SIZE</th>
                                     <th class="sort align-middle text-end" scope="col" style="width:300px;">PRICE</th>
                                     <th class="sort align-middle ps-5" scope="col" style="width:200px;">QUANTITY</th>
                                     <th class="sort align-middle text-end" scope="col" style="width:250px;">TOTAL</th>
@@ -19,53 +17,8 @@
                                 </tr>
                             </thead>
                             <tbody class="list" id="cart-table-body">
-                                <tr class="cart-table-row btn-reveal-trigger">
-                                    <td class="align-middle white-space-nowrap py-0">
-                                        <div class="border rounded-2"><img src="../admin/assets/img//products/1.png" alt="" width="53" /></div>
-                                    </td>
-                                    <td class="products align-middle"><a class="fw-semi-bold mb-0 line-clamp-2" href="#!">Fitbit Sense Advanced Smartwatch with Tools for Heart Health, Stress Management &amp; Skin Temperature Trends, Carbon/Graphite, One Size (S &amp; L Bands)</a></td>
-                                    <td class="color align-middle white-space-nowrap fs--1 text-900">Glossy black</td>
-                                    <td class="size align-middle white-space-nowrap text-700 fs--1 fw-semi-bold">XL</td>
-                                    <td class="price align-middle text-900 fs--1 fw-semi-bold text-end">$199</td>
-                                    <td class="quantity align-middle fs-0 ps-5">
-                                        <div class="input-group input-group-sm flex-nowrap" data-quantity="data-quantity"><button class="btn btn-sm px-2" data-type="minus">-</button><input class="form-control text-center input-spin-none bg-transparent border-0 px-0" type="number" min="1" value="2" aria-label="Amount (to the nearest dollar)" /><button class="btn btn-sm px-2" data-type="plus">+</button></div>
-                                    </td>
-                                    <td class="total align-middle fw-bold text-1000 text-end">$398</td>
-                                    <td class="align-middle white-space-nowrap text-end pe-0 ps-3"><button class="btn btn-sm text-500 hover-text-600 me-2"><span class="fas fa-trash"></span></button></td>
-                                </tr>
-                                <tr class="cart-table-row btn-reveal-trigger">
-                                    <td class="align-middle white-space-nowrap py-0">
-                                        <div class="border rounded-2"><img src="../admin/assets/img//products/2.png" alt="" width="53" /></div>
-                                    </td>
-                                    <td class="products align-middle"><a class="fw-semi-bold mb-0 line-clamp-2" href="#!">iPhone 13 pro max-Pacific Blue-128GB storage</a></td>
-                                    <td class="color align-middle white-space-nowrap fs--1 text-900">Glossy black</td>
-                                    <td class="size align-middle white-space-nowrap text-700 fs--1 fw-semi-bold">XL</td>
-                                    <td class="price align-middle text-900 fs--1 fw-semi-bold text-end">$150</td>
-                                    <td class="quantity align-middle fs-0 ps-5">
-                                        <div class="input-group input-group-sm flex-nowrap" data-quantity="data-quantity"><button class="btn btn-sm px-2" data-type="minus">-</button><input class="form-control text-center input-spin-none bg-transparent border-0 px-0" type="number" min="1" value="2" aria-label="Amount (to the nearest dollar)" /><button class="btn btn-sm px-2" data-type="plus">+</button></div>
-                                    </td>
-                                    <td class="total align-middle fw-bold text-1000 text-end">$300</td>
-                                    <td class="align-middle white-space-nowrap text-end pe-0 ps-3"><button class="btn btn-sm text-500 hover-text-600 me-2"><span class="fas fa-trash"></span></button></td>
-                                </tr>
-                                <tr class="cart-table-row btn-reveal-trigger">
-                                    <td class="align-middle white-space-nowrap py-0">
-                                        <div class="border rounded-2"><img src="../admin/assets/img//products/3.png" alt="" width="53" /></div>
-                                    </td>
-                                    <td class="products align-middle"><a class="fw-semi-bold mb-0 line-clamp-2" href="#!">Apple MacBook Pro 13 inch-M1-8/256GB-space</a></td>
-                                    <td class="color align-middle white-space-nowrap fs--1 text-900">Glossy Golden</td>
-                                    <td class="size align-middle white-space-nowrap text-700 fs--1 fw-semi-bold">34mm</td>
-                                    <td class="price align-middle text-900 fs--1 fw-semi-bold text-end">$65</td>
-                                    <td class="quantity align-middle fs-0 ps-5">
-                                        <div class="input-group input-group-sm flex-nowrap" data-quantity="data-quantity"><button class="btn btn-sm px-2" data-type="minus">-</button><input class="form-control text-center input-spin-none bg-transparent border-0 px-0" type="number" min="1" value="2" aria-label="Amount (to the nearest dollar)" /><button class="btn btn-sm px-2" data-type="plus">+</button></div>
-                                    </td>
-                                    <td class="total align-middle fw-bold text-1000 text-end">$130</td>
-                                    <td class="align-middle white-space-nowrap text-end pe-0 ps-3"><button class="btn btn-sm text-500 hover-text-600 me-2"><span class="fas fa-trash"></span></button></td>
-                                </tr>
-                                <tr class="cart-table-row btn-reveal-trigger">
-                                    <td class="text-1100 fw-semi-bold ps-0 fs-0" colspan="6">Items subtotal :</td>
-                                    <td class="text-1100 fw-bold text-end fs-0">$691</td>
-                                    <td></td>
-                                </tr>
+                                
+                                
                             </tbody>
                         </table>
                     </div>
@@ -115,3 +68,32 @@
         </div>
     </div><!-- end of .container-->
 </section>
+<script>
+    const cart = JSON.parse(localStorage.getItem('carts')) || { products: [], subtotal: 0, discount_price: 0, total: 0 };
+    const cartArea = document.querySelector('#cart-table-body');
+    cart.products.forEach(item => {
+        cartArea.innerHTML += `
+            <tr class="cart-table-row btn-reveal-trigger">
+                <td class="align-middle white-space-nowrap py-0">
+                    <div class="border rounded-2"><img src="admin/uploads/product/${item.image}" alt="" width="53" /></div>
+                </td>
+                <td class="products align-middle"><a class="fw-semi-bold mb-0 line-clamp-2" href="#!">${item.name}</a></td>
+                <td class="price align-middle text-900 fs--1 fw-semi-bold text-end">$${item.sale_price}</td>
+                <td class="quantity align-middle fs-0 ps-5">
+                    <div class="input-group input-group-sm flex-nowrap" data-quantity="data-quantity"><button class="btn btn-sm px-2" data-type="minus">-</button><input class="form-control text-center input-spin-none bg-transparent border-0 px-0" type="number" min="1" value="${item.qty}" aria-label="Amount (to the nearest dollar)" /><button class="btn btn-sm px-2" data-type="plus">+</button></div>
+                </td>
+                <td class="total align-middle fw-bold text-1000 text-end">$${item.sale_price * item.qty}</td>
+                <td class="align-middle white-space-nowrap text-end pe-0 ps-3"><button class="btn btn-sm text-500 hover-text-600 me-2"><span class="fas fa-trash"></span></button></td>
+            </tr>
+        `
+    });
+
+    cartArea.innerHTML += `
+        <tr class="cart-table-row btn-reveal-trigger">
+            <td class="text-1100 fw-semi-bold ps-0 fs-0" colspan="4">Items subtotal : </td>
+            <td class="text-1100 fw-bold text-end fs-0">$${cart.subtotal}</td>
+            <td></td>
+        </tr>
+    `
+    
+</script>

@@ -33,15 +33,20 @@
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex"><button class="btn btn-lg btn-outline-warning rounded-pill w-100 me-3 px-2 px-sm-4 fs--1 fs-sm-0"><span class="me-2 far fa-heart"></span>Add to wishlist</button><button onclick="addToCart(<?= $item ?>, 1)" class="btn btn-lg btn-warning rounded-pill w-100 fs--1 fs-sm-0"><span class="fas fa-shopping-cart me-2"></span>Add to cart</button></div>
+                    <div class="d-flex">
+                        <button class="btn btn-lg btn-outline-warning rounded-pill w-100 me-3 px-2 px-sm-4 fs--1 fs-sm-0"><span class="me-2 far fa-heart"></span>Add to wishlist</button>
+                        <button class="btn btn-lg btn-warning rounded-pill w-100 fs--1 fs-sm-0 btnAddToCart">
+                            <span class="fas fa-shopping-cart me-2"></span>Add to cart
+                        </button>
+                    </div>
                     </div>
                         <div class="col-12 col-lg-6">
                             <div class="d-flex flex-column justify-content-between h-100">
                                 <div>
                                     <h3 class="mb-5 lh-sm"><?= $item['name'] ?></h3>
                                     <div class="d-flex flex-wrap align-items-center mb-3">
-                                        <h1 class="me-3"><?= $item['sale_price'] ?></h1>
-                                        <p class="text-500 text-decoration-line-through fs-2 mb-0 me-3"><?= $item['price'] ?></p>
+                                        <h1 class="me-3"><?= $item['sale_price'] - ($item['sale_price'] * $item['discount']/100.00) ?></h1>
+                                        <p class="text-500 text-decoration-line-through fs-2 mb-0 me-3"><?= $item['sale_price'] ?></p>
                                         <p class="text-warning-500 fw-bolder fs-2 mb-0"><?= $item['discount'] ?> off</p>
                                     </div>
                                     <div class="d-flex flex-wrap align-items-start mb-3">
@@ -74,7 +79,7 @@
                                                     <button class="btn btn-phoenix-primary px-3" data-type="minus">
                                                         <span class="fas fa-minus"></span>
                                                     </button>
-                                                    <input class="form-control text-center input-spin-none bg-transparent border-0 outline-none" style="width:50px;" type="number" min="1" value="1" />
+                                                    <input class="form-control text-center input-spin-none bg-transparent border-0 outline-none" id="qty" style="width:50px;" type="number" min="1" value="1" />
                                                     <button class="btn btn-phoenix-primary px-3" data-type="plus">
                                                         <span class="fas fa-plus"></span>
                                                     </button>
@@ -91,53 +96,42 @@
 </section>
 <script>
 
-    console.log(<?=$id ?>);
+    //console.log();
     //get all product
     
 
     const cart = JSON.parse(localStorage.getItem('carts')) || { products: [], subtotal: 0, discount_price: 0, total: 0 };
-
-    function addToCart(item, qty){
-
+    
+    const btnAddToCart = document.querySelector('.btnAddToCart');
+    const qty = document.querySelector('#qty');
+    btnAddToCart.onclick = () =>{ 
+        const item = (<?= json_encode($result[0])?>);
         const product = {
             id: item.id,
             name: item.name,
             sale_price: new Number(item.sale_price),
             discount: new Number(item.discount),
-            qty: new Number(qty),
+            qty: new Number(qty.value),
             image: item.image1
         };
 
         const index = cart.products.findIndex(p => p.id == product.id);
         if (index >= 0) { // exist in cart
             const existProduct = cart.products[index];
-            existProduct.qty += 1;
-            cart.subtotal += product.sale_price;
-            cart.discount_price += product.sale_price * product.discount / 100;
+            existProduct.qty += product.qty;
+            cart.subtotal += product.sale_price * product.qty;
+            cart.discount_price += product.sale_price * product.qty * product.discount / 100;
             cart.total = (cart.subtotal - cart.discount_price);
         }
         else {
-            product.qty = 1;
             cart.products.push(product);
-            cart.subtotal += product.sale_price;
-            cart.discount_price += product.sale_price * product.discount / 100;
+            cart.subtotal += product.sale_price * product.qty;
+            cart.discount_price += product.sale_price * product.qty * product.discount / 100;
             cart.total = (cart.subtotal - cart.discount_price);
         }
 
         localStorage.setItem('carts', JSON.stringify(cart));
         // setCarts(cart);
         // setCount(cart.products.length);
-
-        toast.success('Add 1 product to cart', {
-        position: "top-center",
-        autoClose: 600,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        transition: Slide,
-        theme: "light",
-        });
     };
 </script>
