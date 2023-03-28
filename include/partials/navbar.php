@@ -21,7 +21,7 @@
                                     <div class="ms-n2 sub-category">
                                         <?php foreach ($sub as $subItem) { ?>
                                             <?php if($subItem["main_id"] === $mainItem["id"]){ ?>
-                                                <a class="text-black d-block mb-1 text-decoration-none hover-bg-100 px-2 py-1 rounded-2" href="index.php?page_name=productbycategory&sub_id=<?= $subItem["id"] ?>&sub_name=<?= $subItem["name"] ?>"><?= $subItem["name"] ?></a>
+                                                <a class="text-black d-block mb-1 text-decoration-none hover-bg-100 px-2 py-1 rounded-2" href="index.php?page_name=productbycategory&sub_id=<?= $subItem["id"] ?>"><?= $subItem["name"] ?></a>
                                             <?php } ?>
                                         <?php } ?>
                                     </div>
