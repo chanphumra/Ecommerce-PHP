@@ -2,12 +2,8 @@
     $id = $_GET['id'];
 
     require_once "./admin/lib/database.php";
-    $table = "product";
-    $column = "*";
-    $clause = "";
-    $condition = "WHERE id = $id";
 
-    $result = Database::select($table, $column, $clause, $condition);
+    $result = Database::select("product", "*", "", "WHERE id = $id");
 ?>
 
 <section class="py-5">
@@ -45,9 +41,9 @@
                                 <div>
                                     <h3 class="mb-5 lh-sm"><?= $item['name'] ?></h3>
                                     <div class="d-flex flex-wrap align-items-center mb-3">
-                                        <h1 class="me-3"><?= $item['sale_price'] - ($item['sale_price'] * $item['discount']/100.00) ?></h1>
-                                        <p class="text-500 text-decoration-line-through fs-2 mb-0 me-3"><?= $item['sale_price'] ?></p>
-                                        <p class="text-warning-500 fw-bolder fs-2 mb-0"><?= $item['discount'] ?> off</p>
+                                        <h1 class="me-3">$<?= $item['sale_price'] - ($item['sale_price'] * $item['discount']/100.00) ?></h1>
+                                        <p class="text-500 text-decoration-line-through fs-2 mb-0 me-3">$<?= $item['sale_price'] ?></p>
+                                        <p class="text-warning-500 fw-bolder fs-2 mb-0"><?= $item['discount'] ?>% off</p>
                                     </div>
                                     <div class="d-flex flex-wrap align-items-start mb-3">
                                         <span class="badge bg-success fs--1 rounded-pill me-2 fw-semi-bold">In stock</span>
