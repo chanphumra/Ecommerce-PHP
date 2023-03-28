@@ -2,22 +2,27 @@
     $id = $_GET['id'];
 
     require_once "./admin/lib/database.php";
+    $table = "product";
+    $column = "*, pro.id, pro.name, pro.description, main.name AS main_name, sub.name AS sub_name";
+    $clause = "AS pro INNER JOIN sub_category AS sub ON sub.id = pro.sub_id INNER JOIN main_category AS main ON main.id = sub.main_id";
+    $condition = "WHERE pro.id = $id";
 
-    $result = Database::select("product", "*", "", "WHERE id = $id");
+    $result = Database::select($table, $column, $clause, $condition);
+
 ?>
 
 <section class="py-5">
+    <?php foreach ($result as $item) { ?>
     <div class="container-small">
         <nav class="mb-3" aria-label="breadcrumb">
             <ol class="breadcrumb mb-0">
-                <li class="breadcrumb-item"><a href="#">Fashion</a></li>
-                <li class="breadcrumb-item"><a href="#">Womens fashion</a></li>
-                <li class="breadcrumb-item"><a href="#">Footwear</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Hills</li>
+                <li class="breadcrumb-item"><a href="#"><?= $item['main_name'] ?></a></li>
+                <li class="breadcrumb-item"><a href="#"><?= $item['sub_name'] ?></a></li>
+                <li class="breadcrumb-item"><a href="#"><?= $item['name'] ?></a></li>
             </ol>
         </nav>
         <div class="row g-5 mb-5 mb-lg-8 productdetail" data-product-details="data-product-details">
-            <?php foreach ($result as $item) { ?>
+            
             <div class="col-12 col-lg-6">
                     <div class="row g-3 mb-3">
                         <div class="col-12 col-md-2 col-lg-12 col-xl-2">
@@ -86,9 +91,10 @@
                                 </div>
                             </div>
                         </div>
-                    <?php } ?>
+                    
         </div>
     </div><!-- end of .container-->
+    <?php } ?>
 </section>
 <script>
 
