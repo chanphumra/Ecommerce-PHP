@@ -151,8 +151,13 @@ $id = $_GET['id'] ?? 0;
         /*==== check condition ====*/
         if (name === "" || description === "") {
             return Swal.fire({
+                toast: true,
+                position: 'top',
+                showClass: {
+                    icon: 'animated heartBeat delay-1s'
+                },
                 icon: 'error',
-                title: 'Please check information again',
+                text: 'Please check information again',
                 showConfirmButton: false,
                 timer: 1000
             });
@@ -170,8 +175,13 @@ $id = $_GET['id'] ?? 0;
                 console.log(res);
                 if (res.data.success) {
                     Swal.fire({
+                        toast: true,
+                        position: 'top',
+                        showClass: {
+                            icon: 'animated heartBeat delay-1s'
+                        },
                         icon: 'success',
-                        title: 'One Category has been updated',
+                        text: 'One Category has been updated',
                         showConfirmButton: false,
                         timer: 1000
                     }).then(res => {

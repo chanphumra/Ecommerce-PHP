@@ -211,8 +211,13 @@
         /*----- check condition -----*/
         if (name == "" || description == "" || price == "" || sale_price == "" || qty == "") {
             return Swal.fire({
+                toast: true,
+                position: 'top',
+                showClass: {
+                    icon: 'animated heartBeat delay-1s'
+                },
                 icon: 'error',
-                title: 'Please check information again',
+                text: 'Please check information again',
                 showConfirmButton: false,
                 timer: 1000
             });
@@ -220,8 +225,13 @@
 
         if (sub_categorys.value == "") {
             return Swal.fire({
+                toast: true,
+                position: 'top',
+                showClass: {
+                    icon: 'animated heartBeat delay-1s'
+                },
                 icon: 'error',
-                title: 'No category selected',
+                text: 'No category selected',
                 showConfirmButton: false,
                 timer: 1000
             });
@@ -229,8 +239,13 @@
 
         if (files.length < 3) {
             return Swal.fire({
+                toast: true,
+                position: 'top',
+                showClass: {
+                    icon: 'animated heartBeat delay-1s'
+                },
                 icon: 'error',
-                title: '3 images are require',
+                text: '3 images are require',
                 showConfirmButton: false,
                 timer: 1000
             });
@@ -250,8 +265,13 @@
             console.log(res);
             if (res.data.success) {
                 Swal.fire({
+                    toast: true,
+                    position: 'top',
+                    showClass: {
+                        icon: 'animated heartBeat delay-1s'
+                    },
                     icon: 'success',
-                    title: 'One Product has been saved',
+                    text: 'One Product has been saved',
                     showConfirmButton: false,
                     timer: 1000
                 }).then(res => {

@@ -136,28 +136,47 @@
                         if (res.data[0].count == 0) {
                             axios.delete('ajax/category.php?action=delete&table=main_category&id=' + id).then(res => {
                                 if (res.data.success) {
-                                    swalWithBootstrapButtons.fire(
-                                        'Deleted!',
-                                        'Main category has been deleted.',
-                                        'success',
-                                    )
-                                    window.location.href = "index.php?page_name=category"
+                                    Swal.fire({
+                                        toast: true,
+                                        position: 'top',
+                                        showClass: {
+                                            icon: 'animated heartBeat delay-1s'
+                                        },
+                                        icon: 'success',
+                                        text: 'One Category has been deleted',
+                                        showConfirmButton: false,
+                                        timer: 1000
+                                    }).then(res => {
+                                        window.location.href = "index.php?page_name=category"
+                                    })
                                 } else {
-                                    swalWithBootstrapButtons.fire(
-                                        'Error!',
-                                        "Somwthing wrong!",
-                                        'error',
-                                    )
+                                    Swal.fire({
+                                        toast: true,
+                                        position: 'top',
+                                        showClass: {
+                                            icon: 'animated heartBeat delay-1s'
+                                        },
+                                        icon: 'error',
+                                        text: 'Something wrong!',
+                                        showConfirmButton: false,
+                                        timer: 1000
+                                    })
                                 }
                             }).catch(err => {
                                 console.log(err);
                             });
                         } else {
-                            swalWithBootstrapButtons.fire(
-                                'Error!',
-                                "This main category not empty!",
-                                'error',
-                            )
+                            Swal.fire({
+                                toast: true,
+                                position: 'top',
+                                showClass: {
+                                    icon: 'animated heartBeat delay-1s'
+                                },
+                                icon: 'error',
+                                text: 'This main category not empty',
+                                showConfirmButton: false,
+                                timer: 1000
+                            })
                         }
                     }).catch(err => {
                         console.log(err);

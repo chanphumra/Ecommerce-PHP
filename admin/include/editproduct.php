@@ -6,8 +6,8 @@ $p_id = $_GET['p_id'] ?? 0;
     <form class="mb-9">
         <input type="text" id="mainId" class="d-none">
         <input type="text" id="subId" class="d-none">
-        <input type="text" name="pId" value="<?=$p_id?>" class="d-none">
-        <input type="text" value="<?=$p_id?>" class="d-none">
+        <input type="text" name="pId" value="<?= $p_id ?>" class="d-none">
+        <input type="text" value="<?= $p_id ?>" class="d-none">
         <div class="row g-3 flex-between-end mb-5">
             <div class="col-auto">
                 <h2 class="mb-2">Edit a product</h2>
@@ -168,9 +168,9 @@ $p_id = $_GET['p_id'] ?? 0;
     const table = "product";
     const column = "*, pro.id, pro.name, pro.description";
     const clause = "AS pro INNER JOIN sub_category AS sub ON sub.id = pro.sub_id INNER JOIN main_category AS main ON main.id = sub.main_id";
-    const condition = "WHERE pro.id = " + <?=$p_id ?>;
+    const condition = "WHERE pro.id = " + <?= $p_id ?>;
 
-    console.log(<?=$p_id ?>);
+    console.log(<?= $p_id ?>);
 
     axios.get(`ajax/product.php?action=select&table=${table}&column=${column}&clause=${clause}&condition=${condition}`)
         .then(res => {
@@ -195,7 +195,7 @@ $p_id = $_GET['p_id'] ?? 0;
             `;
             subId.value = data[0].sub_id;
             mainId.value = data[0].main_id;
-            
+
             getMainCategory();
             getSubCategory(data[0].main_id);
         })
@@ -217,8 +217,13 @@ $p_id = $_GET['p_id'] ?? 0;
         /*----- check condition -----*/
         if (name == "" || description == "" || price == "" || sale_price == "" || qty == "") {
             return Swal.fire({
+                toast: true,
+                position: 'top',
+                showClass: {
+                    icon: 'animated heartBeat delay-1s'
+                },
                 icon: 'error',
-                title: 'Please check information again',
+                text: 'Please check information again',
                 showConfirmButton: false,
                 timer: 1000
             });
@@ -226,8 +231,13 @@ $p_id = $_GET['p_id'] ?? 0;
 
         if (sub_categorys.value == "") {
             return Swal.fire({
+                toast: true,
+                position: 'top',
+                showClass: {
+                    icon: 'animated heartBeat delay-1s'
+                },
                 icon: 'error',
-                title: 'No category selected!',
+                text: 'No category selected!',
                 showConfirmButton: false,
                 timer: 1000
             });
@@ -235,8 +245,13 @@ $p_id = $_GET['p_id'] ?? 0;
 
         if (files.length != 0 && files.length < 3) {
             return Swal.fire({
+                toast: true,
+                position: 'top',
+                showClass: {
+                    icon: 'animated heartBeat delay-1s'
+                },
                 icon: 'error',
-                title: '3 Images are require!',
+                text: '3 Images are require!',
                 showConfirmButton: false,
                 timer: 1000
             });
@@ -250,7 +265,7 @@ $p_id = $_GET['p_id'] ?? 0;
             formData.append('image3', files[2]);
         }
 
-        axios.post("ajax/product.php?action=update&pId=<?=$p_id?>", formData, {
+        axios.post("ajax/product.php?action=update&pId=<?= $p_id ?>", formData, {
             header: {
                 "content-type": "multipart/form-data"
             }
@@ -259,8 +274,13 @@ $p_id = $_GET['p_id'] ?? 0;
             console.log(res);
             if (res.data.success) {
                 Swal.fire({
+                    toast: true,
+                    position: 'top',
+                    showClass: {
+                        icon: 'animated heartBeat delay-1s'
+                    },
                     icon: 'success',
-                    title: 'Product has been updated',
+                    text: 'Product has been updated',
                     showConfirmButton: false,
                     timer: 1000
                 }).then(res => {

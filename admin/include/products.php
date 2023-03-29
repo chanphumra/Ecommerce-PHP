@@ -114,7 +114,6 @@ $result = Database::select($table, $column, $clause, $condition);
     </footer>
 
     <script>
-
         function deleteProduct(id) {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
@@ -138,18 +137,31 @@ $result = Database::select($table, $column, $clause, $condition);
                         const data = res.data;
                         console.log(res);
                         if (res.data.success) {
-                            swalWithBootstrapButtons.fire(
-                                'Deleted!',
-                                'Product has been deleted.',
-                                'success',
-                            )
-                            window.location.href = "index.php?page_name=products"
+                            Swal.fire({
+                                toast: true,
+                                position: 'top',
+                                showClass: {
+                                    icon: 'animated heartBeat delay-1s'
+                                },
+                                icon: 'success',
+                                text: 'One product has been deleted',
+                                showConfirmButton: false,
+                                timer: 1000
+                            }).then(res => {
+                                window.location.href = "index.php?page_name=products";
+                            })
                         } else {
-                            swalWithBootstrapButtons.fire(
-                                'Error!',
-                                "Somwthing wrong!",
-                                'error',
-                            )
+                            Swal.fire({
+                                toast: true,
+                                position: 'top',
+                                showClass: {
+                                    icon: 'animated heartBeat delay-1s'
+                                },
+                                icon: 'error',
+                                text: 'Something wrong!',
+                                showConfirmButton: false,
+                                timer: 1000
+                            })
                         }
                     });
                 }

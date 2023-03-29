@@ -1,5 +1,5 @@
 <?php
-    $id = $_GET['id'] ?? 0;
+$id = $_GET['id'] ?? 0;
 ?>
 
 
@@ -44,7 +44,7 @@
 </div>
 <script>
     /*---- get data ----*/
-    axios.get('ajax/category.php?action=select&table=main_category&column=*&condition=WHERE id = ' + <?=$id?>).then(res => {
+    axios.get('ajax/category.php?action=select&table=main_category&column=*&condition=WHERE id = ' + <?= $id ?>).then(res => {
         res.data.forEach(item => {
             document.querySelector('#name').value = item.name;
             document.querySelector('#description').value = item.description;
@@ -113,26 +113,36 @@
         /*---- check condition ----*/
         if (name === "" || description === "") {
             return Swal.fire({
+                toast: true,
+                position: 'top',
+                showClass: {
+                    icon: 'animated heartBeat delay-1s'
+                },
                 icon: 'error',
-                title: 'Please check information again',
+                text: 'Please check information again',
                 showConfirmButton: false,
                 timer: 1000
             });
         }
 
         const formdata = new FormData(form);
-        if(files != null) formdata.append("image", files);
-        axios.post('ajax/category.php?action=update&table=main_category&id=' + <?=$id?>, formdata, {
+        if (files != null) formdata.append("image", files);
+        axios.post('ajax/category.php?action=update&table=main_category&id=' + <?= $id ?>, formdata, {
                 header: {
                     "content-type": "multipart/form-data"
                 }
             })
             .then(res => {
                 console.log(res);
-                if(res.data.success){
+                if (res.data.success) {
                     Swal.fire({
+                        toast: true,
+                        position: 'top',
+                        showClass: {
+                            icon: 'animated heartBeat delay-1s'
+                        },
                         icon: 'success',
-                        title: 'One Category has been updated',
+                        text: 'One Category has been updated',
                         showConfirmButton: false,
                         timer: 1000
                     }).then(res => {

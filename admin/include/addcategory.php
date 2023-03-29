@@ -151,8 +151,13 @@
         /*---- check condition ----*/
         if (name === "" || description === "") {
             return Swal.fire({
+                toast: true,
+                position: 'top',
+                showClass: {
+                    icon: 'animated heartBeat delay-1s'
+                },
                 icon: 'error',
-                title: 'Please check information again',
+                text: 'Please check information again',
                 showConfirmButton: false,
                 timer: 1000
             });
@@ -160,8 +165,13 @@
 
         if (files == null) {
             return Swal.fire({
+                toast: true,
+                position: 'top',
+                showClass: {
+                    icon: 'animated heartBeat delay-1s'
+                },
                 icon: 'error',
-                title: 'Image are require!',
+                text: 'Image are require!',
                 showConfirmButton: false,
                 timer: 1000
             });
@@ -170,8 +180,13 @@
 
         if (!mainCheck.checked && main.length == 0) {
             return Swal.fire({
+                toast: true,
+                position: 'top',
+                showClass: {
+                    icon: 'animated heartBeat delay-1s'
+                },
                 icon: 'error',
-                title: 'No main category!',
+                text: 'No main category!',
                 showConfirmButton: false,
                 timer: 1000
             });
@@ -188,8 +203,13 @@
             .then(res => {
                 if (res.data.success) {
                     Swal.fire({
+                        toast: true,
+                        position: 'top',
+                        showClass: {
+                            icon: 'animated heartBeat delay-1s'
+                        },
                         icon: 'success',
-                        title: 'One Category has been saved',
+                        text: 'One Category has been saved',
                         showConfirmButton: false,
                         timer: 1000
                     }).then(res => {

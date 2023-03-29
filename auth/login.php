@@ -1,63 +1,3 @@
-<?php
-    use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\SMTP;
-    use PHPMailer\PHPMailer\Exception;
-    
-    require '../vendor/autoload.php';
-
-    if(isset($_POST['submit'])){
-        //Instantiation and passing `true` enables exceptions
-        $mail = new PHPMailer(true);
-
-        try {
-            //Enable verbose debug output
-            $mail->SMTPDebug = 0;//SMTP::DEBUG_SERVER;
-
-            //Send using SMTP
-            $mail->isSMTP();
-
-            //Set the SMTP server to send through
-            $mail->Host = 'smtp.gmail.com';
-
-            //Enable SMTP authentication
-            $mail->SMTPAuth = true;
-
-            //SMTP username
-            $mail->Username = 'bazaar.shop.cambodia@gmail.com';
-
-            //SMTP password
-            $mail->Password = 'hjskdopbijilhfpr';
-
-            //Enable TLS encryption;
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-
-            //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
-            $mail->Port = 587;
-
-            //Recipients
-            $mail->setFrom('bazaar.shop.cambodia@gmail.com', 'Bazaar Shop Cambodia');
-
-            //Add a recipient
-            $mail->addAddress("chanphumracambodia@gmail.com", "Phumra");
-
-            //Set email format to HTML
-            $mail->isHTML(true);
-
-            $verification_code = substr(number_format(time() * rand(), 0, '', ''), 0, 6);
-
-            $mail->Subject = 'Email verification';
-            $mail->Body    = '<p>Your verification code is: <b style="font-size: 30px;">' . $verification_code . '</b></p>';
-
-            $mail->send();
-            echo "send";
-        } catch (\Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-        }
-    }
-?>
-
-
-
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 
@@ -110,12 +50,12 @@
 </head>
 
 <body>
-    <form action="login.php" method="post">
-    <main class="main" id="top">
-        <div class="container-fluid px-0" data-layout="container">
+    <main class="main" style="background: url('../assets/img/bg.png') no-repeat; background-size: 100% 100%;" id="top">
+        <div class="container-fluid px-0" style="background: rgba(0, 0, 0, 0.1);" data-layout="container">
             <div class="container">
                 <div class="row flex-center min-vh-100 py-5">
-                    <div class="col-sm-10 col-md-8 col-lg-5 col-xl-5 col-xxl-3"><a class="d-flex flex-center text-decoration-none mb-4" href="../../../index.html">
+                    <div class="col-sm-10 col-md-8 col-lg-5 col-xl-5 col-xxl-3 py-2 shadow-sm bg-white rounded-4">
+                        <a class="d-flex flex-center text-decoration-none mb-4" href="../../../index.html">
                             <div class="d-flex align-items-center fw-bolder fs-5 d-inline-block">
                                 <img src="../../../assets/img/icons/logo.png" alt="phoenix" width="58" />
                             </div>
@@ -132,7 +72,7 @@
                         </button>
                         <div class="position-relative">
                             <hr class="bg-200 mt-5 mb-4" />
-                            <div class="divider-content-center">or use email</div>
+                            <div class="divider-content-center bg-white">or use email</div>
                         </div>
                         <div class="mb-3 text-start"><label class="form-label" for="email">Email address</label>
                             <div class="form-icon-container"><input class="form-control form-icon-input" id="email" type="email" placeholder="name@example.com" /><span class="fas fa-user text-900 fs--1 form-icon"></span></div>
@@ -142,17 +82,16 @@
                         </div>
                         <div class="row flex-between-center mb-7">
                             <div class="col-auto">
-                                <div class="form-check mb-0"><input class="form-check-input" id="basic-checkbox" type="checkbox" checked="checked" /><label class="form-check-label mb-0" for="basic-checkbox">Remember me</label></div>
+                                <div class="form-check mb-0"><input class="form-check-input" id="basic-checkbox" type="checkbox" /><label class="form-check-label mb-0" for="basic-checkbox">Remember me</label></div>
                             </div>
                             <div class="col-auto"><a class="fs--1 fw-semi-bold" href="../../../pages/authentication/simple/forgot-password.html">Forgot Password?</a></div>
-                        </div><button type="submit" name="submit" class="btn btn-primary w-100 mb-3">Sign In</button>
-                        <div class="text-center"><a class="fs--1 fw-bold" href="../../../pages/authentication/simple/sign-up.html">Create an account</a></div>
+                        </div><button class="btn btn-primary w-100 mb-3">Sign In</button>
+                        <div class="text-center"><a class="fs--1 fw-bold" href="register.php">Create an account</a></div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
-    </form>
 
     <!-- ===============================================-->
     <!--    JavaScripts-->
