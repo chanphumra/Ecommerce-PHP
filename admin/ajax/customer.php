@@ -7,15 +7,38 @@ use PHPMailer\PHPMailer\Exception;
 switch ($_GET['action']) {
     case 'insert':
         $table = $_GET['table'];
+        $fields = $values = array();
+
         if($table == "customer"){
             $name = $_POST['name'];
             $email = $_POST['email'];
             $password = $_POST['password'];
-            $image = $_FILES['image'];
-        }
-        else{
+            /*==== upload new image =====*/
+            $image = time().rand().$_FILES['image']['name'];
+            move_uploaded_file($_FILES['image']['tmp_name'], "../uploads/customer/". $image);
 
+            $fields = array("name", "email", "password", "image", "verify");
+            $values = array($name, $email, $password, $image, "0");
         }
+        else if($table == "verify_account"){
+            $cus_id = $_POST['cus_id'];
+            $email = $_POST['email'];
+            $OTP = $_POST['OTP'];
+            $fields = array("cus_id", "email", "otp");
+            $values = array($cus_id, $email, $OTP);
+        }  
+        $lastInsertId = Database::insert($table, $fields, $values);
+        echo json_encode(["success" => true, "lastInsertId" => $lastInsertId]);
+        break;
+    
+    case 'select':
+        $table = $_GET['table'];
+        $column = $_GET['column'];
+        $condition = $_GET['condition'] ?? "";
+        $clause = $_GET['clause'] ?? "";
+
+        $result = Database::select($table, $column, $clause, $condition);
+        echo json_encode($result);
         break;
 
     case 'sendOTP':

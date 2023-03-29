@@ -122,6 +122,8 @@
     <script src="../admin/vendors/swiper/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <script src="../assets/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
         const form = document.querySelector('form');
         const formText = document.querySelector('#formText');
@@ -141,25 +143,82 @@
             const confirmPassword = document.querySelector('#confirmPassword').value;
 
             if (name == "" || password == "" || confirmPassword == "") {
-                alert();
-                return;
+                return Swal.fire({
+                    toast: true,
+                    position: 'top',
+                    showClass: {
+                        icon: 'animated heartBeat delay-1s'
+                    },
+                    icon: 'error',
+                    text: 'Please check information again',
+                    showConfirmButton: false,
+                    timer: 1000
+                });
             }
 
             if (!validateEmail(email)) {
-                alert("email");
-                return;
+                return Swal.fire({
+                    toast: true,
+                    position: 'top',
+                    showClass: {
+                        icon: 'animated heartBeat delay-1s'
+                    },
+                    icon: 'error',
+                    text: 'Invalid Email address',
+                    showConfirmButton: false,
+                    timer: 1000
+                });
             }
 
             if (confirmPassword != password) {
-                alert();
-                return;
+                return Swal.fire({
+                    toast: true,
+                    position: 'top',
+                    showClass: {
+                        icon: 'animated heartBeat delay-1s'
+                    },
+                    icon: 'error',
+                    text: "Password don't be match",
+                    showConfirmButton: false,
+                    timer: 1000
+                });
             }
+            /*======= check email exist or not=======*/
+            axios.get(`../admin/ajax/customer.php?action=select&table=customer&column=*&condition=WHERE email = '${email}'`).then(res => {
+                if (res.data.length > 0)
+                    return Swal.fire({
+                        toast: true,
+                        position: 'top',
+                        showClass: {
+                            icon: 'animated heartBeat delay-1s'
+                        },
+                        icon: 'error',
+                        text: 'Email already exist',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
 
-            formText.classList.add('d-none');
-            formImage.classList.remove('d-none');
+                formText.classList.add('d-none');
+                formImage.classList.remove('d-none');
+            }).catch(err => {
+                console.log(err);
+            });
         }
 
         btnRegister.onclick = () => {
+            if (imageFile.files.length == 0) {
+                return Swal.fire({
+                    toast: true,
+                    position: 'top',
+                    showClass: {
+                        icon: 'animated heartBeat delay-1s'
+                    },
+                    icon: 'error',
+                    text: 'Please choose your profile',
+                    showConfirmButton: false,
+                    timer: 1000
+                });
+            }
             const name = document.querySelector('#name').value;
             const email = document.querySelector('#email').value;
             const password = document.querySelector('#password').value;
@@ -176,13 +235,13 @@
             });
 
             /*======= store user to database =======*/
-            formData.append('image', imageFile.files);
+            formData.append('image', imageFile.files[0]);
             axios.post('../admin/ajax/customer.php?action=insert&table=customer', formData).then(res => {
                 const lastInsertId = res.data.lastInsertId;
                 const fdata = new FormData(form);
                 fdata.append("cus_id", lastInsertId);
-                formData.append('OTP', OTP);
-                axios.post('../admin/ajax/customer.php?action=insert&table=verify_account&cus_id = '+ lastInsertId, fdata).then(r => {
+                fdata.append('OTP', OTP);
+                axios.post('../admin/ajax/customer.php?action=insert&table=verify_account', fdata).then(r => {
 
                 }).catch(e => {
                     console.log(e);
