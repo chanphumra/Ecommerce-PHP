@@ -1,3 +1,4 @@
+<?php define('BOT_USERNAME', "bazaar_login_php_bot");?>
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 
@@ -84,9 +85,12 @@
                         <div class="text-center mb-7">
                             <h3 class="text-1000">Sign Up</h3>
                             <p class="text-700">Create your account today</p>
-                        </div><button class="btn btn-phoenix-secondary w-100 mb-3"><span class="fab fa-google text-danger me-2 fs--1"></span>Sign up with google</button><button class="btn btn-phoenix-secondary w-100"><span class="fab fa-facebook text-primary me-2 fs--1"></span>Sign up with facebook</button>
-                        <div class="position-relative mt-4">
-                            <hr class="bg-200" />
+                        </div>
+                        <div class="w-100 d-flex justify-content-center align-items-center">
+                            <script async src="https://telegram.org/js/telegram-widget.js" data-telegram-login="<?= BOT_USERNAME ?>" data-size="large" data-auth-url="auth.php"></script>
+                        </div>
+                        <div class="position-relative">
+                            <hr class="bg-200 mt-5 mb-4" />
                             <div class="divider-content-center bg-white">or use email</div>
                         </div>
                         <form>
@@ -241,15 +245,27 @@
                 const fdata = new FormData(form);
                 fdata.append("cus_id", lastInsertId);
                 fdata.append('OTP', OTP);
-                axios.post('../admin/ajax/customer.php?action=insert&table=verify_account', fdata).then(r => {
-
-                }).catch(e => {
+                axios.post('../admin/ajax/customer.php?action=insert&table=verify_account', fdata).then(r => {}).catch(e => {
                     console.log(e);
                 });
             }).catch(e => {
                 console.log(e);
             });
 
+            /*======= goto verify email page =======*/
+            Swal.fire({
+                toast: true,
+                position: 'top',
+                showClass: {
+                    icon: 'animated heartBeat delay-1s'
+                },
+                icon: 'info',
+                text: 'We send OTP to your email',
+                showConfirmButton: false,
+                timer: 1000
+            }).then(res => {
+                window.location = `verifyotp.php?email=${email}`;
+            });
         }
 
         imageFile.onchange = () => {

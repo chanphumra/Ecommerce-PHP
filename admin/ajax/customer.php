@@ -40,7 +40,33 @@ switch ($_GET['action']) {
         $result = Database::select($table, $column, $clause, $condition);
         echo json_encode($result);
         break;
+    case 'updateVerify':
+        $table = $_GET['table'];
+        if($table == "customer"){
+            $email = $_POST['email'];
+            $verify = $_POST['verify'];
+            $fields = array("verify");
+            $values = array($verify);
+            Database::update($table, $fields, $values, "WHERE email='$email'");
+        }
+        else if($table == "verify_account"){
+            $email = $_POST['email'];
+            $otp = $_POST['OTP'];
+            $fields = array("otp");
+            $values = array($otp);
+            Database::update($table, $fields, $values, "WHERE email='$email'");
+        }
+        echo json_encode(['success'=> true]);
+        break;
 
+    case 'delete':
+        $table = $_GET['table'];
+        $condition = $_GET['condition'];
+        Database::delete($table, $condition);
+        echo json_encode(['success'=>true]);
+        break;
+    
+    
     case 'sendOTP':
         require '../../vendor/autoload.php';
         $sendTo = $_POST['email'];

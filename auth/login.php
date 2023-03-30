@@ -1,3 +1,4 @@
+<?php define('BOT_USERNAME', "bazaar_login_php_bot");?>
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 
@@ -47,6 +48,7 @@
     </script>
     <link href="../admin/vendors/swiper/swiper-bundle.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
@@ -64,12 +66,9 @@
                             <h3 class="text-1000">Sign In</h3>
                             <p class="text-700">Get access to your account</p>
                         </div>
-                        <button class="btn btn-phoenix-secondary w-100 mb-3">
-                            <span class="fab fa-google text-danger me-2 fs--1"></span>Sign in with google
-                        </button>
-                        <button class="btn btn-phoenix-secondary w-100">
-                            <span class="fab fa-facebook text-primary me-2 fs--1"></span>Sign in with facebook
-                        </button>
+                        <div class="w-100 d-flex justify-content-center align-items-center">
+                            <script async src="https://telegram.org/js/telegram-widget.js" data-telegram-login="<?= BOT_USERNAME ?>" data-size="large" data-auth-url="auth.php"></script>
+                        </div>
                         <div class="position-relative">
                             <hr class="bg-200 mt-5 mb-4" />
                             <div class="divider-content-center bg-white">or use email</div>
