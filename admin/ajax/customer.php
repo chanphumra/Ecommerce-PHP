@@ -40,6 +40,13 @@ switch ($_GET['action']) {
         $result = Database::select($table, $column, $clause, $condition);
         echo json_encode($result);
         break;
+    case 'update':
+        $table = $_GET['table'];
+        $fields = json_decode($_GET['fields'], true);
+        $values = json_decode($_GET['values'], true);
+        $condition = $_GET['condition'];
+        Database::update($table, $fields, $values, $condition);
+        break;
     case 'updateVerify':
         $table = $_GET['table'];
         if($table == "customer"){
