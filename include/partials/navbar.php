@@ -5,12 +5,17 @@
                 <div class="card border-0 scrollbar" style="max-height: 657px;">
                     <div class="card-body p-6 pb-3">
                         <div class="row gx-7 gy-5 mb-5">
+
+                            <!-- main-category -->
                             <div class="col-12 col-sm-6 col-md-4">
                                 <div class="d-flex align-items-center mb-3"><span class="text-primary me-2" data-feather="pocket" style="stroke-width:3;"></span>
-                                    <h6 class="text-1000 mb-0 text-nowrap">Collectibles &amp; Art</h6>
+                                    <h6 class="text-1000 mb-0 text-nowrap">Collectibles &amp; Arts</h6>
                                 </div>
+                                <!-- sub-category -->
                                 <div class="ms-n2"><a class="text-black d-block mb-1 text-decoration-none hover-bg-100 px-2 py-1 rounded-2" href="#!">Collectibles</a><a class="text-black d-block mb-1 text-decoration-none hover-bg-100 px-2 py-1 rounded-2" href="#!">Antiques</a><a class="text-black d-block mb-1 text-decoration-none hover-bg-100 px-2 py-1 rounded-2" href="#!">Sports memorabilia </a><a class="text-black d-block mb-1 text-decoration-none hover-bg-100 px-2 py-1 rounded-2" href="#!">Art</a></div>
                             </div>
+
+
                             <div class="col-12 col-sm-6 col-md-4">
                                 <div class="d-flex align-items-center mb-3"><span class="text-primary me-2" data-feather="home" style="stroke-width:3;"></span>
                                     <h6 class="text-1000 mb-0 text-nowrap">Home &amp; Gardan</h6>
@@ -66,17 +71,51 @@
             </div>
         </div>
         <ul class="navbar-nav justify-content-end align-items-center">
-            <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link ps-0 active" aria-current="page" href="#!">Home</a></li>
-            <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link" href="#!">Stores</a></li>
-            <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link" href="#!">Free delivery</a></li>
-            <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link" href="#!">Coupons</a></li>
-            <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link" href="#!">Categories</a></li>
-            <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link" aria-current="page" href="#!">Be a vendor</a></li>
-            <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link" href="#!">Track order</a></li>
-            <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link pe-0" href="#!">Affiliate program</a></li>
+            <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link ps-0 active" aria-current="page" href="index.php">Home</a></li>
+            <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link" href="index?page_name=product">Products</a></li>
+            <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link" href="index?page_name=contact">Contact Us</a></li>
+            <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link" href="#!">About Us</a></li>
             <li class="nav-item dropdown" data-nav-item="data-nav-item" data-more-item="data-more-item"><a class="nav-link dropdown-toggle dropdown-caret-none fw-bold pe-0" href="javascript: void(0)" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-boundary="window" data-bs-reference="parent"> More<span class="fas fa-angle-down ms-2"></span></a>
                 <div class="dropdown-menu dropdown-menu-end category-list" aria-labelledby="navbarDropdown" data-category-list="data-category-list"></div>
             </li>
         </ul>
     </div>
 </nav>
+<script>
+    const main_categorys = document.querySelector('.main-category');
+    const sub_categorys = document.querySelector('.sub-category');
+
+
+    function getMainCategory() {
+        main_categorys.innerHTML = "";
+        axios.get('../admin/ajax/category.php?action=select&table=main_category&column=*')
+            .then(res => {
+                res.data.forEach(item => {
+                    main_categorys.innerHTML += 
+                    `
+                    
+                    `;
+                });
+                getSubCategory(res.data[0].id);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+    function getSubCategory(main_id) {
+        sub_categorys.innerHTML = "";
+        axios.get(`../admin/ajax/category.php?action=select&table=sub_category&column=*&condition=WHERE main_id = ${main_id}`)
+            .then(res => {
+
+                res.data.forEach(item => {
+                    sub_categorys.innerHTML += 
+                    `
+
+                    `;
+                });
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+</script>
