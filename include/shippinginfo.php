@@ -69,14 +69,14 @@
                     <div class="col-8 col-md-7 col-lg-8">
                         <div class="d-flex align-items-center">
                             <img class="me-2 ms-1" src="admin/uploads/product/${item.image}" width="45" height="45" alt="" />
-                            <h5 class="fw-semi-bold text-1000 lh-base">${item.name}</h6>
+                            <h5 class="fw-semi-bold text-1000 lh-base text-truncate">${item.name}</h6>
                         </div>
                     </div>
                     <div class="col-2 col-md-3 col-lg-2">
                         <h5 class="mb-0 fw-semi-bold text-lg-start">x${item.qty}</h2>
                     </div>
                     <div class="col-2 ps-0">
-                        <h5 class="mb-0 fw-semi-bold text-end text-lg-start">$${item.qty*item.sale_price}</h5>
+                        <h5 class="mb-0 fw-semi-bold text-end pe-2">$${item.qty*item.sale_price}</h5>
                     </div>
                 </div>
             `;
@@ -90,7 +90,7 @@
                 </div>
                 <div class="d-flex justify-content-between mb-2">
                     <h5 class="text-900 fw-semi-bold">Discount: </h5>
-                    <h5 class="text-danger fw-semi-bold">-$${cart.discount_price}</h5>
+                    <h5 class="text-danger fw-semi-bold">-$${cart.discount_price.toFixed(2)}</h5>
                 </div>
                 <div class="d-flex justify-content-between mb-2">
                     <h5 class="text-900 fw-semi-bold">Tax: </h5>

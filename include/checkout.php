@@ -105,6 +105,8 @@ $country = $_GET['country'] ?? "";
         discount_price: 0,
         total: 0
     };
+    const cartArea = document.querySelector('#cart-area');
+    const paymentArea = document.querySelector('#payment-area');
 
     function initPayPalButton() {
         paypal.Buttons({
@@ -113,7 +115,6 @@ $country = $_GET['country'] ?? "";
                 color: 'gold',
                 layout: 'vertical',
                 label: 'paypal',
-
             },
 
             createOrder: function(data, actions) {
@@ -138,21 +139,33 @@ $country = $_GET['country'] ?? "";
             }
         }).render('#paypal-button-container');
     }
-    initPayPalButton();
-</script>
-<script>
-    const cartArea = document.querySelector('#cart-area');
-    const paymentArea = document.querySelector('#payment-area');
 
-    getAllCart();
+    function sendMessageTelegram(order_id) {
+        const TELEGRAM_BOT_TOKEN = "6278662814:AAG1kcbEcC8Q5nnaGZvdPWKmN00RSwYIL10";
+        const TELEGRAM_GROUP_ID = "-986148041";
+
+        let text = `<b>Summary Order #${order_id}</b>` + '\n\n';
+        for (let index = 0; index < cart.products.length; index++) {
+            const product = cart.products[index];
+            text += (index + 1) + ". " + product.name + "      x" + product.qty + "      $" + product.sale_price + "\n";
+        }
+        text += "-----------------------------------------" + "\n";
+        text += "subtotal:              $" + cart.subtotal + "\n";
+        text += "discount:             $" + cart.discount_price + "\n";
+        text += "total:                     $" + cart.total + "\n";
+        const data = {
+            chat_id: TELEGRAM_GROUP_ID,
+            parse_mode: "HTML",
+            text: text
+        };
+        axios.post(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, data).then(res => {
+            console.log(res);
+        }).catch(err => {
+            console.log(err);
+        });
+    }
 
     function getAllCart() {
-        const cart = JSON.parse(localStorage.getItem('carts')) || {
-            products: [],
-            subtotal: 0,
-            discount_price: 0,
-            total: 0
-        };
         cartArea.innerHTML = "";
         cart.products.forEach(item => {
             cartArea.innerHTML += `
@@ -160,14 +173,14 @@ $country = $_GET['country'] ?? "";
                     <div class="col-8 col-md-7 col-lg-8">
                         <div class="d-flex align-items-center">
                             <img class="me-2 ms-1" src="admin/uploads/product/${item.image}" width="45" height="45" alt="" />
-                            <h5 class="fw-semi-bold text-1000 lh-base">${item.name}</h6>
+                            <h5 class="fw-semi-bold text-1000 lh-base text-truncate">${item.name}</h6>
                         </div>
                     </div>
                     <div class="col-2 col-md-3 col-lg-2">
                         <h5 class="mb-0 fw-semi-bold text-lg-start">x${item.qty}</h2>
                     </div>
                     <div class="col-2 ps-0">
-                        <h5 class="mb-0 fw-semi-bold text-end text-lg-start">$${item.qty*item.sale_price}</h5>
+                        <h5 class="mb-0 fw-semi-bold text-end pe-2">$${item.qty*item.sale_price}</h5>
                     </div>
                 </div>
             `;
@@ -181,7 +194,7 @@ $country = $_GET['country'] ?? "";
                 </div>
                 <div class="d-flex justify-content-between mb-2">
                     <h5 class="text-900 fw-semi-bold">Discount: </h5>
-                    <h5 class="text-danger fw-semi-bold">-$${cart.discount_price}</h5>
+                    <h5 class="text-danger fw-semi-bold">-$${cart.discount_price.toFixed(2)}</h5>
                 </div>
                 <div class="d-flex justify-content-between mb-2">
                     <h5 class="text-900 fw-semi-bold">Tax: </h5>
@@ -198,4 +211,7 @@ $country = $_GET['country'] ?? "";
             </div>
         `;
     }
+
+    initPayPalButton();
+    getAllCart();
 </script>

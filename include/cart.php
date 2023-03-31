@@ -35,12 +35,11 @@
     </div><!-- end of .container-->
 </section>
 <script>
+    let cart = JSON.parse(localStorage.getItem('carts')) || { products: [], subtotal: 0, discount_price: 0, total: 0 };
     const cartArea = document.querySelector('#cart-table-body');
     const cartSummary = document.querySelector('#cart-summary');
-    let cart = JSON.parse(localStorage.getItem('carts')) || { products: [], subtotal: 0, discount_price: 0, total: 0 };
 
     getAllCart();
-        
     const totalProduct = document.querySelectorAll("#totalEachProduct");
     const subtotal = document.querySelectorAll(".subtotal");
     const discount = document.querySelector(".discount");
@@ -53,7 +52,7 @@
             cartArea.innerHTML += `
                 <tr class="cart-table-row btn-reveal-trigger">
                     <td class="align-middle white-space-nowrap py-0">
-                        <div class="border rounded-2"><img src="admin/uploads/product/${item.image}" alt="" width="53" /></div>
+                        <div class="border rounded-2"><img src="admin/uploads/product/${item.image}" alt="" width="55" height="55" /></div>
                     </td>
                     <td class="products align-middle"><a class="fw-semi-bold mb-0 line-clamp-2" href="index?page_name=productdetail&id=${item.id}">${item.name}</a></td>
                     <td class="price align-middle text-900 fs--1 fw-semi-bold text-end">$${item.sale_price}</td>
@@ -86,7 +85,7 @@
                 </div>
                 <div class="d-flex justify-content-between">
                     <p class="text-900 fw-semi-bold">Discount :</p>
-                    <p class="text-danger fw-semi-bold discount">-$${cart.discount_price}</p>
+                    <p class="text-danger fw-semi-bold discount">-$${cart.discount_price.toFixed(2)}</p>
                 </div>
                 <div class="d-flex justify-content-between">
                     <p class="text-900 fw-semi-bold">Tax :</p>
