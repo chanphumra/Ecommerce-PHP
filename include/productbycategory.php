@@ -1,10 +1,30 @@
+
+<?php
+    $sub_id = $_GET['sub_id'];
+    require_once "./admin/lib/database.php";
+
+    $table = "sub_category";
+    $column = "sub.name AS sub_name, main.name AS main_name";
+    $clause = "AS sub INNER JOIN main_category AS main ON sub.main_id = main.id";
+    $condition = "WHERE sub.id = $sub_id";
+
+    $result = Database::select($table, $column, $clause, $condition);
+    
+?>
 <div class="ecommerce-homepage pt-5 mb-9">
     <section class="py-0">
         <div class="container">
 
             <div class="mb-6">
                 <div class="d-flex flex-between-center mb-3">
-                    <h3>All Products</h3>
+                    <nav class="mb-3" aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0">
+                            <?php foreach ($result as $item) { ?>
+                                <li class="breadcrumb-item"><a href="#"><?= $item["main_name"] ?></a></li>
+                                <li class="breadcrumb-item"><a href="#"><?= $item["sub_name"] ?></a>
+                            <?php } ?>
+                        </ol>
+                    </nav>
                 </div>
 
                 <!-- slide product start -->
@@ -60,7 +80,7 @@
     getProduct();
     function getProduct(){
         product.innerHTML = "";
-        axios.get('admin/ajax/product.php?action=select&table=product&column=*')
+        axios.get('admin/ajax/product.php?action=select&table=product&column=*&condition=WHERE sub_id = <?= $sub_id ?>')
             .then(res => {
                 console.log(res.data);
                 res.data.forEach(item => {
@@ -97,49 +117,4 @@
                 console.log(err);
             })
     }
-    const cart = JSON.parse(localStorage.getItem('carts')) || { products: [], subtotal: 0, discount_price: 0, total: 0 };
-
-    const addToCart = (item, qty) => {
-
-        const product = {
-        id: item.p_id,
-        name: item.p_name,
-        sale_price: new Number(item.sale_price),
-        discount: new Number(item.discount),
-        qty: new Number(qty),
-        image: item.image1
-        };
-
-        const index = cart.products.findIndex(p => p.id == product.id);
-        if (index >= 0) { // exist in cart
-        const existProduct = cart.products[index];
-        existProduct.qty += 1;
-        cart.subtotal += product.sale_price;
-        cart.discount_price += product.sale_price * product.discount / 100;
-        cart.total = (cart.subtotal - cart.discount_price);
-        }
-        else {
-        product.qty = 1;
-        cart.products.push(product);
-        cart.subtotal += product.sale_price;
-        cart.discount_price += product.sale_price * product.discount / 100;
-        cart.total = (cart.subtotal - cart.discount_price);
-        }
-
-        localStorage.setItem('carts', JSON.stringify(cart));
-        setCarts(cart);
-        setCount(cart.products.length);
-
-        toast.success('Add 1 product to cart', {
-        position: "top-center",
-        autoClose: 600,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        transition: Slide,
-        theme: "light",
-        });
-    };
 </script>
