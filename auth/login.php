@@ -86,13 +86,6 @@
                             <div class="col-auto"><a class="fs--1 fw-semi-bold" href="../../../pages/authentication/simple/forgot-password.html">Forgot Password?</a></div>
                         </div><button class="btn btn-primary w-100 mb-3">Sign In</button>
                         <div class="text-center"><a class="fs--1 fw-bold" href="register.php">Create an account</a></div>
-                        <!-- paypal integration -->
-                        <div id="smart-button-container">
-                            <div style="text-align: center;">
-                                <div id="paypal-button-container"></div>
-                            </div>
-                        </div>
-                        <!-- paypal integration -->
                     </div>
                 </div>
             </div>
@@ -117,43 +110,6 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <script src="../assets/js/script.js"></script>
 
-    <script src="https://www.paypal.com/sdk/js?client-id=ATE5yhYzCNKTdb0O1dMCgQzT_NxXSJ4QIh9EtjGkRDhpUR3VrIMkmiOaMwbtszk8X-V64lK_wzF8qDR7&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory">
-    </script>
-    <script>
-        function initPayPalButton() {
-            paypal.Buttons({
-                style: {
-                    shape: 'rect',
-                    color: 'gold',
-                    layout: 'vertical',
-                    label: 'paypal',
-
-                },
-
-                createOrder: function(data, actions) {
-                    return actions.order.create({
-                        purchase_units: [{
-                            "amount": {
-                                "currency_code": "USD",
-                                "value": 10
-                            }
-                        }]
-                    });
-                },
-
-                onApprove: function(data, actions) {
-                    return actions.order.capture().then(function(orderData) {
-                        console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-                    });
-                },
-
-                onError: function(err) {
-                    console.log(err);
-                }
-            }).render('#paypal-button-container');
-        }
-        initPayPalButton();
-    </script>
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 <section class="pt-5 pb-9">
-    <div class="container-small cart">
+    <div class="container-small cart" style="min-height: 85vh;">
         <h2 class="mb-6">Cart</h2>
         <div class="row g-5">
             <div class="col-12 col-lg-8">
@@ -86,7 +86,7 @@
                 </div>
                 <div class="d-flex justify-content-between">
                     <p class="text-900 fw-semi-bold">Discount :</p>
-                    <p class="text-danger fw-semi-bold discount">-$${cart.subtotal - cart.total}</p>
+                    <p class="text-danger fw-semi-bold discount">-$${cart.discount_price}</p>
                 </div>
                 <div class="d-flex justify-content-between">
                     <p class="text-900 fw-semi-bold">Tax :</p>
@@ -101,7 +101,7 @@
                 <h4 class="mb-0">Total :</h4>
                 <h4 class="mb-0 totalPrice">$${cart.total}</h4>
             </div>
-            <button class="btn btn-primary w-100">Proceed to check out<span class="fas fa-chevron-right ms-1 fs--2"></span></button>
+            <button onclick="nextStep()" class="btn btn-primary w-100">Proceed to check out<span class="fas fa-chevron-right ms-1 fs--2"></span></button>
         `;
     }
 
@@ -115,12 +115,14 @@
         totalProduct[index].innerHTML = '$' + newProduct.sale_price * newProduct.qty;
         subtotal[0].innerHTML = '$' + cart.subtotal;
         subtotal[1].innerHTML = '$' + cart.subtotal;
-        discount.innerHTML = '-$' + cart.discount_price;
+        discount.innerHTML = '-$' + cart.discount_price.toFixed(2);
         total[0].innerHTML = '$' + cart.total;
         total[1].innerHTML = '$' + cart.total;
     }
+
     function minusCart(index){
         const newProduct = cart.products[index];
+        if(newProduct.qty == 1) return;
         newProduct.qty -= 1;
         cart.subtotal -=  newProduct.sale_price;
         cart.discount_price -= newProduct.sale_price * newProduct.discount / 100;
@@ -129,7 +131,7 @@
         totalProduct[index].innerHTML = '$' + newProduct.sale_price * newProduct.qty;
         subtotal[0].innerHTML = '$' + cart.subtotal;
         subtotal[1].innerHTML = '$' + cart.subtotal;
-        discount.innerHTML = '-$' + cart.discount_price;
+        discount.innerHTML = '-$' + cart.discount_price.toFixed(2);
         total[0].innerHTML = '$' + cart.total;
         total[1].innerHTML = '$' + cart.total;
     }
@@ -142,6 +144,10 @@
         cart.products.splice(index, 1);
         localStorage.setItem('carts', JSON.stringify(cart));
         getAllCart();
+    }
+
+    function nextStep() {
+        window.location = "index.php?page_name=shippinginfo";
     }
 
 </script>
