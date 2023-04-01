@@ -56,11 +56,11 @@
                         <div class="border rounded-2"><img src="admin/uploads/product/${item.image}" alt="" width="53" /></div>
                     </td>
                     <td class="products align-middle"><a class="fw-semi-bold mb-0 line-clamp-2" href="index?page_name=productdetail&id=${item.id}">${item.name}</a></td>
-                    <td class="price align-middle text-900 fs--1 fw-semi-bold text-end">$${item.sale_price}</td>
+                    <td class="price align-middle text-900 fs--1 fw-semi-bold text-end">$${item.sale_price.toFixed(2)}</td>
                     <td class="quantity align-middle fs-0 ps-5">
                         <div class="input-group input-group-sm flex-nowrap" data-quantity="data-quantity"><button class="btn btn-sm px-2" data-type="minus" onclick="minusCart(${index})">-</button><input id="productQty" class="form-control text-center input-spin-none bg-transparent border-0 px-0" type="number" min="1" value="${item.qty}" /><button class="btn btn-sm px-2 addcart" data-type="plus" id="" onclick="plusCart(${index})">+</button></div>
                     </td>
-                    <td class="total align-middle fw-bold text-1000 text-end" id="totalEachProduct" >$${item.sale_price * item.qty}</td>
+                    <td class="total align-middle fw-bold text-1000 text-end" id="totalEachProduct" >$${(item.sale_price * item.qty).toFixed(2)}</td>
                     <td class="align-middle white-space-nowrap text-end pe-0 ps-3"><button class="btn btn-sm text-500 hover-text-600 me-2" onclick="removeCart(${index})"><span class="fas fa-trash"></span></button></td>
                 </tr>
             `;
@@ -69,7 +69,7 @@
         cartArea.innerHTML += `
             <tr class="cart-table-row btn-reveal-trigger">
                 <td class="text-1100 fw-semi-bold ps-0 fs-0" colspan="4">Items subtotal : </td>
-                <td class="text-1100 fw-bold text-end fs-0 subtotal">$${cart.subtotal}</td>
+                <td class="text-1100 fw-bold text-end fs-0 subtotal">$${cart.subtotal.toFixed(2)}</td>
                 <td></td>
             </tr>
         `;
@@ -82,11 +82,11 @@
             <div>
                 <div class="d-flex justify-content-between">
                     <p class="text-900 fw-semi-bold">Items subtotal :</p>
-                    <p class="text-1100 fw-semi-bold subtotal">$${cart.subtotal}</p>
+                    <p class="text-1100 fw-semi-bold subtotal">$${cart.subtotal.toFixed(2)}</p>
                 </div>
                 <div class="d-flex justify-content-between">
                     <p class="text-900 fw-semi-bold">Discount :</p>
-                    <p class="text-danger fw-semi-bold discount">-$${cart.subtotal - cart.total}</p>
+                    <p class="text-danger fw-semi-bold discount">-$${(cart.subtotal - cart.total).toFixed(2)}</p>
                 </div>
                 <div class="d-flex justify-content-between">
                     <p class="text-900 fw-semi-bold">Tax :</p>
@@ -94,12 +94,12 @@
                 </div>
                 <div class="d-flex justify-content-between">
                     <p class="text-900 fw-semi-bold">Subtotal :</p>
-                    <p class="text-1100 fw-semi-bold totalPrice">$${cart.total}</p>
+                    <p class="text-1100 fw-semi-bold totalPrice">$${cart.total.toFixed(2)}</p>
                 </div>
             </div>
             <div class="d-flex justify-content-between border-y border-dashed py-3 mb-4">
                 <h4 class="mb-0">Total :</h4>
-                <h4 class="mb-0 totalPrice">$${cart.total}</h4>
+                <h4 class="mb-0 totalPrice">$${cart.total.toFixed(2)}</h4>
             </div>
             <button class="btn btn-primary w-100">Proceed to check out<span class="fas fa-chevron-right ms-1 fs--2"></span></button>
         `;
@@ -113,12 +113,12 @@
         cart.discount_price += newProduct.sale_price * newProduct.discount / 100;
         cart.total = (cart.subtotal - cart.discount_price);
         localStorage.setItem('carts', JSON.stringify(cart));
-        totalProduct[index].innerHTML = '$' + newProduct.sale_price * newProduct.qty;
-        subtotal[0].innerHTML = '$' + cart.subtotal;
-        subtotal[1].innerHTML = '$' + cart.subtotal;
-        discount.innerHTML = '-$' + cart.discount_price;
-        total[0].innerHTML = '$' + cart.total;
-        total[1].innerHTML = '$' + cart.total;
+        totalProduct[index].innerHTML = '$' + (newProduct.sale_price * newProduct.qty).toFixed(2);
+        subtotal[0].innerHTML = '$' + cart.subtotal.toFixed(2);
+        subtotal[1].innerHTML = '$' + cart.subtotal.toFixed(2);
+        discount.innerHTML = '-$' + cart.discount_price.toFixed(2);
+        total[0].innerHTML = '$' + cart.total.toFixed(2);
+        total[1].innerHTML = '$' + cart.total.toFixed(2);
     }
     function minusCart(index){
         const newProduct = cart.products[index];
@@ -128,12 +128,12 @@
         cart.discount_price -= newProduct.sale_price * newProduct.discount / 100;
         cart.total = (cart.subtotal - cart.discount_price);
         localStorage.setItem('carts', JSON.stringify(cart));
-        totalProduct[index].innerHTML = '$' + newProduct.sale_price * newProduct.qty;
-        subtotal[0].innerHTML = '$' + cart.subtotal;
-        subtotal[1].innerHTML = '$' + cart.subtotal;
-        discount.innerHTML = '-$' + cart.discount_price;
-        total[0].innerHTML = '$' + cart.total;
-        total[1].innerHTML = '$' + cart.total;
+        totalProduct[index].innerHTML = '$' + (newProduct.sale_price * newProduct.qty).toFixed(2);
+        subtotal[0].innerHTML = '$' + cart.subtotal.toFixed(2);
+        subtotal[1].innerHTML = '$' + cart.subtotal.toFixed(2);
+        discount.innerHTML = '-$' + cart.discount_price.toFixed(2);
+        total[0].innerHTML = '$' + cart.total.toFixed(2);
+        total[1].innerHTML = '$' + cart.total.toFixed(2);
     }
 
     function removeCart(index) {
