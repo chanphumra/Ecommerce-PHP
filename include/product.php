@@ -9,8 +9,8 @@
                 </nav>
             </div>
           <div class="row">
-            <div class="col">
-              <div class="row gx-4 gy-6 mb-8 product">
+            <div class="col-12">
+              <div class="row row-col-sm-2 row-col-md-3 row-cols-lg-5 row-col-xxl-6 gx-4 gy-6 mb-8 product">
                 <!-- <div class="col-12 col-sm-6 col-md-4 col-xxl-2">
                   <div class="product-card-container h-100">
                     <div class="position-relative text-decoration-none product-card h-100">
@@ -77,7 +77,7 @@
                 res.data.forEach(item => {
                     product.innerHTML += 
                     `
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2">
+                        <div class="col-12 col-sm-6 col-md-4 col-xxl-2">
                             <div class="position-relative text-decoration-none product-card h-100">
                                 <div class="d-flex flex-column justify-content-between h-100">
                                     <div>
