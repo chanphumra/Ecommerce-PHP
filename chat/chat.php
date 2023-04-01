@@ -1,0 +1,1 @@
+<div class="bg-primary cursor-pointer chat"><i class="fa-solid fa-message"></i></div>

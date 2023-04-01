@@ -19,6 +19,13 @@ $result = Database::select($table, $column, $clause, $condition);
 <section class="py-5">
     <?php foreach ($result as $item) { ?>
         <div class="container-small">
+            <nav class="mb-3" aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="#"><?= $item['main_name'] ?></a></li>
+                    <li class="breadcrumb-item"><a href="#"><?= $item['sub_name'] ?></a></li>
+                    <li class="breadcrumb-item"><a href="#"><?= $item['name'] ?></a></li>
+                </ol>
+            </nav>
             <div class="row g-5 mb-5 mb-lg-8 productdetail" data-product-details="data-product-details">
 
                 <div class="col-12 col-lg-6">

@@ -131,6 +131,21 @@ $country = $_GET['country'] ?? "";
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(orderData) {
                     console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                    storeOrder();
+                    clearStock();
+                    Swal.fire({
+                        toast: true,
+                        position: 'top',
+                        showClass: {
+                            icon: 'animated heartBeat delay-1s'
+                        },
+                        icon: 'success',
+                        text: 'Thank you for your order',
+                        showConfirmButton: false,
+                        timer: 1000
+                    }).then(res => {
+                        window.location.replace('index.php');
+                    })
                 });
             },
 
@@ -151,7 +166,7 @@ $country = $_GET['country'] ?? "";
         }
         text += "-----------------------------------------" + "\n";
         text += "subtotal:              $" + cart.subtotal + "\n";
-        text += "discount:             $" + cart.discount_price + "\n";
+        text += "discount:             $" + cart.discount_price.toFixed(2) + "\n";
         text += "total:                     $" + cart.total + "\n";
         const data = {
             chat_id: TELEGRAM_GROUP_ID,
@@ -210,6 +225,45 @@ $country = $_GET['country'] ?? "";
                 <h4 class="mb-0">$${cart.total}</h4>
             </div>
         `;
+    }
+
+    function storeOrder() {
+        /*========= insert to table order =========*/
+        const formData = new FormData();
+        formData.append("fields", JSON.stringify(["cus_id", "payment_method", "fullname", "email", "phone", "address", "status", "total"]));
+        formData.append("values", JSON.stringify([3, "paypal", "<?= $fullname ?>", "<?= $email ?>", "<?= $phone ?>", "<?= $address ?>", "paid", cart.total]));
+        axios.post("admin/ajax/order.php?action=insert&table=orders", formData).then(res => {
+            const orderId = res.data.lastInsertId;
+            /*========= insert to table order_details =========*/
+            cart.products.forEach(product => {
+                const formdata = new FormData();
+                formdata.append("fields", JSON.stringify(["o_id", "p_id", "qty"]));
+                formdata.append("values", JSON.stringify([orderId, product.id, product.qty]));
+                axios.post("admin/ajax/order.php?action=insert&table=order_details", formdata).then(r => {}).catch(err => {
+                    console.log(err);
+                });
+            });
+            /*========= sendMessage to telegram =========*/
+            sendMessageTelegram(orderId);
+        }).catch(err => {
+            console.log(err);
+        });
+
+    }
+
+    function clearStock() {
+        cart.products.forEach(product => {
+            axios.get(`admin/ajax/product.php?action=select&table=product&column=qty&condition=WHERE id=${product.id}`).then(res => {
+                const QTY_IN_STOCK = new Number(res.data[0].qty);
+                const formData = new FormData();
+                formData.append("fields", JSON.stringify(["qty"]));
+                formData.append("values", JSON.stringify([QTY_IN_STOCK - product.qty]));
+                axios.post(`admin/ajax/order.php?action=update&table=product&condition=WHERE id=${product.id}`, formData).then(r => {}).catch(e => {});
+            }).catch(err => {
+                console.log(err);
+            });
+        });
+        localStorage.removeItem("carts");
     }
 
     initPayPalButton();
