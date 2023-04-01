@@ -1,36 +1,77 @@
 <?php
 require_once "../lib/database.php";
+require_once "../../auth/token.php";
+define('TOKEN_KEY', "051ecc732fcae9f5976a4549814f0db2199a244e4c70aef949090f237c8e24bd7648f4304296263a7811a3f5332fbdeb716fbee5e88af042843ff09704323308");
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 switch ($_GET['action']) {
+    case 'login':
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $remember = $_POST['remember'] ?? "off";
+        $table = "customer";
+        $column = "*";
+        $clause = "";
+        $condition = "WHERE email = '$email' AND password = '$password'";
+        $result = Database::select($table, $column, $clause, $condition);
+        $message = array();
+        
+        /*======== found a user ========*/
+        if(!empty($result)){
+            /*======== account verify success ========*/
+            if($result[0]['verify'] == 1){
+                $message[] = ["success" => true];
+                $message[] = ["verify" => 1];
+
+                /*======== user want to remember ========*/
+                if($remember == "on"){
+                    $token = Token::Sign(["id" => $result[0]['id']], TOKEN_KEY);
+                    $message[] = ["token" => $token];
+                }
+                else{
+                    $message[] = ["user" => $result];
+                }
+            }
+            /*======== account not yet verify ========*/
+            else{
+                $message[] = ["success" => true];
+                $message[] = ["verify" => 0];
+            }
+        }
+        /*======== not found a user ========*/
+        else{
+            $message[] = ["success" => false];
+        }
+        echo json_encode($message);
+        break;
     case 'insert':
         $table = $_GET['table'];
         $fields = $values = array();
 
-        if($table == "customer"){
+        if ($table == "customer") {
             $name = $_POST['name'];
             $email = $_POST['email'];
             $password = $_POST['password'];
             /*==== upload new image =====*/
-            $image = time().rand().$_FILES['image']['name'];
-            move_uploaded_file($_FILES['image']['tmp_name'], "../uploads/customer/". $image);
+            $image = time() . rand() . $_FILES['image']['name'];
+            move_uploaded_file($_FILES['image']['tmp_name'], "../uploads/customer/" . $image);
 
             $fields = array("name", "email", "password", "image", "verify");
             $values = array($name, $email, $password, $image, "0");
-        }
-        else if($table == "verify_account"){
+        } else if ($table == "verify_account") {
             $cus_id = $_POST['cus_id'];
             $email = $_POST['email'];
             $OTP = $_POST['OTP'];
             $fields = array("cus_id", "email", "otp");
             $values = array($cus_id, $email, $OTP);
-        }  
+        }
         $lastInsertId = Database::insert($table, $fields, $values);
         echo json_encode(["success" => true, "lastInsertId" => $lastInsertId]);
         break;
-    
+
     case 'select':
         $table = $_GET['table'];
         $column = $_GET['column'];
@@ -49,31 +90,30 @@ switch ($_GET['action']) {
         break;
     case 'updateVerify':
         $table = $_GET['table'];
-        if($table == "customer"){
+        if ($table == "customer") {
             $email = $_POST['email'];
             $verify = $_POST['verify'];
             $fields = array("verify");
             $values = array($verify);
             Database::update($table, $fields, $values, "WHERE email='$email'");
-        }
-        else if($table == "verify_account"){
+        } else if ($table == "verify_account") {
             $email = $_POST['email'];
             $otp = $_POST['OTP'];
             $fields = array("otp");
             $values = array($otp);
             Database::update($table, $fields, $values, "WHERE email='$email'");
         }
-        echo json_encode(['success'=> true]);
+        echo json_encode(['success' => true]);
         break;
 
     case 'delete':
         $table = $_GET['table'];
         $condition = $_GET['condition'];
         Database::delete($table, $condition);
-        echo json_encode(['success'=>true]);
+        echo json_encode(['success' => true]);
         break;
-    
-    
+
+
     case 'sendOTP':
         require '../../vendor/autoload.php';
         $sendTo = $_POST['email'];
@@ -81,7 +121,7 @@ switch ($_GET['action']) {
         $mail = new PHPMailer(true);
         try {
             //Enable verbose debug output
-            $mail->SMTPDebug = 0;//SMTP::DEBUG_SERVER;
+            $mail->SMTPDebug = 0; //SMTP::DEBUG_SERVER;
 
             //Send using SMTP
             $mail->isSMTP();
@@ -130,7 +170,7 @@ switch ($_GET['action']) {
                             </div>
                             <p style="font-size:1.1em">Hi,</p>
                             <p>Thank you for choosing Bazaar shop. Use the following OTP to verifycation your account.</p>
-                            <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">'.$verification_code.'</h2>
+                            <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">' . $verification_code . '</h2>
                             <p style="font-size:0.9em;">Regards,<br />Bazaar shop</p>
                             <hr style="border:none;border-top:1px solid #eee" />
                             <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">

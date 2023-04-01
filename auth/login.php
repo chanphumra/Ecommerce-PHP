@@ -1,4 +1,6 @@
-<?php define('BOT_USERNAME', "bazaar_login_php_bot"); ?>
+<?php
+define('BOT_USERNAME', "bazaar_login_php_bot");
+?>
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 
@@ -73,18 +75,20 @@
                             <hr class="bg-200 mt-5 mb-4" />
                             <div class="divider-content-center bg-white">or use email</div>
                         </div>
-                        <div class="mb-3 text-start"><label class="form-label" for="email">Email address</label>
-                            <div class="form-icon-container"><input class="form-control form-icon-input" id="email" type="email" placeholder="name@example.com" /><span class="fas fa-user text-900 fs--1 form-icon"></span></div>
-                        </div>
-                        <div class="mb-3 text-start"><label class="form-label" for="password">Password</label>
-                            <div class="form-icon-container"><input class="form-control form-icon-input" id="password" type="password" placeholder="Password" /><span class="fas fa-key text-900 fs--1 form-icon"></span></div>
-                        </div>
-                        <div class="row flex-between-center mb-7">
-                            <div class="col-auto">
-                                <div class="form-check mb-0"><input class="form-check-input" id="basic-checkbox" type="checkbox" /><label class="form-check-label mb-0" for="basic-checkbox">Remember me</label></div>
+                        <form>
+                            <div class="mb-3 text-start"><label class="form-label" for="email">Email address</label>
+                                <div class="form-icon-container"><input class="form-control form-icon-input" name="email" id="email" type="email" placeholder="name@example.com" require="" /><span class="fas fa-user text-900 fs--1 form-icon"></span></div>
                             </div>
-                            <div class="col-auto"><a class="fs--1 fw-semi-bold" href="../../../pages/authentication/simple/forgot-password.html">Forgot Password?</a></div>
-                        </div><button class="btn btn-primary w-100 mb-3">Sign In</button>
+                            <div class="mb-3 text-start"><label class="form-label" for="password">Password</label>
+                                <div class="form-icon-container"><input class="form-control form-icon-input" name="password" id="password" type="password" placeholder="Password" require="" /><span class="fas fa-key text-900 fs--1 form-icon"></span></div>
+                            </div>
+                            <div class="row flex-between-center mb-7">
+                                <div class="col-auto">
+                                    <div class="form-check mb-0"><input class="form-check-input cursor-pointer" name="remember" id="remember" type="checkbox" /><label class="form-check-label mb-0 cursor-pointer" for="remember">Remember me</label></div>
+                                </div>
+                                <div class="col-auto"><a class="fs--1 fw-semi-bold" href="../../../pages/authentication/simple/forgot-password.html">Forgot Password?</a></div>
+                            </div><button type="submit" class="btn btn-primary w-100 mb-3">Sign In</button>
+                        </form>
                         <div class="text-center"><a class="fs--1 fw-bold" href="register.php">Create an account</a></div>
                     </div>
                 </div>
@@ -109,6 +113,145 @@
     <script src="../admin/vendors/swiper/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <script src="../assets/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        const form = document.querySelector('form');
+        const email = document.querySelector('#email');
+        const password = document.querySelector('#password');
+
+        form.onsubmit = (e) => {
+            e.preventDefault();
+            if (email.value == "" || password.value == "")
+                return Swal.fire({
+                    toast: true,
+                    position: 'top',
+                    showClass: {
+                        icon: 'animated heartBeat delay-1s'
+                    },
+                    icon: 'error',
+                    text: 'Please check information again',
+                    showConfirmButton: false,
+                    timer: 1000
+                });
+            axios.post('../admin/ajax/customer.php?action=login', new FormData(form)).then(res => {
+                const success = res.data[0].success;
+                if (success) {
+                    const verify = res.data[1].verify;
+                    const user = res.data[2].user ?? [];
+                    const token = res.data[2].token ?? "";
+                    const remember = document.querySelector('#remember');
+                    if (verify == 1) {
+                        if (remember.checked) {
+                            localStorage.setItem("token", token);
+                            /*======= remove another auth ========*/
+                            sessionStorage.removeItem("email");
+                            localStorage.removeItem("telegram_id");
+                        } else {
+                            sessionStorage.setItem('email', email.value);
+                            /*======= remove another auth ========*/
+                            localStorage.removeItem('token');
+                            localStorage.removeItem("telegram_id");
+                        }
+                        Swal.fire({
+                            toast: true,
+                            position: 'top',
+                            showClass: {
+                                icon: 'animated heartBeat delay-1s'
+                            },
+                            icon: 'success',
+                            text: 'Welcome to our shop',
+                            showConfirmButton: false,
+                            timer: 1000
+                        }).then(res => {
+                            window.location = "../index.php";
+                        });
+                    } else {
+                        verifyAccount();
+                    }
+                } else {
+                    Swal.fire({
+                        toast: true,
+                        position: 'top',
+                        showClass: {
+                            icon: 'animated heartBeat delay-1s'
+                        },
+                        icon: 'error',
+                        text: 'Incorrect email or password',
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                }
+                console.log(res);
+            }).catch(err => {
+                console.log(err);
+            })
+        }
+
+        function verifyAccount() {
+            const OTP = generateOTP();
+            const formData = new FormData(form);
+            formData.append("OTP", OTP);
+            formData.append("name", "you");
+
+            /*======= send OTP code to user =======*/
+            axios.post('../admin/ajax/customer.php?action=sendOTP', formData).then(res => {
+                console.log(res);
+            }).catch(e => {
+                console.log(e);
+            });
+
+            /*======= store OTP code in database =======*/
+            axios.get('../admin/ajax/customer.php?action=select&table=verify_account&column=*&condition=WHERE email = ' + email.value).then(res => {
+                if (empty(res.data)) {
+                    insertVerify(OTP);
+                } else {
+                    updateVerify(OTP);
+                }
+            }).catch(e => {
+                console.log(e);
+            });
+            window.location = "verifyotp.php?email=" + document.querySelector("#email").value;
+        }
+
+        function insertVerify(OTP) {
+            const formData = new FormData(form);
+            /*======= find customer id =======*/
+            axios.get('../admin/ajax/customer.php?action=select&table=customer&column=id&condition=WHERE email = ' + email.value).then(res => {
+                const cus_id = res.data[0].id;
+                formData.append("cus_id", cus_id);
+                formData.append("email", email.value);
+                formData.append("OTP", OTP);
+                /*======= insert to database =======*/
+                axios.post('../admin/ajax/customer.php?action=insert&table=verify_account', formData).then(res => {
+                    console.log(res);
+                }).catch(e => {
+                    console.log(e);
+                });
+            }).catch(e => {
+                console.log(e);
+            });
+        }
+
+        function updateVerify(OTP) {
+            const formData = new FormData();
+            formData.append("fields", JSON.stringify(["otp"]));
+            formData.append("values", JSON.stringify([OTP]));
+            axios.post('../admin/ajax/customer.php?action=update&table=verify_account&condition=WHERE email=' + email.value, formData).then(res => {
+                console.log(res);
+            }).catch(e => {
+                console.log(e);
+            });
+        }
+
+        function generateOTP() {
+            const digits = '0123456789';
+            let OTP = '';
+            for (let i = 0; i < 4; i++) {
+                OTP += digits[Math.floor(Math.random() * 10)];
+            }
+            return OTP;
+        }
+    </script>
 
 </body>
 

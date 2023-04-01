@@ -89,6 +89,16 @@ try {
     // Authenticate the user
     userAuthentication($auth_data);
 
+    $telegram_id = $auth_data['telegram_id'];
+
+    echo "<script>
+            localStorage.setItem('telegram_id', $telegram_id);
+    
+            /*======= remove another auth ========*/
+            localStorage.removeItem('token');
+            sessionStorage.removeItem('email');
+        </script>";
+
     // goto home page
     header('Location: ../index.php');
 } catch (Exception $e) {
