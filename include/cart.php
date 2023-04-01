@@ -58,7 +58,7 @@
                     <td class="products align-middle"><a class="fw-semi-bold mb-0 line-clamp-2" href="index?page_name=productdetail&id=${item.id}">${item.name}</a></td>
                     <td class="price align-middle text-900 fs--1 fw-semi-bold text-end">$${item.sale_price}</td>
                     <td class="quantity align-middle fs-0 ps-5">
-                        <div class="input-group input-group-sm flex-nowrap" data-quantity="data-quantity"><button class="btn btn-sm px-2" data-type="minus" onclick="minusCart(${index})">-</button><input class="form-control text-center input-spin-none bg-transparent border-0 px-0" type="number" min="1" value="${item.qty}" /><button class="btn btn-sm px-2 addcart" data-type="plus" id="" onclick="plusCart(${index})">+</button></div>
+                        <div class="input-group input-group-sm flex-nowrap" data-quantity="data-quantity"><button class="btn btn-sm px-2" data-type="minus" onclick="minusCart(${index})">-</button><input id="productQty" class="form-control text-center input-spin-none bg-transparent border-0 px-0" type="number" min="1" value="${item.qty}" /><button class="btn btn-sm px-2 addcart" data-type="plus" id="" onclick="plusCart(${index})">+</button></div>
                     </td>
                     <td class="total align-middle fw-bold text-1000 text-end" id="totalEachProduct" >$${item.sale_price * item.qty}</td>
                     <td class="align-middle white-space-nowrap text-end pe-0 ps-3"><button class="btn btn-sm text-500 hover-text-600 me-2" onclick="removeCart(${index})"><span class="fas fa-trash"></span></button></td>
@@ -105,6 +105,7 @@
         `;
     }
 
+
     function plusCart(index){
         const newProduct = cart.products[index];
         newProduct.qty += 1;
@@ -121,6 +122,7 @@
     }
     function minusCart(index){
         const newProduct = cart.products[index];
+        if(newProduct.qty == 1) return;
         newProduct.qty -= 1;
         cart.subtotal -=  newProduct.sale_price;
         cart.discount_price -= newProduct.sale_price * newProduct.discount / 100;
