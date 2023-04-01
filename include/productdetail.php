@@ -46,7 +46,7 @@
                                 <div>
                                     <h3 class="mb-5 lh-sm"><?= $item['name'] ?></h3>
                                     <div class="d-flex flex-wrap align-items-center mb-3">
-                                        <h1 class="me-3">$<?= $item['sale_price'] - ($item['sale_price'] * $item['discount']/100.00) ?></h1>
+                                        <h1 class="me-3">$<?= number_format($item['sale_price'] - ($item['sale_price'] * $item['discount']/100.00), 2, '.', '' )  ?></h1>
                                         <p class="text-500 text-decoration-line-through fs-2 mb-0 me-3">$<?= $item['sale_price'] ?></p>
                                         <p class="text-warning-500 fw-bolder fs-2 mb-0"><?= $item['discount'] ?>% off</p>
                                     </div>
