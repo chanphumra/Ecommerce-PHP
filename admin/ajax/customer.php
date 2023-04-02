@@ -188,4 +188,11 @@ switch ($_GET['action']) {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
         break;
+    case 'verifyToken':
+        $token = $_GET['token'];
+        $verify = Token::Verify($token, TOKEN_KEY);
+        $id = $verify['id'];
+        $result = Database::select("customer", "*", "", "WHERE id=". $id);
+        echo json_encode($result);
+        break;
 }

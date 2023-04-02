@@ -35868,6 +35868,9 @@ html:not(.navbar-vertical-collapsed) .navbar-vertical .firefox .navbar-vibrant .
     pointer-events: none;
     background-color: var(--phoenix-body-bg);
 }
+body.widget_frame_base .tgme_widget.body_widget_login{
+    background: red;
+}
 
 /* slideshow */
 .slideshow {

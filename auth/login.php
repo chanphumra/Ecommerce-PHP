@@ -1,5 +1,6 @@
 <?php
-define('BOT_USERNAME', "bazaar_login_php_bot");
+    require_once 'checkauth.php';
+    define('BOT_USERNAME', "bazaar_login_php_bot");
 ?>
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
@@ -141,16 +142,17 @@ define('BOT_USERNAME', "bazaar_login_php_bot");
                     const token = res.data[2].token ?? "";
                     const remember = document.querySelector('#remember');
                     if (verify == 1) {
-                        if (remember.checked) {
-                            localStorage.setItem("token", token);
-                            /*======= remove another auth ========*/
-                            sessionStorage.removeItem("email");
-                            localStorage.removeItem("telegram_id");
-                        } else {
+                        if(remember.checked){
+                            localStorage.setItem('token', token);
+                            /*======== remove another auth ========*/
+                            sessionStorage.removeItem('email');
+                            localStorage.removeItem('telegram_id');
+                        }
+                        else{
                             sessionStorage.setItem('email', email.value);
-                            /*======= remove another auth ========*/
+                            /*======== remove another auth ========*/
                             localStorage.removeItem('token');
-                            localStorage.removeItem("telegram_id");
+                            localStorage.removeItem('telegram_id');
                         }
                         Swal.fire({
                             toast: true,
@@ -202,7 +204,7 @@ define('BOT_USERNAME', "bazaar_login_php_bot");
 
             /*======= store OTP code in database =======*/
             axios.get('../admin/ajax/customer.php?action=select&table=verify_account&column=*&condition=WHERE email = ' + email.value).then(res => {
-                if (empty(res.data)) {
+                if (res.data.length == 0) {
                     insertVerify(OTP);
                 } else {
                     updateVerify(OTP);

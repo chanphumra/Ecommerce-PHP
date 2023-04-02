@@ -17,8 +17,8 @@
                                 </tr>
                             </thead>
                             <tbody class="list" id="cart-table-body">
-                                
-                                
+
+
                             </tbody>
                         </table>
                     </div>
@@ -27,7 +27,7 @@
             <div class="col-12 col-lg-4">
                 <div class="card">
                     <div class="card-body" id="cart-summary">
-                        
+
                     </div>
                 </div>
             </div>
@@ -35,7 +35,12 @@
     </div><!-- end of .container-->
 </section>
 <script>
-    let cart = JSON.parse(localStorage.getItem('carts')) || { products: [], subtotal: 0, discount_price: 0, total: 0 };
+    let cart = JSON.parse(localStorage.getItem('carts')) || {
+        products: [],
+        subtotal: 0,
+        discount_price: 0,
+        total: 0
+    };
     const cartArea = document.querySelector('#cart-table-body');
     const cartSummary = document.querySelector('#cart-summary');
 
@@ -46,9 +51,14 @@
     const total = document.querySelectorAll(".totalPrice");
 
     function getAllCart() {
-        cart = JSON.parse(localStorage.getItem('carts')) || { products: [], subtotal: 0, discount_price: 0, total: 0 };
+        cart = JSON.parse(localStorage.getItem('carts')) || {
+            products: [],
+            subtotal: 0,
+            discount_price: 0,
+            total: 0
+        };
         cartArea.innerHTML = "";
-        cart.products.forEach((item,index) => {
+        cart.products.forEach((item, index) => {
             cartArea.innerHTML += `
                 <tr class="cart-table-row btn-reveal-trigger">
                     <td class="align-middle white-space-nowrap py-0">
@@ -104,10 +114,10 @@
         `;
     }
 
-    function plusCart(index){
+    function plusCart(index) {
         const newProduct = cart.products[index];
         newProduct.qty += 1;
-        cart.subtotal +=  newProduct.sale_price;
+        cart.subtotal += newProduct.sale_price;
         cart.discount_price += newProduct.sale_price * newProduct.discount / 100;
         cart.total = (cart.subtotal - cart.discount_price);
         localStorage.setItem('carts', JSON.stringify(cart));
@@ -119,11 +129,11 @@
         total[1].innerHTML = '$' + cart.total;
     }
 
-    function minusCart(index){
+    function minusCart(index) {
         const newProduct = cart.products[index];
-        if(newProduct.qty == 1) return;
+        if (newProduct.qty == 1) return;
         newProduct.qty -= 1;
-        cart.subtotal -=  newProduct.sale_price;
+        cart.subtotal -= newProduct.sale_price;
         cart.discount_price -= newProduct.sale_price * newProduct.discount / 100;
         cart.total = (cart.subtotal - cart.discount_price);
         localStorage.setItem('carts', JSON.stringify(cart));
@@ -146,7 +156,24 @@
     }
 
     function nextStep() {
-        window.location = "index.php?page_name=shippinginfo";
+        let is_login = false;
+        if (localStorage.getItem("telegram_id") || localStorage.getItem("token") || sessionStorage.getItem("email")) {
+            is_login = true;
+        }
+        if (!is_login) {
+            Swal.fire({
+                toast: true,
+                position: 'top',
+                showClass: {
+                    icon: 'animated heartBeat delay-1s'
+                },
+                icon: 'warning',
+                text: 'Please register an account',
+                showConfirmButton: false,
+                timer: 1000
+            })
+        } else {
+            window.location = "index.php?page_name=shippinginfo";
+        }
     }
-
 </script>

@@ -5,9 +5,11 @@ $phone = $_GET['phone'] ?? "";
 $address = $_GET['address'] ?? "";
 $country = $_GET['country'] ?? "";
 ?>
+<?php require_once "auth/checkuser.php";?>
 <section class="pt-5 pb-9">
     <div class="container-small" style="min-height: 85vh;">
         <h2 class="mb-5">Check out</h2>
+        <input class="d-none" type="text" id="ID_LOGIN" >
         <div class="row justify-content-between">
             <div class="col-lg-7 col-xl-7">
                 <div>
@@ -107,6 +109,8 @@ $country = $_GET['country'] ?? "";
     };
     const cartArea = document.querySelector('#cart-area');
     const paymentArea = document.querySelector('#payment-area');
+    const ID_LOGIN = document.querySelector('#ID_LOGIN');
+    getUserLogin();
 
     function initPayPalButton() {
         paypal.Buttons({
@@ -153,6 +157,33 @@ $country = $_GET['country'] ?? "";
                 console.log("error" + err);
             }
         }).render('#paypal-button-container');
+    }
+
+    function getUserLogin() {
+        if(localStorage.getItem("telegram_id")){
+            axios.get("admin/ajax/customer.php?action=select&table=customer&column=*&condition= WHERE telegram_id=" + localStorage.getItem("telegram_id")).then(res => {
+                const data = res.data[0];
+                ID_LOGIN.value = data.id;
+            }).catch(err => {
+                console.log(err);
+            })
+        }
+        else if(localStorage.getItem("token")) {
+            axios.get("admin/ajax/customer.php?action=verifyToken&token=" + localStorage.getItem("token")).then(res => {
+                const data = res.data[0];
+                ID_LOGIN.value = data.id;
+            }).catch(err => {
+                console.log(err);
+            })
+        }
+        else if(sessionStorage.getItem('email')) {
+            axios.get(`admin/ajax/customer.php?action=select&table=customer&column=*&condition= WHERE email='${sessionStorage.getItem("email")}'`).then(res => {
+                const data = res.data[0];
+                ID_LOGIN.value = data.id;
+            }).catch(err => {
+                console.log(err);
+            })
+        }
     }
 
     function sendMessageTelegram(order_id) {
@@ -231,7 +262,7 @@ $country = $_GET['country'] ?? "";
         /*========= insert to table order =========*/
         const formData = new FormData();
         formData.append("fields", JSON.stringify(["cus_id", "payment_method", "fullname", "email", "phone", "address", "status", "total"]));
-        formData.append("values", JSON.stringify([3, "paypal", "<?= $fullname ?>", "<?= $email ?>", "<?= $phone ?>", "<?= $address ?>", "paid", cart.total]));
+        formData.append("values", JSON.stringify([ID_LOGIN.value, "paypal", "<?= $fullname ?>", "<?= $email ?>", "<?= $phone ?>", "<?= $address ?>", "paid", cart.total]));
         axios.post("admin/ajax/order.php?action=insert&table=orders", formData).then(res => {
             const orderId = res.data.lastInsertId;
             /*========= insert to table order_details =========*/

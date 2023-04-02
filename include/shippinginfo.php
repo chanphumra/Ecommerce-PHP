@@ -1,3 +1,4 @@
+<?php require_once "auth/checkuser.php";?>
 <section class="pt-5 pb-9">
     <div class="container-small" style="min-height: 85vh;">
         <h2 class="mb-5">Check out</h2>

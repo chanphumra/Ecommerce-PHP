@@ -25,10 +25,12 @@ function checkTelegramAuthorization($auth_data)
 }
 
 // User authentication - function
-function userAuthentication($auth_data) {
+function userAuthentication($auth_data)
+{
     // Creating user - function
-    function createNewUser($auth_data) {
-        $name = $auth_data['first_name']. " ". $auth_data['last_name'];
+    function createNewUser($auth_data)
+    {
+        $name = $auth_data['first_name'] . " " . $auth_data['last_name'];
         $image = $auth_data['photo_url'] ?? "";
         $verify = 1;
         $type = "telegram";
@@ -37,13 +39,14 @@ function userAuthentication($auth_data) {
         $table = "customer";
         $fields = array("name", "image", "verify", "type", "telegram_id");
         $values = array($name, $image, $verify, $type, $telegram_id);
-        
+
         Database::insert($table, $fields, $values);
     }
 
     // Updating user - function
-    function updateExistedUser($auth_data) {
-        $name = $auth_data['first_name']. " ". $auth_data['last_name'];
+    function updateExistedUser($auth_data)
+    {
+        $name = $auth_data['first_name'] . " " . $auth_data['last_name'];
         $image = $auth_data['photo_url'] ?? "";
         $telegram_id = $auth_data['id'];
 
@@ -55,14 +58,15 @@ function userAuthentication($auth_data) {
     }
 
     // User checker - function
-    function checkUserExists($auth_data) {
+    function checkUserExists($auth_data)
+    {
         // Get the user Telegram ID
         $target_id = $auth_data['id'];
-        
+
         $isUser = Database::select("customer", "telegram_id", "", "WHERE telegram_id = '$target_id'");
 
         // Return true if the user exists in database
-        if (!empty($isUser) && $isUser[0]['telegram_id'] === $target_id) {
+        if (!empty($isUser) && $isUser[0]['telegram_id'] == $target_id) {
             return true;
         }
         return false;
@@ -89,19 +93,17 @@ try {
     // Authenticate the user
     userAuthentication($auth_data);
 
-    $telegram_id = $auth_data['telegram_id'];
-
-    echo "<script>
-            localStorage.setItem('telegram_id', $telegram_id);
-    
-            /*======= remove another auth ========*/
-            localStorage.removeItem('token');
-            sessionStorage.removeItem('email');
-        </script>";
-
-    // goto home page
-    header('Location: ../index.php');
+    $telegram_id = $auth_data['id'];
 } catch (Exception $e) {
     // Display errors
     die($e->getMessage());
 }
+?>
+
+<script>
+    localStorage.setItem("telegram_id", <?= $telegram_id ?>);
+    /*======== remove another auth ========*/
+    sessionStorage.removeItem("email");
+    localStorage.removeItem("token");
+    window.location = "../index.php";
+</script>";
