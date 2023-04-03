@@ -77,15 +77,15 @@
                             <div class="divider-content-center bg-white">or use email</div>
                         </div>
                         <form>
-                            <div class="mb-3 text-start"><label class="form-label" for="email">Email address</label>
+                            <div class="mb-3 text-start"><label class="form-label mb-1" for="email">Email address</label>
                                 <div class="form-icon-container"><input class="form-control form-icon-input" name="email" id="email" type="email" placeholder="name@example.com" require="" /><span class="fas fa-user text-900 fs--1 form-icon"></span></div>
                             </div>
-                            <div class="mb-3 text-start"><label class="form-label" for="password">Password</label>
+                            <div class="mb-3 text-start"><label class="form-label mb-1" for="password">Password</label>
                                 <div class="form-icon-container"><input class="form-control form-icon-input" name="password" id="password" type="password" placeholder="Password" require="" /><span class="fas fa-key text-900 fs--1 form-icon"></span></div>
                             </div>
                             <div class="row flex-between-center mb-7">
                                 <div class="col-auto">
-                                    <div class="form-check mb-0"><input class="form-check-input cursor-pointer" name="remember" id="remember" type="checkbox" /><label class="form-check-label mb-0 cursor-pointer" for="remember">Remember me</label></div>
+                                    <div class="form-check mb-0 "><input class="form-check-input cursor-pointer" name="remember" id="remember" type="checkbox" /><label class="form-check-label mb-0 mt-1 cursor-pointer" for="remember">Remember me</label></div>
                                 </div>
                                 <div class="col-auto"><a class="fs--1 fw-semi-bold" href="../../../pages/authentication/simple/forgot-password.html">Forgot Password?</a></div>
                             </div><button type="submit" class="btn btn-primary w-100 mb-3">Sign In</button>
