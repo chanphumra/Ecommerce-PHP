@@ -54,7 +54,7 @@
     gap: 10px;
 }
 .conversation .chat-area .chat-item div{
-    max-width: 230px;
+    max-width: 250px;
     padding: 5px;
     font-size: 14px;
 }
@@ -96,4 +96,18 @@
 }
 .conversation .chat-box .send:hover{
     scale: 1.1;
+}
+.conversation .chat-area::-webkit-scrollbar {
+    width: .45rem;
+}
+    
+  /* Track */
+.conversation .chat-area::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  /* Handle */
+.conversation .chat-area::-webkit-scrollbar-thumb {
+    background-color: rgba(27, 27, 27, .2);
+    border-radius: 3px;
 }

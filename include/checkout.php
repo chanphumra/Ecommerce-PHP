@@ -5,11 +5,11 @@ $phone = $_GET['phone'] ?? "";
 $address = $_GET['address'] ?? "";
 $country = $_GET['country'] ?? "";
 ?>
-<?php require_once "auth/checkuser.php";?>
+<?php require_once "auth/checkuser.php"; ?>
 <section class="pt-5 pb-9">
-    <div class="container-small" style="min-height: 85vh;">
+    <div class="container-small THANK_YOU" style="min-height: 85vh;">
         <h2 class="mb-5">Check out</h2>
-        <input class="d-none" type="text" id="ID_LOGIN" >
+        <input class="d-none" type="text" id="ID_LOGIN">
         <div class="row justify-content-between">
             <div class="col-lg-7 col-xl-7">
                 <div>
@@ -137,6 +137,7 @@ $country = $_GET['country'] ?? "";
                     console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
                     storeOrder();
                     clearStock();
+                    thankYou();
                     Swal.fire({
                         toast: true,
                         position: 'top',
@@ -147,9 +148,7 @@ $country = $_GET['country'] ?? "";
                         text: 'Thank you for your order',
                         showConfirmButton: false,
                         timer: 1000
-                    }).then(res => {
-                        window.location.replace('index.php');
-                    })
+                    });
                 });
             },
 
@@ -160,23 +159,21 @@ $country = $_GET['country'] ?? "";
     }
 
     function getUserLogin() {
-        if(localStorage.getItem("telegram_id")){
+        if (localStorage.getItem("telegram_id")) {
             axios.get("admin/ajax/customer.php?action=select&table=customer&column=*&condition= WHERE telegram_id=" + localStorage.getItem("telegram_id")).then(res => {
                 const data = res.data[0];
                 ID_LOGIN.value = data.id;
             }).catch(err => {
                 console.log(err);
             })
-        }
-        else if(localStorage.getItem("token")) {
+        } else if (localStorage.getItem("token")) {
             axios.get("admin/ajax/customer.php?action=verifyToken&token=" + localStorage.getItem("token")).then(res => {
                 const data = res.data[0];
                 ID_LOGIN.value = data.id;
             }).catch(err => {
                 console.log(err);
             })
-        }
-        else if(sessionStorage.getItem('email')) {
+        } else if (sessionStorage.getItem('email')) {
             axios.get(`admin/ajax/customer.php?action=select&table=customer&column=*&condition= WHERE email='${sessionStorage.getItem("email")}'`).then(res => {
                 const data = res.data[0];
                 ID_LOGIN.value = data.id;
@@ -209,6 +206,44 @@ $country = $_GET['country'] ?? "";
         }).catch(err => {
             console.log(err);
         });
+    }
+
+    function sendMessageChat(order_id) {
+        let message = `<b class="mb-3">Summury Order #${order_id}</b>`;
+        for (let index = 0; index < cart.products.length; index++) {
+            const product = cart.products[index];
+            message += `
+                <span class="w-100 mb-1 d-flex justify-content-between gap-3 align-items-center">
+                    <span class="w-100 d-flex gap-2 align-items-center">
+                        <img class="rounded-0" src="admin/uploads/product/${product.image}" alt="" style="width: 30px; height: 30px; object-fit: cover;">
+                        <span class="fs--1 text-truncate" style="width: 100px;">${product.name}</span>
+                    </span>
+                    <span class="fs--1">x${product.qty}</span>
+                    <span class="fs--1">$${product.sale_price}</span>
+                </span>
+            `;
+        }
+        message += `
+            <span class="w-100 mt-2 pt-2" style="border-top: 0.01rem dashed">
+                <span class="w-100 d-flex justify-content-between align-items-center">
+                    <span class="fw-semibold">Subtotal :</span>
+                    <span class="fw-semibold">$${cart.subtotal}</span>
+                </span>
+                <span class="w-100 d-flex justify-content-between align-items-center">
+                    <span class="fw-semibold">Discount :</span>
+                    <span class="text-danger fw-semibold">-$${cart.discount_price.toFixed(2)}</span>
+                </span>
+                <span class="w-100 d-flex justify-content-between align-items-center">
+                    <span class="fw-semibold">Total :</span>
+                    <span class="fw-semibold">$${cart.total}</span>
+                </span>
+            </span>
+        `;
+        const formData = new FormData();
+        formData.append('cus_id', ID_LOGIN.value);
+        formData.append('message', message);
+        formData.append('sender', 1);
+        axios.post('admin/ajax/chat.php?action=insert', formData).then(res => {}).catch(err => {});
     }
 
     function getAllCart() {
@@ -274,8 +309,9 @@ $country = $_GET['country'] ?? "";
                     console.log(err);
                 });
             });
-            /*========= sendMessage to telegram =========*/
+            /*========= sendMessage =========*/
             sendMessageTelegram(orderId);
+            sendMessageChat(orderId);
         }).catch(err => {
             console.log(err);
         });
@@ -295,6 +331,15 @@ $country = $_GET['country'] ?? "";
             });
         });
         localStorage.removeItem("carts");
+    }
+
+    function thankYou() {
+        document.querySelector('.THANK_YOU').innerHTML = `
+            <div class="d-flex flex-column gap-3 justify-content-center align-items-center" style="height: 75vh;">
+                <h1 class="text-700">Thank for your order</h1>
+                <button onclick="window.location='index.php'" type="button" class="btn btn-primary rounded fs-1">Back to shop</button>
+            </div>
+        `;
     }
 
     initPayPalButton();
