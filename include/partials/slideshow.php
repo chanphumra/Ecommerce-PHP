@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 <div class="container-small">
     <div class="slideshow swiper">
         <div class="swiper-wrapper">

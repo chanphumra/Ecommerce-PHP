@@ -111,14 +111,14 @@
                             </div>
                         </a>
                         <div class="parent-wrapper label-1">
-                            <ul class="nav collapse parent" data-bs-parent="#navbarVerticalCollapse" id="events">
+                            <ul class="nav collapse parent <?=($page_name=="addslideshow" || $page_name=="slideshow" || $page_name=="editslideshow")?"show":"" ?>" data-bs-parent="#navbarVerticalCollapse" id="events">
                                 <li class="collapsed-nav-item-title d-none">Slideshows</li>
-                                <li class="nav-item"><a class="nav-link" href="apps/events/create-an-event.html" asd="index" data-bs-toggle="" aria-expanded="false">
+                                <li class="nav-item"><a class="nav-link <?=($page_name=="addslideshow")?"active":"" ?>" href="index.php?page_name=addslideshow" asd="index" data-bs-toggle="" aria-expanded="false">
                                         <div class="d-flex align-items-center"><span class="nav-link-text">Add Slideshow</span>
                                         </div>
                                     </a><!-- more inner pages-->
                                 </li>
-                                <li class="nav-item"><a class="nav-link" href="apps/events/event-detail.html" asd="index" data-bs-toggle="" aria-expanded="false">
+                                <li class="nav-item"><a class="nav-link <?=($page_name=="slideshow" || $page_name=="editslideshow")?"active":"" ?>" href="index.php?page_name=slideshow" asd="index" data-bs-toggle="" aria-expanded="false">
                                         <div class="d-flex align-items-center"><span class="nav-link-text">Slideshow</span></div>
                                     </a><!-- more inner pages-->
                                 </li>

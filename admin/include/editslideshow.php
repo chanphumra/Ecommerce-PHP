@@ -6,19 +6,27 @@ $id = $_GET['id'] ?? 0;
     <form class="mb-9" action="POST" enctype="multipart/form-date">
         <div class="row g-3 flex-between-end mb-5">
             <div class="col-auto">
-                <h2 class="mb-2">Edit Main category</h2>
+                <h2 class="mb-2">Edit Slideshow</h2>
             </div>
-            <div class="col-auto"><button class="btn btn-primary mb-2 mb-sm-0 btnEdit">Edit category</button></div>
+            <div class="col-auto"><button class="btn btn-primary mb-2 mb-sm-0 btnEdit">Edit slideshow</button></div>
         </div>
         <div class="row g-5">
             <div class="col-12">
                 <div class="cat mb-3">
-                    <h4>Category Title</h4>
+                    <h4>Title</h4>
+                    <div>
+                        <input class="form-check-input" type="checkbox" name="enable" id="enable">
+                        <label for="enable">Enable</label>
+                    </div>
                 </div>
-                <input class="form-control mb-5" name="name" id="name" type="text" placeholder="Write title here..." />
+                <input class="form-control mb-5" name="title" id="title" type="text" placeholder="Write title here..." />
                 <div class="mb-6">
-                    <h4 class="mb-3">Category Description</h4>
-                    <textarea rows="10" class="form-control mb-5 resize-none" name="description" id="description" placeholder="Write description here..."></textarea>
+                    <h4 class="mb-3">Description</h4>
+                    <textarea rows="10" class="form-control mb-5 resize-none" name="text" id="text" placeholder="Write text here..."></textarea>
+                </div>
+                <div class="mb-6">
+                    <h4 class="mb-3">Link</h4>
+                    <input class="form-control mb-5" name="link" id="link" type="text" placeholder="Write link here..." />
                 </div>
                 <h4 class="mb-3">Display images</h4>
                 <div class="d-flex flex-wrap gap-2 mb-3 review-images"></div>
@@ -42,13 +50,15 @@ $id = $_GET['id'] ?? 0;
     </footer>
 </div>
 <script>
-    /*---- get data ----*/
-    axios.get('ajax/category.php?action=select&table=main_category&column=*&condition=WHERE id = ' + <?= $id ?>).then(res => {
+    /*---- get data slideshow ----*/
+    axios.get('ajax/slideshow.php?action=select&table=slideshow&column=*&condition=WHERE id = ' + <?= $id ?>).then(res => {
         res.data.forEach(item => {
-            document.querySelector('#name').value = item.name;
-            document.querySelector('#description').value = item.description;
+            document.querySelector('#title').value = item.title;
+            document.querySelector('#text').value = item.text;
+            document.querySelector('#link').value = item.link;
+            document.querySelector('#enable').checked = (item.enable == 1);
             container.innerHTML = `<div class="form-control rounded position-relative p-1" style="width: 100px; height: 100px;">
-                    <img src="uploads/category/${item.image}" style="width: 100%; height: 100%; object-fit: cover;">
+                    <img src="uploads/slideshow/${item.image}" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>`;
         });
     }).catch(e => {
@@ -97,7 +107,7 @@ $id = $_GET['id'] ?? 0;
         input.files = null;
     });
 
-    /*---- edit categoty ----*/
+    /*---- edit a slideshow ----*/
     const form = document.querySelector('form');
     const btnEdit = document.querySelector('.btnEdit');
 
@@ -106,11 +116,12 @@ $id = $_GET['id'] ?? 0;
     }
 
     btnEdit.onclick = () => {
-        const name = document.querySelector('#name').value;
-        const description = document.querySelector('#description').value;
+        const title = document.querySelector('#title').value;
+        const text = document.querySelector('#text').value;
+        const link = document.querySelector('#link').value;
 
         /*---- check condition ----*/
-        if (name === "" || description === "") {
+        if (title === "" || text === "" || link === "") {
             return Swal.fire({
                 toast: true,
                 position: 'top',
@@ -126,7 +137,7 @@ $id = $_GET['id'] ?? 0;
 
         const formdata = new FormData(form);
         if (files != null) formdata.append("image", files);
-        axios.post('ajax/category.php?action=update&table=main_category&id=' + <?= $id ?>, formdata, {
+        axios.post('ajax/slideshow.php?action=update&id=' + <?= $id ?>, formdata, {
                 header: {
                     "content-type": "multipart/form-data"
                 }
@@ -141,11 +152,11 @@ $id = $_GET['id'] ?? 0;
                             icon: 'animated heartBeat delay-1s'
                         },
                         icon: 'success',
-                        text: 'One Category has been updated',
+                        text: 'Slideshow has been updated',
                         showConfirmButton: false,
                         timer: 1000
                     }).then(res => {
-                        window.location.replace('index.php?page_name=category');
+                        window.location.replace('index.php?page_name=slideshow');
                     })
                 }
             })

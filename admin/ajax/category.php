@@ -3,14 +3,11 @@ require_once "../lib/database.php";
 
 switch ($_GET['action']) {
     case 'insert':
-        // $request_body = file_get_contents('php://input');
-        // $data = json_decode($request_body, true);
         $name = $_POST['name'];
         $description = $_POST['description'];
         $image = $image_name = $tmp_name = $main_check = "";
         if (isset($_FILES['image'])) { $image = $_FILES['image']; $tmp_name = $image['tmp_name']; $image_name = $image['name']; }
         if (isset($_POST['main-check'])) $main_check = $_POST['main-check'];
-
 
         // insert to main category
         if (!empty($main_check)) {
