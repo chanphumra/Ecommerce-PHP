@@ -1,5 +1,5 @@
 <section class="pt-5 pb-9">
-    <div class="container-small cart" style="min-height: 85vh;">
+    <div class="container-small cart CART" style="min-height: 85vh;">
         <h2 class="mb-6">Cart</h2>
         <div class="row g-5">
             <div class="col-12 col-lg-8">
@@ -57,6 +57,7 @@
             discount_price: 0,
             total: 0
         };
+        if(checkEmptyCart()) return;
         cartArea.innerHTML = "";
         cart.products.forEach((item, index) => {
             cartArea.innerHTML += `
@@ -175,5 +176,20 @@
         } else {
             window.location = "index.php?page_name=shippinginfo";
         }
+    }
+
+    function checkEmptyCart() {
+        let empty = false;
+        if(cart.products.length == 0) {
+            empty = true;
+            document.querySelector('.CART').innerHTML = `
+                <div class="d-flex flex-column gap-3 justify-content-center align-items-center" style="height: 75vh;">
+                    <img src='assets/img/empty.png' width="350" height="350"/>
+                    <h1 class="text-700">Your cart is empty</h1>
+                    <button onclick="window.location='index.php'" type="button" class="btn btn-primary rounded fs-1">Back to shop</button>
+                </div>
+            `;
+        }
+        return empty;
     }
 </script>
