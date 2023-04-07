@@ -19,7 +19,7 @@
                         <div onclick="browseImage()" class="position-absolute d-flex justify-content-center align-items-center cursor-pointer p-1 rounded-circle border bg-white border-primary" style="width: 45px; height: 45px; bottom: 7px; right: 5px;">
                             <i class="fas fa-pen"></i>
                         </div>
-                        <input type="file" id="image" class="d-none">
+                        <input type="file" accept="image/*" id="image" class="d-none">
                     </div>
                 </div>
                 <div class="mt-5">
