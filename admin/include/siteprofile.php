@@ -9,10 +9,16 @@
         </div>
         <div class="d-flex mt-5 gap-8 flex-column flex-md-row">
             <div class="flex-[2] bg-white p-5 rounded shadow">
-                <div class='relative w-[150px] h-[150px] rounded border border-solid border-gray-300 bg-white shadow-sm'>
-                    <img src="" alt="" class='w-100 h-100 rounded object-cover p-1' />
-                    <i class="absolute fa-solid fa-pen-to-square w-[40px] h-[40px] leading-[40px] text-center text-primary cursor-pointer bg-white rounded-full right-0 bottom-[5px] shadow-sm border border-solid border-gray-300"></i>
-                    <input onChange={previewImage} ref={imageRef} type='file' class="opacity-0 absolute fa-solid fa-pen-to-square w-[40px] h-[40px] leading-[40px] text-center text-primary cursor-pointer bg-white rounded-full right-0 bottom-[5px] shadow-md border border-solid border-gray-300" />
+                <div class="mb-7 d-flex justify-content-center align-items-center">
+                    <div class="position-relative shadow-sm p-1 rounded-circle border border-primary" style="width: 200px; height: 200px;">
+                        <div id="preview" class="w-100 h-100">
+                            <img src="../assets/img/avatar.png" class="object-fit-cover rounded-circle w-100 h-100">
+                        </div>
+                        <div onclick="browseImage()" class="position-absolute d-flex justify-content-center align-items-center cursor-pointer p-1 rounded-circle border bg-white border-primary" style="width: 45px; height: 45px; bottom: 7px; right: 5px;">
+                            <i class="fas fa-pen"></i>
+                        </div>
+                        <input type="file" accept="image/*" id="image" name="image" class="d-none">
+                    </div>
                 </div>
                 <div class="mt-5">
                     <p class='mb-2'>Company name</p>
@@ -55,3 +61,18 @@
         </div>
     </footer>
 </div>
+<script>
+    const form = document.querySelector('form');
+        const formText = document.querySelector('#formText');
+        const formImage = document.querySelector('#formImage');
+        const btnNext = document.querySelector('#btnNext');
+        const btnRegister = document.querySelector('#btnRegister');
+        const imageFile = document.querySelector('#image');
+    imageFile.onchange = () => {
+            document.querySelector('#preview').innerHTML = `<img src="${URL.createObjectURL(imageFile.files[0])}" class="object-fit-cover rounded-circle w-100 h-100">`;
+        }
+
+        function browseImage() {
+            imageFile.click();
+        }
+</script>
