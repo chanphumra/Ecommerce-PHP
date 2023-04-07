@@ -35886,12 +35886,19 @@ body.widget_frame_base .tgme_widget.body_widget_login{
     flex-direction: row;
     width: 100%;
     height: 100%;
+    background-color: var(--phoenix-white);
 }
 
 .slideshow .slideshow-item .contents {
     width: 50%;
     height: 100%;
-    background-color: red;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 50px 0 70px;
+}
+.slideshow .slideshow-item .contents .title{
+    color: var(--phoenix-primary);
 }
 
 .slideshow .slideshow-item .slideimage {
@@ -35900,7 +35907,6 @@ body.widget_frame_base .tgme_widget.body_widget_login{
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100% 100%;
-    background-color: black;
 }
 @media (max-width: 1000px){
     .slideshow .slideshow-item {

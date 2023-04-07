@@ -141,7 +141,16 @@ $result = Database::select($table, $column, $clause, $condition);
         }
 
         localStorage.setItem('carts', JSON.stringify(cart));
-        // setCarts(cart);
-        // setCount(cart.products.length);
+        Swal.fire({
+            toast: true,
+            position: 'top',
+            showClass: {
+                icon: 'animated heartBeat delay-1s'
+            },
+            icon: 'success',
+            text: 'One Product add to cart',
+            showConfirmButton: false,
+            timer: 1000
+        })
     };
 </script>

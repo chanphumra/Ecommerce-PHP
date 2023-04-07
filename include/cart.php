@@ -172,7 +172,7 @@
                 text: 'Please register an account',
                 showConfirmButton: false,
                 timer: 1000
-            })
+            });
         } else {
             window.location = "index.php?page_name=shippinginfo";
         }

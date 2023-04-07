@@ -12,7 +12,7 @@
                     <div class="swiper swiper-container theme-slider" data-swiper='{"slidesPerView":1,"spaceBetween":16,"breakpoints":{"450":{"slidesPerView":2,"spaceBetween":16},"768":{"slidesPerView":3,"spaceBetween":16},"992":{"slidesPerView":4,"spaceBetween":16},"1200":{"slidesPerView":5,"spaceBetween":16},"1540":{"slidesPerView":6,"spaceBetween":16}}}'>
                         <div class="swiper-wrapper product">
 
-                        <!-- single product -->
+                            <!-- single product -->
                             <!-- <div class="swiper-slide">
                                 <div class="position-relative text-decoration-none product-card h-100">
                                     <div class="d-flex flex-column justify-content-between h-100">
@@ -58,14 +58,15 @@
 
     //get all product
     getProduct();
-    function getProduct(){
+
+    function getProduct() {
         product.innerHTML = "";
         axios.get('admin/ajax/product.php?action=select&table=product&column=*')
             .then(res => {
                 console.log(res.data);
                 res.data.forEach(item => {
-                    product.innerHTML += 
-                    `
+                    product.innerHTML +=
+                        `
                         <div class="swiper-slide">
                             <div class="position-relative text-decoration-none product-card h-100">
                                 <div class="d-flex flex-column justify-content-between h-100">
@@ -97,49 +98,40 @@
                 console.log(err);
             })
     }
-    const cart = JSON.parse(localStorage.getItem('carts')) || { products: [], subtotal: 0, discount_price: 0, total: 0 };
+    const cart = JSON.parse(localStorage.getItem('carts')) || {
+        products: [],
+        subtotal: 0,
+        discount_price: 0,
+        total: 0
+    };
 
     const addToCart = (item, qty) => {
 
         const product = {
-        id: item.p_id,
-        name: item.p_name,
-        sale_price: new Number(item.sale_price),
-        discount: new Number(item.discount),
-        qty: new Number(qty),
-        image: item.image1
+            id: item.p_id,
+            name: item.p_name,
+            sale_price: new Number(item.sale_price),
+            discount: new Number(item.discount),
+            qty: new Number(qty),
+            image: item.image1
         };
 
         const index = cart.products.findIndex(p => p.id == product.id);
         if (index >= 0) { // exist in cart
-        const existProduct = cart.products[index];
-        existProduct.qty += 1;
-        cart.subtotal += product.sale_price;
-        cart.discount_price += product.sale_price * product.discount / 100;
-        cart.total = (cart.subtotal - cart.discount_price);
-        }
-        else {
-        product.qty = 1;
-        cart.products.push(product);
-        cart.subtotal += product.sale_price;
-        cart.discount_price += product.sale_price * product.discount / 100;
-        cart.total = (cart.subtotal - cart.discount_price);
+            const existProduct = cart.products[index];
+            existProduct.qty += 1;
+            cart.subtotal += product.sale_price;
+            cart.discount_price += product.sale_price * product.discount / 100;
+            cart.total = (cart.subtotal - cart.discount_price);
+        } else {
+            product.qty = 1;
+            cart.products.push(product);
+            cart.subtotal += product.sale_price;
+            cart.discount_price += product.sale_price * product.discount / 100;
+            cart.total = (cart.subtotal - cart.discount_price);
         }
 
         localStorage.setItem('carts', JSON.stringify(cart));
-        setCarts(cart);
-        setCount(cart.products.length);
 
-        toast.success('Add 1 product to cart', {
-        position: "top-center",
-        autoClose: 600,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        transition: Slide,
-        theme: "light",
-        });
     };
 </script>
