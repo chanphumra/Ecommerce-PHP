@@ -135,7 +135,7 @@
                         <div class="parent-wrapper label-1">
                             <ul class="nav collapse parent" data-bs-parent="#navbarVerticalCollapse" id="social">
                                 <li class="collapsed-nav-item-title d-none">Site Setting</li>
-                                <li class="nav-item"><a class="nav-link" href="apps/social/profile.html" asd="index" data-bs-toggle="" aria-expanded="false">
+                                <li class="nav-item"><a class="nav-link" href="index.php?page_name=siteprofile" asd="index" data-bs-toggle="" aria-expanded="false">
                                         <div class="d-flex align-items-center"><span class="nav-link-text">Site Profile</span></div>
                                     </a><!-- more inner pages-->
                                 </li>
