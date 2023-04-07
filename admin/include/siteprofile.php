@@ -17,7 +17,7 @@
                 </div>
                 <div class="mt-5">
                     <p class='mb-2'>Company name</p>
-                    <input ref="" type="text" class='rounded border border-solid w-full' placeholder='company name' />
+                    <input ref="" type="text" class='rounded border border-solid p-1 w-full' placeholder='company name' />
                 </div>
             </div>
             <div class="flex-[4] bg-white p-5 rounded shadow">
@@ -25,21 +25,21 @@
                 <div class="d-flex flex-col flex-md-row gap-4 gap-md-8 w-full mt-5">
                     <div class="w-full">
                         <p class='mb-2'>City</p>
-                        <input ref="" type="text" class='rounded border border-solid w-full' placeholder='phnom penh' />
+                        <input ref="" type="text" class='rounded border border-solid p-1 w-full' placeholder='phnom penh' />
                     </div>
                     <div class="w-full">
                         <p class='mb-2'>Country</p>
-                        <input ref="" type="text" class='rounded border border-solid w-full' placeholder='cambodia' />
+                        <input ref="" type="text" class='rounded border border-solid p-1 w-full' placeholder='cambodia' />
                     </div>
                 </div>
                 <div class="d-flex flex-col md:flex-row gap-4 md:gap-8 w-full mt-3">
                     <div class="w-full">
                         <p class='mb-2'>Phone</p>
-                        <input ref="" type="text" class='rounded border border-solid w-full' placeholder='+1234567890' />
+                        <input ref="" type="text" class='rounded border border-solid p-1 w-full' placeholder='+1234567890' />
                     </div>
                     <div class="w-full">
                         <p class='mb-2'>Email</p>
-                        <input ref="" type="text" class='rounded border border-solid w-full' placeholder='company@gmail.com' />
+                        <input ref="" type="text" class='rounded border border-solid p-1 w-full' placeholder='company@gmail.com' />
                     </div>
                 </div>
             </div>
