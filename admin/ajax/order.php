@@ -15,7 +15,7 @@ switch ($_GET['action']) {
         $clause = $_GET['clause'] ?? ""; 
         $condition = $_GET['condition'] ?? "";
         $result = Database::select($table, $column, $clause, $condition);
-        return json_encode($result); 
+        echo json_encode($result); 
         break;
     case 'update':
         $table = $_GET['table'];

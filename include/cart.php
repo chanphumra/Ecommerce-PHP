@@ -18,7 +18,6 @@
                             </thead>
                             <tbody class="list" id="cart-table-body">
 
-
                             </tbody>
                         </table>
                     </div>

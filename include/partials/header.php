@@ -33,7 +33,7 @@
                                             <div class="overflow-auto scrollbar">
                                                 <ul class="nav d-flex flex-column mb-2 pb-1">
                                                     <li class="nav-item"><a class="nav-link px-3" href="#!"> <span class="me-2 text-900" data-feather="user"></span>Profile</a></li>
-                                                    <li class="nav-item"><a class="nav-link px-3" href="#!"><span class="me-2 text-900" data-feather="shopping-cart"></span>Your order</a></li>
+                                                    <li class="nav-item"><a class="nav-link px-3" href="index.php?page_name=order"><span class="me-2 text-900" data-feather="shopping-cart"></span>Your order</a></li>
                                                 </ul>
                                             </div>
                                             <hr />
