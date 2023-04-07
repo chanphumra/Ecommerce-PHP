@@ -24,7 +24,7 @@
                 </div>
                 <div class="mt-5">
                     <p class='mb-2'>Company name</p>
-                    <input id="name" name="name" type="text" class='rounded border border-solid px-3 py-2 w-100' placeholder='company name' />
+                    <input id="name" name="name" type="text" class='form-control w-100' placeholder='company name' />
                 </div>
             </div>
             <div class="bg-white p-5 rounded shadow w-100">
@@ -32,21 +32,21 @@
                 <div class="d-flex flex-col flex-md-row gap-4 gap-md-8 w-100 mt-5">
                     <div class="w-100">
                         <p class='mb-2'>City</p>
-                        <input id="city" name="city" type="text" class='rounded border border-solid px-3 py-2 w-100' placeholder='phnom penh' />
+                        <input id="city" name="city" type="text" class='form-control w-100' placeholder='phnom penh' />
                     </div>
                     <div class="w-100">
                         <p class='mb-2'>Country</p>
-                        <input id="country" name="country" type="text" class='rounded border border-solid px-3 py-2 w-100' placeholder='cambodia' />
+                        <input id="country" name="country" type="text" class='form-control w-100' placeholder='cambodia' />
                     </div>
                 </div>
                 <div class="d-flex flex-col md:flex-row gap-4 gap-md-8 w-100 mt-3">
                     <div class="w-100">
                         <p class='mb-2'>Phone</p>
-                        <input id="phone" name="phone" type="text" class='rounded border border-solid px-3 py-2 w-100' placeholder='+1234567890' />
+                        <input id="phone" name="phone" type="text" class='form-control w-100' placeholder='+1234567890' />
                     </div>
                     <div class="w-100">
                         <p class='mb-2'>Email</p>
-                        <input id="emails" name="emails" name="emails" type="text" class='rounded border border-solid px-3 py-2 w-100' placeholder='company@gmail.com' />
+                        <input id="emails" name="emails" name="emails" type="text" class='form-control w-100' placeholder='company@gmail.com' />
                     </div>
                 </div>
             </div>
