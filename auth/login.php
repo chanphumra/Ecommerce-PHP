@@ -2,6 +2,10 @@
     require_once 'checkauth.php';
     define('BOT_USERNAME', "bazaar_login_php_bot");
 ?>
+<?php 
+    require_once "../admin/lib/database.php";
+    $result = Database::select("profile_setting", "*", "", "");
+?>
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 
@@ -62,7 +66,7 @@
                     <div class="col-sm-10 col-md-8 col-lg-5 col-xl-5 col-xxl-3 py-2 shadow-sm bg-white rounded-4">
                         <a class="d-flex flex-center text-decoration-none mb-4" href="../../../index.html">
                             <div class="d-flex align-items-center fw-bolder fs-5 d-inline-block">
-                                <img src="../../../assets/img/icons/logo.png" alt="phoenix" width="58" />
+                                <img src="../admin/uploads/profile/<?=$result[0]['image']?>" alt="<?=$result[0]['name']?>" width="58" />
                             </div>
                         </a>
                         <div class="text-center mb-7">

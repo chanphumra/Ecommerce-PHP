@@ -1,4 +1,8 @@
 <?php define('BOT_USERNAME', "bazaar_login_php_bot");?>
+<?php 
+    require_once "../admin/lib/database.php";
+    $result = Database::select("profile_setting", "*", "", "");
+?>
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 
@@ -67,7 +71,7 @@
                         <div class="mb-7 d-flex justify-content-center align-items-center">
                             <div class="position-relative shadow-sm p-1 rounded-circle border border-primary" style="width: 200px; height: 200px;">
                                 <div id="preview" class="w-100 h-100">
-                                    <img src="../assets/img/avatar.png" class="object-fit-cover rounded-circle w-100 h-100">
+                                    <img src="../admin/uploads/profile/<?=$result[0]['image']?>" alt="<?=$result[0]['name']?>" width="58" />
                                 </div>
                                 <div onclick="browseImage()" class="position-absolute d-flex justify-content-center align-items-center cursor-pointer p-1 rounded-circle border bg-white border-primary" style="width: 45px; height: 45px; bottom: 7px; right: 5px;">
                                     <i class="fas fa-pen"></i>
@@ -80,7 +84,9 @@
 
                     <div class="col-sm-10 col-md-8 col-lg-5 col-xl-5 col-xxl-3  py-2 shadow-sm bg-white rounded-4" id="formText">
                         <a class="d-flex flex-center text-decoration-none mb-4" href="../../../index.html">
-                            <div class="d-flex align-items-center fw-bolder fs-5 d-inline-block"><img src="../../../assets/img/icons/logo.png" alt="phoenix" width="58" /></div>
+                            <div class="d-flex align-items-center fw-bolder fs-5 d-inline-block">
+                                <img src="../admin/uploads/profile/<?=$result[0]['image']?>" alt="<?=$result[0]['name']?>" width="58" />
+                            </div>
                         </a>
                         <div class="text-center mb-7">
                             <h3 class="text-1000">Sign Up</h3>

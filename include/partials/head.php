@@ -1,3 +1,8 @@
+<?php 
+    require_once "admin/lib/database.php";
+    $result = Database::select("profile_setting", "*", "", "");
+?>
+
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 
@@ -9,7 +14,7 @@
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
-    <title>Phoenix</title>
+    <title><?=$result[0]['name']?></title>
 
     <!-- ===============================================-->
     <!--    Favicons-->

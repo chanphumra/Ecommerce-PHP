@@ -1,11 +1,17 @@
+<?php 
+    require_once "admin/lib/database.php";
+    $result = Database::select("profile_setting", "*", "", "");
+?>
+
+
 <input type="text" class="d-none" id="ID_LOGIN">
 <div onclick="showChat()" class="bg-primary cursor-pointer chat"><i class="fa-solid fa-message"></i></div>
 <div class="d-none conversation card shodow-sm">
     <!-- header -->
     <div class="chat-header">
         <div class="profile">
-            <img src="" alt="">
-            <div>Bazaar shop cambodia</div>
+            <img src="admin/uploads/profile/<?=$result[0]['image']?>" alt="">
+            <div><?=$result[0]['name']?></div>
         </div>
         <i onclick="closeChat()" class="close-chat fas fa-xmark cursor-pointer"></i>
     </div>

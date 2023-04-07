@@ -1,11 +1,16 @@
+<?php 
+    require_once "admin/lib/database.php";
+    $result = Database::select("profile_setting", "*", "", "");
+?>
+
 <section class="py-0">
     <div class="container-small">
         <div class="ecommerce-topbar">
             <nav class="navbar navbar-expand-lg navbar-light px-0">
                 <div class="row gx-0 gy-2 w-100 flex-between-center">
                     <div class="col-auto"><a class="text-decoration-none" href="index.php">
-                            <div class="d-flex align-items-center"><img src="admin/assets/img/icons/logo.png" alt="phoenix" width="27" />
-                                <p class="logo-text ms-2">phoenix</p>
+                            <div class="d-flex align-items-center"><img src="admin/uploads/profile/<?=$result[0]['image']?>" alt="phoenix" width="30" />
+                                <p class="logo-text ms-2"><?=$result[0]['name']?></p>
                             </div>
                         </a></div>
                     <div class="col-auto order-md-1">
