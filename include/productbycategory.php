@@ -103,8 +103,8 @@
                                     </div>
                                     <div>
                                         <div class="d-flex align-items-center mb-1">
-                                            <p class="me-2 text-900 text-decoration-line-through mb-0">${item.price}</p>
-                                            <h3 class="text-1100 mb-0">${item.sale_price}</h3>
+                                            <p class="me-2 text-900 text-decoration-line-through mb-0">${item.sale_price}</p>
+                                            <h3 class="text-1100 mb-0">${(item.sale_price - item.sale_price*item.discount/100).toFixed(2)}</h3>
                                         </div>
                                     </div>
                                 </div>
