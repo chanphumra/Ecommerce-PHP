@@ -17,7 +17,7 @@ $result = Database::select("customer", "*", "", "");
                             <ul class="nav chat-thread-tab flex-column list">
                                 <li class="nav-item rounded read cursor-pointer customer-item" onclick="getChat(<?= $item['id'] ?>, '<?= $item['name'] ?>', <?= $index ?>)" role="presentation">
                                     <a class="nav-link d-flex align-items-center justify-content-center p-2">
-                                        <div class="avatar avatar-xl status-online position-relative me-2 me-sm-0 me-xl-2">
+                                        <div class="avatar avatar-xl position-relative me-2 me-sm-0 me-xl-2">
                                             <img class="rounded-circle border border-2 border-white" src="<?= $item['type'] == 'normal' ? 'uploads/customer/' . $item['image'] : $item['image'] ?>" alt="" />
                                         </div>
                                         <div class="flex-1 d-sm-none d-xl-block">
