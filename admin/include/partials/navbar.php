@@ -33,7 +33,7 @@
                     </div>
 
                     <!-- parent pages-->
-                    <div class="nav-item-wrapper">
+                    <!-- <div class="nav-item-wrapper">
                         <a class="nav-link dropdown-indicator label-1" href="#pricing" asd="index" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="pricing">
                             <div class="d-flex align-items-center">
                                 <div class="dropdown-indicator-icon"><span class="fas fa-caret-right"></span></div><span class="nav-link-icon"><span data-feather="user"></span></span><span class="nav-link-text">Customers</span>
@@ -44,15 +44,15 @@
                                 <li class="collapsed-nav-item-title d-none">Customers</li>
                                 <li class="nav-item"><a class="nav-link" href="pages/pages/pricing/pricing-column.html" asd="index" data-bs-toggle="" aria-expanded="false">
                                         <div class="d-flex align-items-center"><span class="nav-link-text">Add Customer</span></div>
-                                    </a><!-- more inner pages-->
+                                    </a>
                                 </li>
                                 <li class="nav-item"><a class="nav-link" href="pages/pages/pricing/pricing-grid.html" asd="index" data-bs-toggle="" aria-expanded="false">
                                         <div class="d-flex align-items-center"><span class="nav-link-text">Customer</span></div>
-                                    </a><!-- more inner pages-->
+                                    </a>
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </div> -->
 
                     <!-- parent pages-->
                     <div class="nav-item-wrapper">
