@@ -1,4 +1,10 @@
-
+<?php
+session_start();
+if (isset($_SESSION['admin'])) {
+    header("location: ../index.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 
@@ -122,9 +128,37 @@
                     showConfirmButton: false,
                     timer: 1000
                 });
-            axios.post('../ajax/admin.php?action=login', new FormData(form)).then(res => {
-               
-                console.log(res);
+            axios.get(`../ajax/admin.php?action=select&table=admin&column=*&condition=WHERE email = '${email.value}' AND password = '${password.value}'`).then(res => {
+                if (res.data.success) {
+                    <?php
+                        $_SESSION['admin'] = true;
+                    ?>
+                    Swal.fire({
+                        toast: true,
+                        position: 'top',
+                        showClass: {
+                            icon: 'animated heartBeat delay-1s'
+                        },
+                        icon: 'success',
+                        text: 'Welcome back admin',
+                        showConfirmButton: false,
+                        timer: 1000
+                    }).then(res => {
+                        window.location = "../index.php";
+                    });
+                } else {
+                    Swal.fire({
+                        toast: true,
+                        position: 'top',
+                        showClass: {
+                            icon: 'animated heartBeat delay-1s'
+                        },
+                        icon: 'error',
+                        text: 'Incorrect email or password',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                }
             }).catch(err => {
                 console.log(err);
             })

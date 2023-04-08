@@ -19,9 +19,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.3.1/tinymce.min.js" integrity="sha512-eV68QXP3t5Jbsf18jfqT8xclEJSGvSK5uClUuqayUbF5IRK8e2/VSXIFHzEoBnNcvLBkHngnnd3CY7AFpUhF7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="vendors/dropzone/dropzone.min.js"></script>
     <script src="vendors/choices/choices.min.js"></script>
+    <script src="vendors/glightbox/glightbox.min.js"></script>
     <script src="assets/js/ecommerce-dashboard.js"></script>
+    <script src="https://unpkg.com/picmo@latest/dist/umd/index.js"></script>
+    <script src="https://unpkg.com/@picmo/popup-picker@latest/dist/umd/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 
     </body>
 

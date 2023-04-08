@@ -1,4 +1,9 @@
 <?php
+    session_start();
+    if(!isset($_SESSION['admin'])) {
+        header("location: auth/login.php");
+        exit();
+    }
     require_once "config/init.php";
     $include = $_GET['page_name'] ?? "home";
     $include = strtolower($include);
