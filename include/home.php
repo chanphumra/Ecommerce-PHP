@@ -1,6 +1,8 @@
 <?php
 require_once "admin/lib/database.php";
 $new_arrival = Database::select("product", "*", "ORDER BY id DESC", "");
+$best_offer = Database::select("product", "*", "ORDER BY discount DESC", "");
+// $best_seller = Database::select("product AS pro", "*, COUNT(od.p_id)", "INNER JOIN order_details AS od ON od.p_id = pro.id", "");
 ?>
 
 
@@ -87,7 +89,7 @@ $new_arrival = Database::select("product", "*", "ORDER BY id DESC", "");
                                         <div>
                                             <div class="d-flex align-items-center mb-1">
                                                 <p class="me-2 text-900 text-decoration-line-through mb-0">$49.99</p>
-                                                <h3 class="text-1100 mb-0">$34.99</h3>
+                                                <h3 class="text-1100 mb-0">$299</h3>
                                             </div>
                                         </div>
                                     </div>
@@ -117,6 +119,7 @@ $new_arrival = Database::select("product", "*", "ORDER BY id DESC", "");
                     <div class="swiper swiper-container theme-slider" data-swiper='{"slidesPerView":1,"spaceBetween":16,"breakpoints":{"450":{"slidesPerView":2,"spaceBetween":16},"768":{"slidesPerView":3,"spaceBetween":16},"992":{"slidesPerView":4,"spaceBetween":16},"1200":{"slidesPerView":5,"spaceBetween":16},"1540":{"slidesPerView":6,"spaceBetween":16}}}'>
                         <div class="swiper-wrapper">
 
+                        <?php foreach ($best_offer as $item) { ?>
                             <div class="swiper-slide">
                                 <div class="position-relative text-decoration-none product-card h-100">
                                     <div class="d-flex flex-column justify-content-between h-100">
@@ -126,24 +129,25 @@ $new_arrival = Database::select("product", "*", "ORDER BY id DESC", "");
                                                     <span class="fas fa-heart d-block-hover"></span>
                                                     <span class="far fa-heart d-none-hover"></span>
                                                 </button>
-                                                <img class="img-fluid" style="width: 100%; height:250px; object-fit: cover;" src="../admin/assets/img/products/1.png" alt="" />
+                                                <img class="img-fluid" style="width: 100%; height:250px; object-fit: cover;" src="admin/uploads/product/<?= $item['image1'] ?>" alt="" />
                                             </div>
-                                            <a class="stretched-link text-decoration-none" href="index?page_name=productdetail'">
-                                                <h6 class="mb-2 lh-sm line-clamp-3">Fitbit Sense Advanced Smartwatch with Tools for Heart Health, Stress Management &amp;amp; Skin Temperature Trends Carbon/Graphite, One Size (S &amp; L Bands)</h6>
+                                            <a class="stretched-link text-decoration-none" href="index?page_name=productdetail&id = <?=$item['id']?>'">
+                                                <h6 class="mb-2 lh-sm line-clamp-3"><?=$item['name']?></h6>
                                             </a>
                                         </div>
                                         <div>
                                             <div class="d-flex align-items-center mb-1">
-                                                <p class="me-2 text-900 text-decoration-line-through mb-0">$49.99</p>
-                                                <h3 class="text-1100 mb-0">$34.99</h3>
+                                                <p class="me-2 text-900 text-decoration-line-through mb-0"><?=$item['sale_price']?></p>
+                                                <h3 class="text-1100 mb-0"><?=$item['sale_price'] - $item['sale_price']*$item['discount']/100?></h3>
                                             </div>
                                             <div>
-                                                <h6 class="text-success lh-1 mb-0">35% off</h6>
+                                                <h6 class="text-success lh-1 mb-0"><?=$item['discount']?>% off</h6>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        <?php } ?>
                         </div>
                     </div>
                     <div class="swiper-nav">

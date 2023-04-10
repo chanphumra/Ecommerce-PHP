@@ -136,7 +136,7 @@ switch ($_GET['action']) {
             $mail->Username = 'bazaar.shop.cambodia@gmail.com';
 
             //SMTP password
-            $mail->Password = 'hjskdopbijilhfpr';
+            $mail->Password = 'irlamklpdfobvuto';
 
             //Enable TLS encryption;
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
