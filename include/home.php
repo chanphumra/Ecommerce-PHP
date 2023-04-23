@@ -5,6 +5,10 @@ $best_offer = Database::select("product", "*", "ORDER BY discount DESC", "");
 // $best_seller = Database::select("product AS pro", "*, COUNT(od.p_id)", "INNER JOIN order_details AS od ON od.p_id = pro.id", "");
 ?>
 
+<script>
+    console.log(<?=json_encode($best_offer)?>);
+</script>
+
 
 <!-- slideshow -->
 <?php include "partials/slideshow.php" ?>
@@ -36,7 +40,7 @@ $best_offer = Database::select("product", "*", "ORDER BY discount DESC", "");
                                                     </button>
                                                     <img class="img-fluid" style="width: 100%; height:250px; object-fit: cover;" src="admin/uploads/product/<?= $item['image1'] ?>" alt="" />
                                                 </div>
-                                                <a class="stretched-link text-decoration-none" href="index?page_name=productdetail&id=<?= $item['id'] ?>">
+                                                <a class="stretched-link text-decoration-none" href="index?page_name=productdetail&id=<?=$item['id'] ?>">
                                                     <h6 class="mb-2 lh-sm line-clamp-3"><?= $item['name'] ?></h6>
                                                 </a>
                                             </div>
@@ -61,12 +65,11 @@ $best_offer = Database::select("product", "*", "ORDER BY discount DESC", "");
                 <a class="fw-bold d-md-none" href="#!">Explore more<span class="fas fa-chevron-right fs--1 ms-1"></span></a>
             </div>
 
-            <div class="mb-6">
+            <!-- <div class="mb-6">
                 <div class="d-flex flex-between-center mb-3">
                     <h3>Best Seller</h3><a class="fw-bold d-none d-md-block" href="#!">Explore more<span class="fas fa-chevron-right fs--1 ms-1"></span></a>
                 </div>
 
-                <!-- slide product start -->
                 <div class="swiper-theme-container products-slider">
                     <div class="swiper swiper-container theme-slider" data-swiper='{"slidesPerView":1,"spaceBetween":16,"breakpoints":{"450":{"slidesPerView":2,"spaceBetween":16},"768":{"slidesPerView":3,"spaceBetween":16},"992":{"slidesPerView":4,"spaceBetween":16},"1200":{"slidesPerView":5,"spaceBetween":16},"1540":{"slidesPerView":6,"spaceBetween":16}}}'>
                         <div class="swiper-wrapper">
@@ -105,9 +108,8 @@ $best_offer = Database::select("product", "*", "ORDER BY discount DESC", "");
                         <div class="swiper-button-prev"><span class="fas fa-chevron-left nav-icon"></span></div>
                     </div>
                 </div>
-                <!-- slide product end -->
                 <a class="fw-bold d-md-none" href="#!">Explore more<span class="fas fa-chevron-right fs--1 ms-1"></span></a>
-            </div>
+            </div> -->
 
             <div class="mb-6">
                 <div class="d-flex flex-between-center mb-3">
@@ -131,7 +133,7 @@ $best_offer = Database::select("product", "*", "ORDER BY discount DESC", "");
                                                 </button>
                                                 <img class="img-fluid" style="width: 100%; height:250px; object-fit: cover;" src="admin/uploads/product/<?= $item['image1'] ?>" alt="" />
                                             </div>
-                                            <a class="stretched-link text-decoration-none" href="index?page_name=productdetail&id = <?=$item['id']?>'">
+                                            <a class="stretched-link text-decoration-none" href="index?page_name=productdetail&id=<?=$item['id']?>">
                                                 <h6 class="mb-2 lh-sm line-clamp-3"><?=$item['name']?></h6>
                                             </a>
                                         </div>
