@@ -80,9 +80,6 @@ function userAuthentication($auth_data)
         // User not found, so create it
         createNewUser($auth_data);
     }
-
-    // Create logged in user session
-    $_SESSION['telegram_id'] = $auth_data['id'];
 }
 
 
@@ -94,16 +91,16 @@ try {
     userAuthentication($auth_data);
 
     $telegram_id = $auth_data['id'];
+
+    setcookie('telegram_id', $telegram_id, time() + 30*24*60*60, '/');
+    /*=========== remove another auth==========*/
+    if(isset($_SESSION['token'])) unset($_SESSION['token']);
+    setcookie('token', '', time() - 3600, '/');
+    header('location: ../index.php');
+
+
 } catch (Exception $e) {
     // Display errors
     die($e->getMessage());
 }
 ?>
-
-<script>
-    localStorage.setItem("telegram_id", <?= $telegram_id ?>);
-    /*======== remove another auth ========*/
-    sessionStorage.removeItem("email");
-    localStorage.removeItem("token");
-    window.location = "../index.php";
-</script>";

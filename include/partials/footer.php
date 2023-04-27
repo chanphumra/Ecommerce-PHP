@@ -2,8 +2,9 @@
     <div class="container-small">
         <div class="row py-md-9 justify-content-between gy-4">
             <div class="col-12 col-lg-4">
-                <div class="d-flex align-items-center mb-3"><img src="admin/assets/img/icons/logo.png" alt="phoenix" width="27" />
-                    <p class="logo-text ms-2">phoenixes</p>
+                <div class="d-flex align-items-center mb-3">
+                    <img src="assets/img/logo.png" alt="phoenix" width="27" />
+                    <p class="logo-text ms-2">Bazaar Shop</p>
                 </div>
                 <p class="text-700 mb-1 fw-semi-bold lh-sm fs--1">Phoenix is an admin dashboard template with fascinating features and amazing layout. The template is responsive to all major browsers and is compatible with all available devices and screen sizes.</p>
             </div>

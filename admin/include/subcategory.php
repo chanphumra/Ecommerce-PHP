@@ -10,7 +10,7 @@ $main_name = $_GET['main_name'] ?? 'No category';
                 <h2 class="mb-0">Sub Categorys <span class="text-sm text-primary"><?= $main_name ?></span></h2>
             </div>
         </div>
-        <div id="products" data-list='{"valueNames":["product","price","category","tags","vendor","time"],"page":10,"pagination":true}'>
+        <div id="products" data-list='{"valueNames":["product","price","category","tags","vendor","time"],"page":7,"pagination":true}'>
             <div class="mb-4">
                 <div class="g-3 d-flex justify-content-between">
                     <div class="col-auto">

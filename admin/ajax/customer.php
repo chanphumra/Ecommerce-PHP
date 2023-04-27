@@ -195,4 +195,11 @@ switch ($_GET['action']) {
         $result = Database::select("customer", "*", "", "WHERE id=". $id);
         echo json_encode($result);
         break;
+
+    case 'logout':
+        session_start();
+        if(isset($_SESSION['token'])) unset($_SESSION['token']);
+        setcookie('token', '', time() - 3600, '/');
+        setcookie('telegram_id', '', time() - 3600, '/');
+        break;
 }

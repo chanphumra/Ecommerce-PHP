@@ -16,7 +16,7 @@ $result = Database::select($table, $column, $clause, $condition);
                 <h2 class="mb-0">Products</h2>
             </div>
         </div>
-        <div id="products" data-list='{"valueNames":["product","price","category","tags","vendor","time"],"page":10,"pagination":true}'>
+        <div id="products" data-list='{"valueNames":["product","price","category","tags","vendor","time"],"page":7,"pagination":true}'>
             <div class="mb-4">
                 <div class="g-3 d-flex justify-content-between">
                     <div class="col-auto">

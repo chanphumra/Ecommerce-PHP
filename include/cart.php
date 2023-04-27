@@ -3,7 +3,7 @@
         <h2 class="mb-6">Cart</h2>
         <div class="row g-5">
             <div class="col-12 col-lg-8">
-                <div id="cartTable" data-list='{"valueNames":["products","color","size","price","quantity","total"],"page":10}'>
+                <div id="cartTable" data-list='{"valueNames":["products","color","size","price","quantity","total"],"page":7}'>
                     <div class="table-responsive scrollbar mx-n1 px-1">
                         <table class="table fs--1 mb-0 border-top border-200">
                             <thead>

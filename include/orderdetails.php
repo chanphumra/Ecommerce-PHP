@@ -15,7 +15,7 @@
         <h2 class="mb-0">Your Order <span>#<?=$oid?></span></h2>
         <div class="row g-5 gy-7" style="margin-top: -20px;">
             <div class="col-12 col-xl-8 col-xxl-9">
-                <div id="orderTable" data-list='{"valueNames":["products","color","size","price","quantity","total"],"page":10}'>
+                <div id="orderTable" data-list='{"valueNames":["products","color","size","price","quantity","total"],"page":7}'>
                     <div class="table-responsive scrollbar">
                         <table class="table fs--1 mb-0 border-top border-200">
                             <thead>

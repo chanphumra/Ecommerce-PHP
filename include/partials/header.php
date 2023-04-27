@@ -91,40 +91,21 @@
         }, 0);
 
         function getUserLogin() {
-            if (localStorage.getItem("telegram_id")) {
-                axios.get("admin/ajax/customer.php?action=select&table=customer&column=*&condition= WHERE telegram_id=" + localStorage.getItem("telegram_id")).then(res => {
-                    const data = res.data[0];
+            axios.get("admin/ajax/auth.php?action=getUser").then(res => {
+                if(res.data.success){
+                    const data = res.data.user[0];
                     SHOW_DROP_DOWN.classList.remove('d-none');
-                    PROFILE_LOGIN.src = data.image;
                     USERNAME_LOGIN.innerHTML = data.name;
-                }).catch(err => {
-                    console.log(err);
-                })
-            } else if (localStorage.getItem("token")) {
-                axios.get("admin/ajax/customer.php?action=verifyToken&token=" + localStorage.getItem("token")).then(res => {
-                    const data = res.data[0];
-                    SHOW_DROP_DOWN.classList.remove('d-none');
-                    PROFILE_LOGIN.src = "admin/uploads/customer/" + data.image;
-                    USERNAME_LOGIN.innerHTML = data.name;
-                }).catch(err => {
-                    console.log(err);
-                })
-            } else if (sessionStorage.getItem('email')) {
-                axios.get(`admin/ajax/customer.php?action=select&table=customer&column=*&condition= WHERE email='${sessionStorage.getItem("email")}'`).then(res => {
-                    const data = res.data[0];
-                    SHOW_DROP_DOWN.classList.remove('d-none');
-                    PROFILE_LOGIN.src = "admin/uploads/customer/" + data.image;
-                    USERNAME_LOGIN.innerHTML = data.name;
-                }).catch(err => {
-                    console.log(err);
-                })
-            }
+                    if(data.type == 'telegram') PROFILE_LOGIN.src = data.image;
+                    else  PROFILE_LOGIN.src = "admin/uploads/customer/" + data.image;
+                }
+                console.log(res.data);
+            }).catch(err => {console.log(err)});
         }
 
         function logout() {
-            localStorage.removeItem("telegram_id");
-            localStorage.removeItem("token");
-            sessionStorage.removeItem("email");
-            window.location = "auth/login.php";
+            axios.get("admin/ajax/customer.php?action=logout").then(res => {
+                window.location = "auth/login.php";
+            }).catch(err => {console.log(err)});
         }
     </script>
