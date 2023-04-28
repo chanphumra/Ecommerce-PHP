@@ -1,3 +1,7 @@
+<?php 
+    require_once "lib/database.php";
+    $result = Database::select("profile_setting", "*", "", "");
+?>
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 
@@ -9,7 +13,7 @@
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
-    <title>Phoenix</title>
+    <title><?=$result[0]['name']?> PHP</title>
 
     <!-- ===============================================-->
     <!--    Favicons-->
@@ -28,6 +32,7 @@
     <!-- ===============================================-->
     <!--    Stylesheets-->
     <!-- ===============================================-->
+    <link href="vendors/glightbox/glightbox.min.css" rel="stylesheet">
     <link href="vendors/dropzone/dropzone.min.css" rel="stylesheet">
     <link href="vendors/choices/choices.min.css" rel="stylesheet">
     <link href="vendors/flatpickr/flatpickr.min.css" rel="stylesheet">

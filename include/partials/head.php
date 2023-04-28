@@ -1,3 +1,8 @@
+<?php 
+    require_once "admin/lib/database.php";
+    $result = Database::select("profile_setting", "*", "", "");
+?>
+
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 
@@ -9,7 +14,7 @@
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
-    <title>Phoenix</title>
+    <title><?=$result[0]['name']?> PHP</title>
 
     <!-- ===============================================-->
     <!--    Favicons-->
@@ -55,6 +60,8 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link href="admin/vendors/swiper/swiper-bundle.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>

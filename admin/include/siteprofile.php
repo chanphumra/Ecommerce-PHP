@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 0bdd8367327e7d9b6a5b75e3d599b28fdf8d8034
 <div class="content">
     <form class='mb-9' action="POST" enctype="multipart/form-data">
         <div class="row g-3 flex-between-end mb-5">
@@ -9,8 +12,13 @@
             </div>
             <div class="col-auto"><button class="btn btn-primary mb-2 mb-sm-0 btnEdit" type="submit">Save Changes</button></div>
         </div>
+<<<<<<< HEAD
         <div class="d-flex mt-5 gap-8 flex-column flex-md-row">
             <div class="bg-white p-5 rounded shadow">
+=======
+        <div class="d-flex mt-5 gap-4 flex-column flex-md-row">
+            <div class="bg-white p-5 rounded shadow border">
+>>>>>>> 0bdd8367327e7d9b6a5b75e3d599b28fdf8d8034
                 <div class="mb-7 d-flex justify-content-center align-items-center drag-area">
                     <div class="position-relative shadow-sm p-1 rounded-circle border border-primary" style="width: 200px; height: 200px;">
                         <div id="preview" class="w-100 h-100 review-images">
@@ -27,9 +35,15 @@
                     <input id="name" name="name" type="text" class='form-control w-100' placeholder='company name' />
                 </div>
             </div>
+<<<<<<< HEAD
             <div class="bg-white p-5 rounded shadow w-100">
                 <h2 class='text-xl font-semibold'>General information</h2>
                 <div class="d-flex flex-col flex-md-row gap-4 gap-md-8 w-100 mt-5">
+=======
+            <div class="bg-white p-5 rounded shadow w-100 border">
+                <h2 class=''>General information</h3>
+                <div class="d-flex flex-column flex-md-row gap-4 w-100 mt-5">
+>>>>>>> 0bdd8367327e7d9b6a5b75e3d599b28fdf8d8034
                     <div class="w-100">
                         <p class='mb-2'>City</p>
                         <input id="city" name="city" type="text" class='form-control w-100' placeholder='phnom penh' />
@@ -39,7 +53,11 @@
                         <input id="country" name="country" type="text" class='form-control w-100' placeholder='cambodia' />
                     </div>
                 </div>
+<<<<<<< HEAD
                 <div class="d-flex flex-col md:flex-row gap-4 gap-md-8 w-100 mt-3">
+=======
+                <div class="d-flex flex-column flex-md-row gap-4 w-100 mt-3">
+>>>>>>> 0bdd8367327e7d9b6a5b75e3d599b28fdf8d8034
                     <div class="w-100">
                         <p class='mb-2'>Phone</p>
                         <input id="phone" name="phone" type="text" class='form-control w-100' placeholder='+1234567890' />
@@ -55,24 +73,39 @@
     <footer class="footer position-absolute">
         <div class="row g-0 justify-content-between align-items-center h-100">
             <div class="col-12 col-sm-auto text-center">
+<<<<<<< HEAD
                 <p class="mb-0 mt-2 mt-sm-0 text-900">Thank you for creating with Phoenix<span class="d-none d-sm-inline-block"></span><span class="d-none d-sm-inline-block mx-1">|</span><br class="d-sm-none" />2022 &copy;<a class="mx-1" href="https://themewagon.com">Themewagon</a></p>
             </div>
             <div class="col-12 col-sm-auto text-center">
                 <p class="mb-0 text-600">v1.7.0</p>
             </div>
+=======
+                <p class="mb-0 mt-2 mt-sm-0 text-900">Bazaar Shop Cambodia<span class="d-none d-sm-inline-block"></span></p>
+            </div>
+            
+>>>>>>> 0bdd8367327e7d9b6a5b75e3d599b28fdf8d8034
         </div>
     </footer>
 </div>
 <script>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0bdd8367327e7d9b6a5b75e3d599b28fdf8d8034
     let files = null,
         dragArea = document.querySelector('.drag-area'),
         input = document.querySelector('.drag-area input'),
         container = document.querySelector('.review-images');
+<<<<<<< HEAD
         
 
     // get data
     axios.get('ajax/category.php?action=select&table=site_profile&column=*&condition=WHERE id = 1').then(res => {
+=======
+
+    // get data
+    axios.get('ajax/siteprofile.php?action=select&table=profile_setting&column=*&condition=WHERE id = 1').then(res => {
+>>>>>>> 0bdd8367327e7d9b6a5b75e3d599b28fdf8d8034
         res.data.forEach(item => {
             document.querySelector('#name').value = item.name;
             document.querySelector('#city').value = item.city;
@@ -89,7 +122,11 @@
 
     const imageFile = document.querySelector('#image');
 
+<<<<<<< HEAD
     function showImages(file){
+=======
+    function showImages(file) {
+>>>>>>> 0bdd8367327e7d9b6a5b75e3d599b28fdf8d8034
         document.querySelector('#preview').innerHTML = `<img src="${URL.createObjectURL(file)}" class="object-fit-cover rounded-circle w-100 h-100">`;
     }
 
@@ -105,7 +142,10 @@
         imageFile.click();
     }
 
+<<<<<<< HEAD
     
+=======
+>>>>>>> 0bdd8367327e7d9b6a5b75e3d599b28fdf8d8034
 
     const form = document.querySelector('form');
     const btnEdit = document.querySelector('.btnEdit');
@@ -122,6 +162,7 @@
         const emails = document.querySelector('#emails').value;
 
         /*---- check condition ----*/
+<<<<<<< HEAD
         // if (name === "" || description === "") {
         //     return Swal.fire({
         //         toast: true,
@@ -142,6 +183,28 @@
         if (files != null) formdata.append("image", files);
         
         axios.post('ajax/siteprofile.php?action=update&table=site_profile&id=1', formdata, {
+=======
+        if (name === "" || city === "" || country === "" || phone === "" || emails === "") {
+            return Swal.fire({
+                toast: true,
+                position: 'top',
+                showClass: {
+                    icon: 'animated heartBeat delay-1s'
+                },
+                icon: 'error',
+                text: 'Please check information again',
+                showConfirmButton: false,
+                timer: 1000
+            });
+        }
+
+
+        const formdata = new FormData(form);
+
+        if (files != null) formdata.append("image", files);
+
+        axios.post('ajax/siteprofile.php?action=update&table=profile_setting&id=1', formdata, {
+>>>>>>> 0bdd8367327e7d9b6a5b75e3d599b28fdf8d8034
                 header: {
                     "content-type": "multipart/form-data"
                 }
@@ -149,6 +212,7 @@
             .then(res => {
                 console.log(res);
                 if (res.data.success) {
+<<<<<<< HEAD
                     // Swal.fire({
                     //     toast: true,
                     //     position: 'top',
@@ -163,11 +227,30 @@
                     //     window.location.replace('index.php?page_name=category');
                     // })
                     // window.location.replace('index.php?page_name=siteprofile');
+=======
+                    Swal.fire({
+                        toast: true,
+                        position: 'top',
+                        showClass: {
+                            icon: 'animated heartBeat delay-1s'
+                        },
+                        icon: 'success',
+                        text: 'Profile has been updated',
+                        showConfirmButton: false,
+                        timer: 1000
+                    }).then(res => {
+                        window.location.replace('index.php?page_name=siteprofile');
+                    })
+>>>>>>> 0bdd8367327e7d9b6a5b75e3d599b28fdf8d8034
                 }
             })
             .catch(error => {
                 console.log(error);
             });
     }
+<<<<<<< HEAD
 
 </script>
+=======
+</script>
+>>>>>>> 0bdd8367327e7d9b6a5b75e3d599b28fdf8d8034

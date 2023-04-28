@@ -16,7 +16,7 @@ $result = Database::select($table, $column, $clause, $condition);
                 <h2 class="mb-0">Products</h2>
             </div>
         </div>
-        <div id="products" data-list='{"valueNames":["product","price","category","tags","vendor","time"],"page":10,"pagination":true}'>
+        <div id="products" data-list='{"valueNames":["product","price","category","tags","vendor","time"],"page":7,"pagination":true}'>
             <div class="mb-4">
                 <div class="g-3 d-flex justify-content-between">
                     <div class="col-auto">
@@ -81,8 +81,8 @@ $result = Database::select($table, $column, $clause, $condition);
                                             </div>
                                         </div>
                                         <div class="font-sans-serif btn-reveal-trigger position-static"><button class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs--2" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"><span class="fas fa-ellipsis-h fs--2"></span></button>
-                                            <div class="dropdown-menu dropdown-menu-end py-2"><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
-                                                <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Remove</a>
+                                            <div class="dropdown-menu dropdown-menu-end py-2"><a class="dropdown-item" href="#!">View</a>
+                                                <div class="dropdown-divider"></div><a onclick="deleteProduct(<?= $item['id'] ?>)" class="dropdown-item text-danger">Remove</a>
                                             </div>
                                         </div>
                                     </td>
@@ -105,11 +105,9 @@ $result = Database::select($table, $column, $clause, $condition);
     <footer class="footer position-absolute">
         <div class="row g-0 justify-content-between align-items-center h-100">
             <div class="col-12 col-sm-auto text-center">
-                <p class="mb-0 mt-2 mt-sm-0 text-900">Thank you for creating with Phoenix<span class="d-none d-sm-inline-block"></span><span class="d-none d-sm-inline-block mx-1">|</span><br class="d-sm-none" />2022 &copy;<a class="mx-1" href="https://themewagon.com">Themewagon</a></p>
+                <p class="mb-0 mt-2 mt-sm-0 text-900">Bazaar Shop Cambodia<span class="d-none d-sm-inline-block"></span></p>
             </div>
-            <div class="col-12 col-sm-auto text-center">
-                <p class="mb-0 text-600">v1.7.0</p>
-            </div>
+            
         </div>
     </footer>
 
@@ -125,7 +123,7 @@ $result = Database::select($table, $column, $clause, $condition);
 
             swalWithBootstrapButtons.fire({
                 title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                text: "You want to delete this product!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Yes, delete it!',
@@ -133,20 +131,37 @@ $result = Database::select($table, $column, $clause, $condition);
                 reverseButtons: true
             }).then((result) => {
                 if (result.isConfirmed) {
-                    swalWithBootstrapButtons.fire(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                    )
-                } else if (
-                    /* Read more about handling dismissals below */
-                    result.dismiss === Swal.DismissReason.cancel
-                ) {
-                    swalWithBootstrapButtons.fire(
-                        'Cancelled',
-                        'Your imaginary file is safe :)',
-                        'error'
-                    )
+                    axios.delete('ajax/product.php?action=delete&p_id=' + id).then(res => {
+                        const data = res.data;
+                        console.log(res);
+                        if (res.data.success) {
+                            Swal.fire({
+                                toast: true,
+                                position: 'top',
+                                showClass: {
+                                    icon: 'animated heartBeat delay-1s'
+                                },
+                                icon: 'success',
+                                text: 'One product has been deleted',
+                                showConfirmButton: false,
+                                timer: 1000
+                            }).then(res => {
+                                window.location.href = "index.php?page_name=products";
+                            })
+                        } else {
+                            Swal.fire({
+                                toast: true,
+                                position: 'top',
+                                showClass: {
+                                    icon: 'animated heartBeat delay-1s'
+                                },
+                                icon: 'error',
+                                text: 'Something wrong!',
+                                showConfirmButton: false,
+                                timer: 1000
+                            })
+                        }
+                    });
                 }
             })
         }

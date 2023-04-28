@@ -1,9 +1,9 @@
 <section class="pt-5 pb-9">
-    <div class="container-small cart">
+    <div class="container-small cart CART" style="min-height: 85vh;">
         <h2 class="mb-6">Cart</h2>
         <div class="row g-5">
             <div class="col-12 col-lg-8">
-                <div id="cartTable" data-list='{"valueNames":["products","color","size","price","quantity","total"],"page":10}'>
+                <div id="cartTable" data-list='{"valueNames":["products","color","size","price","quantity","total"],"page":7}'>
                     <div class="table-responsive scrollbar mx-n1 px-1">
                         <table class="table fs--1 mb-0 border-top border-200">
                             <thead>
@@ -17,8 +17,7 @@
                                 </tr>
                             </thead>
                             <tbody class="list" id="cart-table-body">
-                                
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -27,7 +26,7 @@
             <div class="col-12 col-lg-4">
                 <div class="card">
                     <div class="card-body" id="cart-summary">
-                        
+
                     </div>
                 </div>
             </div>
@@ -35,25 +34,35 @@
     </div><!-- end of .container-->
 </section>
 <script>
+    let cart = JSON.parse(localStorage.getItem('carts')) || {
+        products: [],
+        subtotal: 0,
+        discount_price: 0,
+        total: 0
+    };
     const cartArea = document.querySelector('#cart-table-body');
     const cartSummary = document.querySelector('#cart-summary');
-    let cart = JSON.parse(localStorage.getItem('carts')) || { products: [], subtotal: 0, discount_price: 0, total: 0 };
 
     getAllCart();
-        
     const totalProduct = document.querySelectorAll("#totalEachProduct");
     const subtotal = document.querySelectorAll(".subtotal");
     const discount = document.querySelector(".discount");
     const total = document.querySelectorAll(".totalPrice");
 
     function getAllCart() {
-        cart = JSON.parse(localStorage.getItem('carts')) || { products: [], subtotal: 0, discount_price: 0, total: 0 };
+        cart = JSON.parse(localStorage.getItem('carts')) || {
+            products: [],
+            subtotal: 0,
+            discount_price: 0,
+            total: 0
+        };
+        if(checkEmptyCart()) return;
         cartArea.innerHTML = "";
-        cart.products.forEach((item,index) => {
+        cart.products.forEach((item, index) => {
             cartArea.innerHTML += `
                 <tr class="cart-table-row btn-reveal-trigger">
                     <td class="align-middle white-space-nowrap py-0">
-                        <div class="border rounded-2"><img src="admin/uploads/product/${item.image}" alt="" width="53" /></div>
+                        <div class="border rounded-2"><img src="admin/uploads/product/${item.image}" alt="" width="55" height="55" /></div>
                     </td>
                     <td class="products align-middle"><a class="fw-semi-bold mb-0 line-clamp-2" href="index?page_name=productdetail&id=${item.id}">${item.name}</a></td>
                     <td class="price align-middle text-900 fs--1 fw-semi-bold text-end">$${item.sale_price.toFixed(2)}</td>
@@ -86,7 +95,11 @@
                 </div>
                 <div class="d-flex justify-content-between">
                     <p class="text-900 fw-semi-bold">Discount :</p>
+<<<<<<< HEAD
                     <p class="text-danger fw-semi-bold discount">-$${(cart.subtotal - cart.total).toFixed(2)}</p>
+=======
+                    <p class="text-danger fw-semi-bold discount">-$${cart.discount_price.toFixed(2)}</p>
+>>>>>>> 0bdd8367327e7d9b6a5b75e3d599b28fdf8d8034
                 </div>
                 <div class="d-flex justify-content-between">
                     <p class="text-900 fw-semi-bold">Tax :</p>
@@ -101,39 +114,66 @@
                 <h4 class="mb-0">Total :</h4>
                 <h4 class="mb-0 totalPrice">$${cart.total.toFixed(2)}</h4>
             </div>
-            <button class="btn btn-primary w-100">Proceed to check out<span class="fas fa-chevron-right ms-1 fs--2"></span></button>
+            <button onclick="nextStep()" class="btn btn-primary w-100">Proceed to check out<span class="fas fa-chevron-right ms-1 fs--2"></span></button>
         `;
     }
 
+<<<<<<< HEAD
 
     function plusCart(index){
+=======
+    function plusCart(index) {
+>>>>>>> 0bdd8367327e7d9b6a5b75e3d599b28fdf8d8034
         const newProduct = cart.products[index];
         newProduct.qty += 1;
-        cart.subtotal +=  newProduct.sale_price;
+        cart.subtotal += newProduct.sale_price;
         cart.discount_price += newProduct.sale_price * newProduct.discount / 100;
         cart.total = (cart.subtotal - cart.discount_price);
         localStorage.setItem('carts', JSON.stringify(cart));
+<<<<<<< HEAD
         totalProduct[index].innerHTML = '$' + (newProduct.sale_price * newProduct.qty).toFixed(2);
         subtotal[0].innerHTML = '$' + cart.subtotal.toFixed(2);
         subtotal[1].innerHTML = '$' + cart.subtotal.toFixed(2);
         discount.innerHTML = '-$' + cart.discount_price.toFixed(2);
         total[0].innerHTML = '$' + cart.total.toFixed(2);
         total[1].innerHTML = '$' + cart.total.toFixed(2);
+=======
+        totalProduct[index].innerHTML = '$' + newProduct.sale_price * newProduct.qty;
+        subtotal[0].innerHTML = '$' + cart.subtotal;
+        subtotal[1].innerHTML = '$' + cart.subtotal;
+        discount.innerHTML = '-$' + cart.discount_price.toFixed(2);
+        total[0].innerHTML = '$' + cart.total;
+        total[1].innerHTML = '$' + cart.total;
+>>>>>>> 0bdd8367327e7d9b6a5b75e3d599b28fdf8d8034
     }
-    function minusCart(index){
+
+    function minusCart(index) {
         const newProduct = cart.products[index];
+<<<<<<< HEAD
         if(newProduct.qty == 1) return;
+=======
+        if (newProduct.qty == 1) return;
+>>>>>>> 0bdd8367327e7d9b6a5b75e3d599b28fdf8d8034
         newProduct.qty -= 1;
-        cart.subtotal -=  newProduct.sale_price;
+        cart.subtotal -= newProduct.sale_price;
         cart.discount_price -= newProduct.sale_price * newProduct.discount / 100;
         cart.total = (cart.subtotal - cart.discount_price);
         localStorage.setItem('carts', JSON.stringify(cart));
+<<<<<<< HEAD
         totalProduct[index].innerHTML = '$' + (newProduct.sale_price * newProduct.qty).toFixed(2);
         subtotal[0].innerHTML = '$' + cart.subtotal.toFixed(2);
         subtotal[1].innerHTML = '$' + cart.subtotal.toFixed(2);
         discount.innerHTML = '-$' + cart.discount_price.toFixed(2);
         total[0].innerHTML = '$' + cart.total.toFixed(2);
         total[1].innerHTML = '$' + cart.total.toFixed(2);
+=======
+        totalProduct[index].innerHTML = '$' + newProduct.sale_price * newProduct.qty;
+        subtotal[0].innerHTML = '$' + cart.subtotal;
+        subtotal[1].innerHTML = '$' + cart.subtotal;
+        discount.innerHTML = '-$' + cart.discount_price.toFixed(2);
+        total[0].innerHTML = '$' + cart.total;
+        total[1].innerHTML = '$' + cart.total;
+>>>>>>> 0bdd8367327e7d9b6a5b75e3d599b28fdf8d8034
     }
 
     function removeCart(index) {
@@ -146,4 +186,40 @@
         getAllCart();
     }
 
+    function nextStep() {
+        let is_login = false;
+        if (localStorage.getItem("telegram_id") || localStorage.getItem("token") || sessionStorage.getItem("email")) {
+            is_login = true;
+        }
+        if (!is_login) {
+            Swal.fire({
+                toast: true,
+                position: 'top',
+                showClass: {
+                    icon: 'animated heartBeat delay-1s'
+                },
+                icon: 'warning',
+                text: 'Please register an account',
+                showConfirmButton: false,
+                timer: 1000
+            });
+        } else {
+            window.location = "index.php?page_name=shippinginfo";
+        }
+    }
+
+    function checkEmptyCart() {
+        let empty = false;
+        if(cart.products.length == 0) {
+            empty = true;
+            document.querySelector('.CART').innerHTML = `
+                <div class="d-flex flex-column gap-3 justify-content-center align-items-center" style="height: 75vh;">
+                    <img src='assets/img/empty.png' width="350" height="350"/>
+                    <h1 class="text-700">Your cart is empty</h1>
+                    <button onclick="window.location='index.php'" type="button" class="btn btn-primary rounded fs-1">Back to shop</button>
+                </div>
+            `;
+        }
+        return empty;
+    }
 </script>

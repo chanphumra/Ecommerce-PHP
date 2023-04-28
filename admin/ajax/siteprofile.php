@@ -23,6 +23,7 @@ switch ($_GET['action']) {
         $image = "";
         $fields = $values = array();
 
+<<<<<<< HEAD
         if(isset($_FILES['image'])){
             /*==== delete old image =====*/
             $resultImage = Database::select($table, "image", "", "WHERE id = $id");
@@ -44,5 +45,27 @@ switch ($_GET['action']) {
         /*==== update database =====*/
         Database::update($table, $fields, $values, "WHERE id = ". $id);
         echo json_encode(array("success"=> true));
+=======
+        if (isset($_FILES['image'])) {
+            /*==== delete old image =====*/
+            $resultImage = Database::select($table, "image", "", "WHERE id = $id");
+            foreach ($resultImage as $oldImage) {
+                unlink('../uploads/profile/' . $oldImage['image']);
+            }
+
+            /*==== upload new image =====*/
+            $image = time() . rand() . $_FILES['image']['name'];
+            move_uploaded_file($_FILES['image']['tmp_name'], "../uploads/profile/" . $image);
+
+            $fields = array("name", "city", "country", "phone", "email", "image");
+            $values = array($name, $city, $country, $phone, $email, $image);
+        } else {
+            $fields = array("name", "city", "country", "phone", "email");
+            $values = array($name, $city, $country, $phone, $email);
+        }
+        /*==== update database =====*/
+        Database::update($table, $fields, $values, "WHERE id = " . $id);
+        echo json_encode(array("success" => true));
+>>>>>>> 0bdd8367327e7d9b6a5b75e3d599b28fdf8d8034
         break;
 }

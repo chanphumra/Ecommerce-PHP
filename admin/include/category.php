@@ -2,10 +2,10 @@
     <div class="mb-9">
         <div class="row g-3 mb-4">
             <div class="col-auto">
-                <h2 class="mb-0">Categorys</h2>
+                <h2 class="mb-0">Main Categorys</h2>
             </div>
         </div>
-        <div id="products" data-list='{"valueNames":["product","price","category","tags","vendor","time"],"page":10,"pagination":true}'>
+        <div id="products" data-list='{"valueNames":["product","price","category","tags","vendor","time"],"page":7,"pagination":true}'>
             <div class="mb-4">
                 <div class="g-3 d-flex justify-content-between">
                     <div class="col-auto">
@@ -16,7 +16,7 @@
                         </div>
                     </div>
                     <div class="col-auto">
-                        <a href="index.php?page_name=addproduct"><button class="btn btn-primary"><span class="fas fa-plus me-2"></span>Add category</button></a>
+                        <a href="index.php?page_name=addcategory"><button class="btn btn-primary"><span class="fas fa-plus me-2"></span>Add category</button></a>
                     </div>
                 </div>
             </div>
@@ -35,43 +35,7 @@
                                 <th class="sort text-end align-middle pe-0 ps-4" scope="col"></th>
                             </tr>
                         </thead>
-                        <tbody class="list" id="products-table-body">
-
-                            <tr class="hover-actions-trigger btn-reveal-trigger position-static">
-                                <td class="fs--1 align-middle">
-                                    <div class="form-check mb-0 fs-0"><input class="form-check-input" type="checkbox" /></div>
-                                </td>
-                                <td class="align-middle white-space-nowrap py-0">
-                                    <div class="border rounded-2">
-                                        <img src="../../../assets/img//products/1.png" alt="" width="53" />
-                                    </div>
-                                </td>
-                                <td class="product align-middle ps-4"><a class="fw-semi-bold line-clamp-3 mb-0" href="#!">Fitbit Sense Advanced Smartwatch with Tools for Heart Health, Stress Management &amp; Skin Temperature Trends, Carbon/Graphite, One Size (S &amp; ...</a></td>
-                                <td class="price align-middle white-space-nowrap fw-bold text-700 ps-4">Category description</td>
-                                <td class="time align-middle white-space-nowrap text-700 ps-4">Nov 12, 10:45 PM</td>
-                                <td class="align-middle white-space-nowrap text-end pe-0 ps-4">
-                                    <div class="position-relative">
-                                        <div class="hover-actions">
-                                            <button class="btn btn-sm btn-phoenix-secondary me-1 fs--2">
-                                                <span class="fas fa-check"></span>
-                                            </button>
-                                            <button class="btn btn-sm btn-phoenix-secondary me-1 fs--2">
-                                                <span class="fas fa-pen"></span>
-                                            </button>
-                                            <button class="btn btn-sm btn-phoenix-secondary fs--2">
-                                                <span class="fas fa-trash"></span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="font-sans-serif btn-reveal-trigger position-static"><button class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs--2" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"><span class="fas fa-ellipsis-h fs--2"></span></button>
-                                        <div class="dropdown-menu dropdown-menu-end py-2"><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
-                                            <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Remove</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                        </tbody>
+                        <tbody class="list main_category" id="products-table-body"></tbody>
                     </table>
                 </div>
                 <div class="row align-items-center justify-content-between py-2 pe-0 fs--1">
@@ -88,11 +52,135 @@
     <footer class="footer position-absolute">
         <div class="row g-0 justify-content-between align-items-center h-100">
             <div class="col-12 col-sm-auto text-center">
-                <p class="mb-0 mt-2 mt-sm-0 text-900">Thank you for creating with Phoenix<span class="d-none d-sm-inline-block"></span><span class="d-none d-sm-inline-block mx-1">|</span><br class="d-sm-none" />2022 &copy;<a class="mx-1" href="https://themewagon.com">Themewagon</a></p>
+                <p class="mb-0 mt-2 mt-sm-0 text-900">Bazaar Shop Cambodia<span class="d-none d-sm-inline-block"></span></p>
             </div>
-            <div class="col-12 col-sm-auto text-center">
-                <p class="mb-0 text-600">v1.7.0</p>
-            </div>
+            
         </div>
     </footer>
+
+    <script>
+        const main_category = document.querySelector('.main_category');
+        getMainCategory();
+        /*====== function ======*/
+        function getMainCategory() {
+            main_category.innerHTML = "";
+            axios.get('ajax/category.php?action=select&table=main_category&column=*').then(res => {
+                console.log(res);
+                res.data.forEach(item => {
+                    main_category.innerHTML += `
+                        <tr class="hover-actions-trigger btn-reveal-trigger position-static">
+                            <td class="fs--1 align-middle">
+                                <div class="form-check mb-0 fs-0"><input class="form-check-input" type="checkbox" /></div>
+                            </td>
+                            <td class="align-middle white-space-nowrap py-0">
+                                <div class="border rounded-2">
+                                    <img src="uploads/category/${item.image}" alt="" width="55" height="55" />
+                                </div>
+                            </td>
+                            <td class="product align-middle ps-4"><a href="index.php?page_name=subcategory&main_id=${item.id}&main_name=${item.name}" class="fw-semi-bold line-clamp-3 mb-0">${item.name}</a></td>
+                            <td class="price align-middle white-space-nowrap fw-bold text-700 ps-4">${item.description}</td>
+                            <td class="time align-middle white-space-nowrap text-700 ps-4">${new Date(Date.parse(item.created_at.replace(/-/g, '/'))).toDateString()}</td>
+                            <td class="align-middle white-space-nowrap text-end pe-0 ps-4">
+                                <div class="position-relative">
+                                    <div class="hover-actions">
+                                        <button class="btn btn-sm btn-phoenix-secondary me-1 fs--2">
+                                            <span class="fas fa-check"></span>
+                                        </button>
+                                        <a href="index.php?page_name=editmaincategory&id=${item.id}" class="btn btn-sm btn-phoenix-secondary me-1 fs--2">
+                                            <span class="fas fa-pen"></span>
+                                        </a>
+                                        <button onclick="deleteMainCategory(${item.id})" class="btn btn-sm btn-phoenix-secondary fs--2">
+                                            <span class="fas fa-trash"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="font-sans-serif btn-reveal-trigger position-static"><button class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs--2" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"><span class="fas fa-ellipsis-h fs--2"></span></button>
+                                    <div class="dropdown-menu dropdown-menu-end py-2"><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
+                                        <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Remove</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+            }).catch(e => {
+                console.log(e);
+            })
+        }
+
+        function deleteMainCategory(id) {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-primary ms-2',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "You want to delete this main category!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    axios.get('ajax/category.php?action=select&table=sub_category&column=COUNT(main_id) AS count&condition=WHERE main_id = ' + id).then(res => {
+                        console.log(res);
+                        if (res.data[0].count == 0) {
+                            axios.delete('ajax/category.php?action=delete&table=main_category&id=' + id).then(res => {
+                                if (res.data.success) {
+                                    Swal.fire({
+                                        toast: true,
+                                        position: 'top',
+                                        showClass: {
+                                            icon: 'animated heartBeat delay-1s'
+                                        },
+                                        icon: 'success',
+                                        text: 'One Category has been deleted',
+                                        showConfirmButton: false,
+                                        timer: 1000
+                                    }).then(res => {
+                                        window.location.href = "index.php?page_name=category"
+                                    })
+                                } else {
+                                    Swal.fire({
+                                        toast: true,
+                                        position: 'top',
+                                        showClass: {
+                                            icon: 'animated heartBeat delay-1s'
+                                        },
+                                        icon: 'error',
+                                        text: 'Something wrong!',
+                                        showConfirmButton: false,
+                                        timer: 1000
+                                    })
+                                }
+                            }).catch(err => {
+                                console.log(err);
+                            });
+                        } else {
+                            Swal.fire({
+                                toast: true,
+                                position: 'top',
+                                showClass: {
+                                    icon: 'animated heartBeat delay-1s'
+                                },
+                                icon: 'error',
+                                text: 'This main category not empty',
+                                showConfirmButton: false,
+                                timer: 1000
+                            })
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                }
+            })
+        }
+    </script>
 </div>

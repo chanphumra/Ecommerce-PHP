@@ -35868,6 +35868,9 @@ html:not(.navbar-vertical-collapsed) .navbar-vertical .firefox .navbar-vibrant .
     pointer-events: none;
     background-color: var(--phoenix-body-bg);
 }
+body.widget_frame_base .tgme_widget.body_widget_login{
+    background: red;
+}
 
 /* slideshow */
 .slideshow {
@@ -35883,12 +35886,19 @@ html:not(.navbar-vertical-collapsed) .navbar-vertical .firefox .navbar-vibrant .
     flex-direction: row;
     width: 100%;
     height: 100%;
+    background-color: var(--phoenix-white);
 }
 
 .slideshow .slideshow-item .contents {
     width: 50%;
     height: 100%;
-    background-color: red;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 50px 0 70px;
+}
+.slideshow .slideshow-item .contents .title{
+    color: var(--phoenix-primary);
 }
 
 .slideshow .slideshow-item .slideimage {
@@ -35897,7 +35907,6 @@ html:not(.navbar-vertical-collapsed) .navbar-vertical .firefox .navbar-vibrant .
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100% 100%;
-    background-color: black;
 }
 @media (max-width: 1000px){
     .slideshow .slideshow-item {
@@ -35911,6 +35920,9 @@ html:not(.navbar-vertical-collapsed) .navbar-vertical .firefox .navbar-vibrant .
         width: 100%;
         height: 65%;
     }
+}
+.customer-item.active{
+    background-color: var(--phoenix-white);
 }
 
 /* .swal2-container.swal2-backdrop-show, .swal2-container.swal2-noanimation {
