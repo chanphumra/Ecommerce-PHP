@@ -25,20 +25,25 @@ switch ($_GET['action']) {
             $id = $verify['id'];
             $result = Database::select("customer", "*", "", "WHERE id=" . $id);
             echo json_encode(['user' => $result, 'success' => true]);
-        } 
-        else if (isset($_SESSION['token'])) {
+        } else if (isset($_SESSION['token'])) {
             $token = $_SESSION['token'];
             $verify = Token::Verify($token, TOKEN_KEY);
             $id = $verify['id'];
             $result = Database::select("customer", "*", "", "WHERE id=" . $id);
             echo json_encode(['user' => $result, 'success' => true]);
-        } 
-        else if (isset($_COOKIE['telegram_id'])) {
-            $result = Database::select('customer', '*', '', 'WHERE telegram_id = '. $_COOKIE['telegram_id']);
+        } else if (isset($_COOKIE['telegram_id'])) {
+            $result = Database::select('customer', '*', '', 'WHERE telegram_id = ' . $_COOKIE['telegram_id']);
             echo json_encode(['user' => $result, 'success' => true]);
-        }
-        else {
+        } else {
             echo json_encode(['user' => [], 'success' => false]);
+        }
+        break;
+    case 'checkLogin':
+        if (isset($_SESSION['token']) || isset($_COOKIE['token']) || isset($_COOKIE['telegram_id'])) {
+            echo json_encode(['success' => true]);
+        }
+        else{
+            echo json_encode(['success' => false]);
         }
         break;
 }

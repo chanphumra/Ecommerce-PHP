@@ -156,12 +156,12 @@
     }
 
     function nextStep() {
-        let is_login = false;
-        if (localStorage.getItem("telegram_id") || localStorage.getItem("token") || sessionStorage.getItem("email")) {
-            is_login = true;
-        }
-        if (!is_login) {
-            Swal.fire({
+        axios.get("admin/ajax/auth.php?action=checkLogin").then(res => {
+            if(res.data.success){
+                window.location = "index.php?page_name=shippinginfo";
+            }
+            else{
+                Swal.fire({
                 toast: true,
                 position: 'top',
                 showClass: {
@@ -172,9 +172,10 @@
                 showConfirmButton: false,
                 timer: 1000
             });
-        } else {
-            window.location = "index.php?page_name=shippinginfo";
-        }
+            }
+        }).catch(err => {
+            console.log(err);
+        });
     }
 
     function checkEmptyCart() {

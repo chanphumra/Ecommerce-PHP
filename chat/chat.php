@@ -1,6 +1,6 @@
-<?php 
-    require_once "admin/lib/database.php";
-    $result = Database::select("profile_setting", "*", "", "");
+<?php
+require_once "admin/lib/database.php";
+$result = Database::select("profile_setting", "*", "", "");
 ?>
 
 
@@ -10,8 +10,8 @@
     <!-- header -->
     <div class="chat-header">
         <div class="profile">
-            <img src="admin/uploads/profile/<?=$result[0]['image']?>" alt="">
-            <div><?=$result[0]['name']?></div>
+            <img src="admin/uploads/profile/<?= $result[0]['image'] ?>" alt="">
+            <div><?= $result[0]['name'] ?></div>
         </div>
         <i onclick="closeChat()" class="close-chat fas fa-xmark cursor-pointer"></i>
     </div>
@@ -59,28 +59,15 @@
     }
 
     function getUserLogin() {
-        if (localStorage.getItem("telegram_id")) {
-            axios.get("admin/ajax/customer.php?action=select&table=customer&column=*&condition= WHERE telegram_id=" + localStorage.getItem("telegram_id")).then(res => {
-                const data = res.data[0];
+        axios.get("admin/ajax/auth.php?action=getUser").then(res => {
+            if (res.data.success) {
+                const data = res.data.user[0];
                 ID_LOGIN.value = data.id;
-            }).catch(err => {
-                console.log(err);
-            })
-        } else if (localStorage.getItem("token")) {
-            axios.get("admin/ajax/customer.php?action=verifyToken&token=" + localStorage.getItem("token")).then(res => {
-                const data = res.data[0];
-                ID_LOGIN.value = data.id;
-            }).catch(err => {
-                console.log(err);
-            })
-        } else if (sessionStorage.getItem('email')) {
-            axios.get(`admin/ajax/customer.php?action=select&table=customer&column=*&condition= WHERE email='${sessionStorage.getItem("email")}'`).then(res => {
-                const data = res.data[0];
-                ID_LOGIN.value = data.id;
-            }).catch(err => {
-                console.log(err);
-            })
-        }
+            }
+            console.log(res.data);
+        }).catch(err => {
+            console.log(err)
+        });
     }
 
     function getChat() {
@@ -89,7 +76,7 @@
                 const chat = res.data;
                 if (chat != "") {
                     chatArea.innerHTML = chat;
-                    if(!chatArea.classList.contains("active")){
+                    if (!chatArea.classList.contains("active")) {
                         chatArea.scrollTop = chatArea.scrollHeight;
                     }
                 } else {

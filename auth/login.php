@@ -147,10 +147,10 @@
                     const remember = document.querySelector('#remember');
                     if (verify == 1) {
                         if(remember.checked){
-                            axios.post(`../admin/ajax/auth.php?action=notRememberToken&token = ${token}`, {}).then(() => {}).catch(err => console.log(err));
+                            axios.get(`../admin/ajax/auth.php?action=rememberToken&token=${token}`).then(() => {}).catch(err => console.log(err));
                         }
                         else{
-                            axios.post(`../admin/ajax/auth.php?action=rememberToken&token = ${token}`, {}).then(() => {}).catch(err => console.log(err));
+                            axios.get(`../admin/ajax/auth.php?action=notRememberToken&token=${token}`).then(() => {}).catch(err => console.log(err));
                         }
                         Swal.fire({
                             toast: true,

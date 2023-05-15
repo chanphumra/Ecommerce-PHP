@@ -11,38 +11,30 @@ switch ($_GET['action']) {
     case 'login':
         $email = $_POST['email'];
         $password = $_POST['password'];
-        $remember = $_POST['remember'] ?? "off";
         $table = "customer";
         $column = "*";
         $clause = "";
         $condition = "WHERE email = '$email' AND password = '$password'";
         $result = Database::select($table, $column, $clause, $condition);
         $message = array();
-        
+
         /*======== found a user ========*/
-        if(!empty($result)){
+        if (!empty($result)) {
             /*======== account verify success ========*/
-            if($result[0]['verify'] == 1){
+            if ($result[0]['verify'] == 1) {
                 $message[] = ["success" => true];
                 $message[] = ["verify" => 1];
 
-                /*======== user want to remember ========*/
-                if($remember == "on"){
-                    $token = Token::Sign(["id" => $result[0]['id']], TOKEN_KEY);
-                    $message[] = ["token" => $token];
-                }
-                else{
-                    $message[] = ["user" => $result];
-                }
+                $token = Token::Sign(["id" => $result[0]['id']], TOKEN_KEY);
+                $message[] = ["token" => $token];
             }
-            /*======== account not yet verify ========*/
-            else{
+            /*======== account not yet verify ========*/ else {
                 $message[] = ["success" => true];
                 $message[] = ["verify" => 0];
             }
         }
-        /*======== not found a user ========*/
-        else{
+        /*======== not found a user ========*/ 
+        else {
             $message[] = ["success" => false];
         }
         echo json_encode($message);
@@ -192,13 +184,13 @@ switch ($_GET['action']) {
         $token = $_GET['token'];
         $verify = Token::Verify($token, TOKEN_KEY);
         $id = $verify['id'];
-        $result = Database::select("customer", "*", "", "WHERE id=". $id);
+        $result = Database::select("customer", "*", "", "WHERE id=" . $id);
         echo json_encode($result);
         break;
 
     case 'logout':
         session_start();
-        if(isset($_SESSION['token'])) unset($_SESSION['token']);
+        if (isset($_SESSION['token'])) unset($_SESSION['token']);
         setcookie('token', '', time() - 3600, '/');
         setcookie('telegram_id', '', time() - 3600, '/');
         break;
